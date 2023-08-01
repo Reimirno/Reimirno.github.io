@@ -1,0 +1,149 @@
+<!DOCTYPE html><html lang="en"><head><!-- hexo injector head_begin start --><link href="https://cdn.jsdelivr.net/npm/hexo-tag-common@latest/css/index.css" rel="stylesheet"/><!-- hexo injector head_begin end --><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="theme-color" content="#7ccbab"><meta name="author" content="Long Yu"><meta name="copyright" content="Long Yu"><meta name="generator" content="Hexo 5.4.0"><meta name="theme" content="hexo-theme-yun"><title>Extra Parentheses in Scheme - A Reminder for OOP Programmers | Long Yu's Space</title><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@900&amp;display=swap" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/star-markdown-css@0.1.25/dist/yun/yun-markdown.min.css"><script src="//at.alicdn.com/t/font_1140697_dxory92pb0h.js" async></script><script src="https://cdn.jsdelivr.net/npm/scrollreveal/dist/scrollreveal.min.js" defer></script><script>document.addEventListener("DOMContentLoaded", () => {
+  [".post-card",".post-content img"].forEach((target)=> {
+    ScrollReveal().reveal(target);
+  })
+});
+</script><link id="light-prism-css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@latest/themes/prism.css" media="(prefers-color-scheme: light)"><link id="dark-prism-css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@latest/themes/prism-tomorrow.css" media="(prefers-color-scheme: dark)"><link rel="icon" href="/favicon.ico"><link rel="mask-icon" href="/favicon.ico" color="#7ccbab"><link rel="alternate icon" href="/yun.ico"><link rel="preload" href="/css/hexo-theme-yun.css" as="style"><link rel="preload" href="/js/utils.js" as="script"><link rel="preload" href="/js/hexo-theme-yun.js" as="script"><link rel="prefetch" href="/js/sidebar.js" as="script"><link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin><script id="yun-config">
+    const Yun = window.Yun || {};
+    window.CONFIG = {"hostname":"reimirno.github.io","root":"/","title":["Long","Yu's","Space"],"version":"1.6.2","mode":"time","copycode":true,"page":{"isPost":true},"i18n":{"placeholder":"What is in your mind?","empty":"We didn't find any results for the search: ${query}.","hits":"${hits} results found","hits_time":"${hits} results found in ${time} ms"},"anonymous_image":"https://cdn.jsdelivr.net/gh/YunYouJun/cdn/img/avatar/none.jpg","local_search":{"path":"/search.xml"},"fireworks":{"colors":["124, 203, 171","83, 161, 122","26, 77, 207","20, 115, 239"]}};
+  </script><link rel="stylesheet" href="/css/hexo-theme-yun.css"><script src="/js/utils.js"></script><script src="/js/hexo-theme-yun.js"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css"><link rel="stylesheet" href="/css/admonition.css"><link rel="stylesheet" href="/css/iconstyle.css"><meta name="description" content="I am surprised that you cannot just use parentheses anywhere you want.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Extra Parentheses in Scheme - A Reminder for OOP Programmers">
+<meta property="og:url" content="https://reimirno.github.io/2021/11/09/Some-Scheme-Reminders/index.html">
+<meta property="og:site_name" content="Long Yu&#39;s Space">
+<meta property="og:description" content="I am surprised that you cannot just use parentheses anywhere you want.">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-11-09T22:29:59.000Z">
+<meta property="article:modified_time" content="2021-11-23T06:20:11.675Z">
+<meta property="article:author" content="Long Yu">
+<meta property="article:tag" content="Scheme">
+<meta name="twitter:card" content="summary"><script src="/js/ui/mode.js"></script></head><body><script defer src="https://cdn.jsdelivr.net/npm/animejs@latest"></script><script defer src="/js/ui/fireworks.js"></script><canvas class="fireworks"></canvas><div class="container"><a class="sidebar-toggle hty-icon-button" id="menu-btn"><div class="hamburger hamburger--spin" type="button"><span class="hamburger-box"><span class="hamburger-inner"></span></span></div></a><div class="sidebar-toggle sidebar-overlay"></div><aside class="sidebar"><script src="/js/sidebar.js"></script><ul class="sidebar-nav"><li class="sidebar-nav-item sidebar-nav-toc hty-icon-button" data-target="post-toc-wrap" title="Table of Contents"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-list-ordered"></use></svg></li><li class="sidebar-nav-item sidebar-nav-overview hty-icon-button sidebar-nav-active" data-target="site-overview-wrap" title="Overview"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-passport-line"></use></svg></li></ul><div class="sidebar-panel sidebar-panel-active" id="site-overview-wrap"><div class="site-info fix-top"><a class="site-author-avatar" href="/about/" title="Long Yu"><img width="96" loading="lazy" src="/images/avatar.jpg" alt="Long Yu"><span class="site-author-status" title="Give me the least, if not the one!">🥰</span></a><div class="site-author-name"><a href="/about/">Long Yu</a></div><a class="site-name" href="/about/site.html">Long Yu's Space</a><sub class="site-subtitle">Where All is Well</sub><div class="site-desciption">How's a day in Gensokyo like?</div></div><nav class="site-state"><a class="site-state-item hty-icon-button icon-home" href="/" title="Home"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-home-4-line"></use></svg></span></a><div class="site-state-item"><a href="/archives/" title="Archives"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-archive-line"></use></svg></span><span class="site-state-item-count">39</span></a></div><div class="site-state-item"><a href="/categories/" title="Categories"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-folder-2-line"></use></svg></span><span class="site-state-item-count">9</span></a></div><div class="site-state-item"><a href="/tags/" title="Tags"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-price-tag-3-line"></use></svg></span><span class="site-state-item-count">36</span></a></div><a class="site-state-item hty-icon-button" href="/random.html" title="Random Page"><span class="site-state-item-icon"><i class="ri-gift-line ri-xl"></i></span></a></nav><hr style="margin-bottom:0.5rem"><div class="links-of-author"><a class="links-of-author-item hty-icon-button" rel="noopener" href="http://wpa.qq.com/msgrd?v=3&amp;uin=1072625448&amp;site=qq&amp;menu=yes" title="QQ" target="_blank" style="color:#12B7F5"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-qq-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="/images/wechatQR.jpg" title="Wechat" target="_blank" style="color:#1AAD19"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-wechat-2-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="mailto:johnsonlongyu@gmail.com?subject=Directed%20from%20Blog%20-%20Subject%3A%20" title="E-Mail" target="_blank" style="color:#e28743"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-mail-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://github.com/Reimirno" title="GitHub" target="_blank" style="color:#6e5494"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-github-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://www.linkedin.com/in/yu-long/" title="LinkedIn" target="_blank" style="color:#0077b5"><i class="ri-linkedin-box-line ri-xl"></i></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://music.163.com/#/user/home?id=296076115" title="Netease Music" target="_blank" style="color:#C20C0C"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-netease-cloud-music-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://space.bilibili.com/436096130" title="Bilibili" target="_blank" style="color:#FF8EB3"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-bilibili-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://www.douban.com/people/169714437/" title="Douban" target="_blank" style="color:#007722"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-douban-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://twitter.com/Johnsonlongyu" title="Twitter" target="_blank" style="color:#1da1f2"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-twitter-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://www.facebook.com/profile.php?id=100014142698530" title="Facebook" target="_blank" style="color:#4267B2"><i class="ri-facebook-box-line ri-xl"></i></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://www.instagram.com/reimirno/" title="Instagram" target="_blank" style="color:#c52262"><i class="ri-instagram-line ri-xl"></i></a></div><hr style="margin:0.5rem 1rem"><div class="links"><a class="links-item hty-icon-button" href="/compass/" title="Compass" style="color:#eb664b"><i class="ri-compass-line ri-xl"></i></a><a class="links-item hty-icon-button" href="/resume/" title="Resume" style="color:#7ef578"><i class="ri-profile-line ri-xl"></i></a><a class="links-item hty-icon-button" href="/works/" title="Works" style="color:#dc7aff"><i class="ri-briefcase-line ri-xl"></i></a><a class="links-item hty-icon-button" href="/links/" title="Friends" style="color:#78acff"><i class="ri-links-line ri-xl"></i></a><a class="links-item hty-icon-button" href="/helps/" title="Help" style="color:#ffcf40"><i class="ri-question-line ri-xl"></i></a></div><br><a class="links-item hty-icon-button" id="toggle-mode-btn" href="javascript:;" title="Mode" style="color: #f1cb64"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-contrast-2-line"></use></svg></a></div><div class="sidebar-panel" id="post-toc-wrap"><div class="post-toc"><div class="post-toc-content">This entry has no Table of Contents ( ╯▽╰)</div></div></div></aside><main class="sidebar-translate" id="content"><div id="post"><article class="hty-card post-block" itemscope itemtype="https://schema.org/Article"><link itemprop="mainEntityOfPage" href="https://reimirno.github.io/2021/11/09/Some-Scheme-Reminders/"><span hidden itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="Long Yu"><meta itemprop="description"></span><span hidden itemprop="publisher" itemscope itemtype="https://schema.org/Organization"><meta itemprop="name" content="Long Yu's Space"></span><header class="post-header"><h1 class="post-title" itemprop="name headline">Extra Parentheses in Scheme - A Reminder for OOP Programmers</h1><div class="post-meta"><div class="post-time" style="display:block"><span class="post-meta-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-calendar-line"></use></svg></span> <time title="Created: 2021-11-09 22:29:59" itemprop="dateCreated datePublished" datetime="2021-11-09T22:29:59+00:00">2021-11-09</time><span class="post-meta-divider">-</span><span class="post-meta-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-calendar-2-line"></use></svg></span> <time title="Modified: 2021-11-23 06:20:11" itemprop="dateModified" datetime="2021-11-23T06:20:11+00:00">2021-11-23</time></div><span class="post-count"><span class="post-symbolcount"><span class="post-meta-item-icon" title="Word count in article"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-file-word-line"></use></svg></span> <span title="Word count in article">484</span><span class="post-meta-divider">-</span><span class="post-meta-item-icon" title="Reading time"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-timer-line"></use></svg></span> <span title="Reading time">3m</span></span></span><span class="post-busuanzi"><span class="post-meta-divider">-</span><span class="post-meta-item-icon" title="Views"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-eye-line"></use></svg> <span id="busuanzi_value_page_pv"></span></span></span><div class="post-classify"><span class="post-category"> <span class="post-meta-item-icon" style="margin-right:3px;"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-folder-line"></use></svg></span><span itemprop="about" itemscope itemtype="https://schema.org/Thing"><a class="category-item" href="/categories/Technical/" style="--text-color:var(--hty-text-color)" itemprop="url" rel="index"><span itemprop="text">Technical</span></a></span> > <span itemprop="about" itemscope itemtype="https://schema.org/Thing"><a class="category-item" href="/categories/Technical/Notes/" style="--text-color:var(--hty-text-color)" itemprop="url" rel="index"><span itemprop="text">Notes</span></a></span></span><span class="post-tag"><span class="post-meta-divider">-</span><a class="tag-item" href="/tags/Scheme/" style="--text-color:var(--hty-text-color)"><span class="post-meta-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-price-tag-3-line"></use></svg></span><span class="tag-name">Scheme</span></a></span></div></div></header><section class="post-body" itemprop="articleBody"><div class="post-content markdown-body" style="--smc-primary:#7ccbab;"><link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>I am surprised that you cannot just use <a target="_blank" rel="noopener" href="https://www.cis.upenn.edu/~matuszek/General/JavaSyntax/parentheses.html">parentheses</a> anywhere you want.</p>
+<span id="more"></span>
+
+<p>Parentheses are good friends of us when we don’t want to memorize the evaluation order of operators (Pop quiz: In C, what does <code>0 | 1 &amp; 1</code> evaluates to?). In Scheme, however, there is no such need. The order of operation is self-obvious with all syntax-required parentheses already in place.</p>
+<p>In lots of programming languages you could just insert extra parentheses, sometimes just for the sake of clarity. However, the catch in Scheme is that extra parentheses would not just be ignored. For example:</p>
+<p>In C#,</p>
+<pre class="language-cs" data-language="cs"><code class="language-cs">if (((n &#x3D;&#x3D; 1) &amp;&amp; (x !&#x3D; 9) || (n &lt; 1)) || (y &gt; 7)) &#x2F;&#x2F;This is fine.
+  return 1;
+if((((((((true)))))))) &#x2F;&#x2F;This is fine.
+  return 1;</code></pre>
+
+<p>But in Scheme,</p>
+<pre class="language-scheme" data-language="scheme"><code class="language-scheme"><span class="token punctuation">(</span><span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">=</span> x <span class="token number">2</span><span class="token punctuation">)</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token comment">;this is fine.</span>
+<span class="token punctuation">(</span><span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token operator">=</span> x <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token comment">;this is not fine</span>
+Error: bool is not callable: <span class="token boolean">#t</span></code></pre>
+
+<p>Why? And why this error message? Let’s see the simplest comparison example:</p>
+<p>In Python,</p>
+<pre class="language-py" data-language="py"><code class="language-py">&gt;&gt;&gt; 4
+4
+&gt;&gt;&gt; (4)
+4</code></pre>
+
+<p>In C#,</p>
+<pre class="language-cs" data-language="cs"><code class="language-cs">&gt; csi &#x2F;&#x2F;Enters C# interactive mode in VS CMD 2019
+&gt; 4
+4
+&gt; (4)
+4</code></pre>
+
+<p>But in Scheme,</p>
+<pre class="language-scheme" data-language="scheme"><code class="language-scheme">scm> <span class="token number">4</span>
+<span class="token number">4</span>
+scm> <span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">)</span>
+Error: int is not callable: <span class="token number">4</span></code></pre>
+
+<p>We get a similar error message!</p>
+<p>You realize that when you surround something in a pair of parentheses, Scheme no longer considers it as an expression but rather would try to call it. Indeed, Scheme would interpret parentheses as procedure calls or pairs. In this case Scheme thinks you are calling the procedure <code>4</code> with no argument, but what you want is an expression <code>4</code>.</p>
+<p>Now, for a more complicated example.</p>
+<p>In C#,</p>
+<pre class="language-cs" data-language="cs"><code class="language-cs">&gt; Func&lt;int,int&gt; cube &#x3D; x &#x3D;&gt; x * x * x;
+&gt; cube(2);
+8
+&gt; Func&lt;int,int&gt; cube &#x3D; (x) &#x3D;&gt; x * x * x;
+&gt; cube(2);
+8</code></pre>
+
+<p>In Python,</p>
+<pre class="language-py" data-language="py"><code class="language-py">&gt;&gt;&gt; cube &#x3D; lambda x : x**3
+&gt;&gt;&gt; cube(2)
+8
+&gt;&gt;&gt; cube &#x3D; lambda (x) : (x**3)
+  File &lt;string&gt;, line 1
+    cube &#x3D; lambda (x) : (x**3)
+                  ^
+SyntaxError: invalid syntax 
+&gt;&gt;&gt; cube &#x3D; lambda x : (x**3)
+&gt;&gt;&gt; cube(2)
+8</code></pre>
+
+<p>In Scheme,</p>
+<pre class="language-scheme" data-language="scheme"><code class="language-scheme">scm> <span class="token punctuation">(</span><span class="token keyword">define</span> identity <span class="token punctuation">(</span><span class="token keyword">lambda</span> <span class="token lambda-parameter">x</span> x<span class="token punctuation">)</span><span class="token punctuation">)</span>
+Error: argument <span class="token number">0</span> of LambdaProcedure has wrong type <span class="token punctuation">(</span><span class="token function">symbol</span><span class="token punctuation">)</span>
+scm> <span class="token punctuation">(</span><span class="token keyword">define</span> identity <span class="token punctuation">(</span><span class="token keyword">lambda</span> <span class="token punctuation">(</span><span class="token lambda-parameter">x</span><span class="token punctuation">)</span> x<span class="token punctuation">)</span><span class="token punctuation">)</span>
+identity
+scm> <span class="token punctuation">(</span><span class="token keyword">define</span> identity <span class="token punctuation">(</span><span class="token keyword">lambda</span> <span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token function">x</span><span class="token punctuation">)</span><span class="token punctuation">)</span> x<span class="token punctuation">)</span><span class="token punctuation">)</span>
+identity
+Error: non-symbol: <span class="token punctuation">(</span><span class="token function">x</span><span class="token punctuation">)</span>
+scm> <span class="token punctuation">(</span><span class="token function">identity</span> <span class="token number">0</span><span class="token punctuation">)</span>
+<span class="token number">0</span>
+scm> <span class="token punctuation">(</span><span class="token keyword">define</span> identity <span class="token punctuation">(</span><span class="token keyword">lambda</span> <span class="token punctuation">(</span><span class="token lambda-parameter">x</span><span class="token punctuation">)</span> <span class="token punctuation">(</span><span class="token function">x</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment">; This will pass, but it is wrong!</span>
+identity
+scm> <span class="token punctuation">(</span><span class="token function">identity</span> <span class="token number">0</span><span class="token punctuation">)</span>
+Error: int is not callable: <span class="token number">0</span></code></pre>
+
+<p>Can you figure out why Scheme behaves this way? How come Scheme now does want parentheses?</p>
+<p>Hint: First argument of lambda should be a symbol type instead of an expression type; first expression of an if should be an expression type. </p>
+</div><ul class="post-copyright"><li class="post-copyright-author"><strong>Post author: </strong>Long Yu</li><li class="post-copyright-link"><strong>Post link: </strong><a href="https://reimirno.github.io/2021/11/09/Some-Scheme-Reminders/" title="Extra Parentheses in Scheme - A Reminder for OOP Programmers">https://reimirno.github.io/2021/11/09/Some-Scheme-Reminders/</a></li><li class="post-copyright-license"><strong>Copyright Notice: </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" target="_blank" rel="noopener" title="CC BY-NC-SA 4.0 "><svg class="icon"><use xlink:href="#icon-creative-commons-line"></use></svg><svg class="icon"><use xlink:href="#icon-creative-commons-by-line"></use></svg><svg class="icon"><use xlink:href="#icon-creative-commons-nc-line"></use></svg><svg class="icon"><use xlink:href="#icon-creative-commons-sa-line"></use></svg></a> unless otherwise stated.</li></ul><script>document.addEventListener('copy', function (event) {
+  const clipboardData = event.clipboardData || window.clipboardData;
+  if (!clipboardData) { return; }
+  const text = window.getSelection().toString();
+  if (text) {
+    event.preventDefault();
+    clipboardData.setData('text/plain', text + '\n\nPost author: Long Yu\nPost link: https://reimirno.github.io/2021/11/09/Some-Scheme-Reminders/\nCopyright Notice: All articles in this blog are licensed under CC BY-NC-SA 4.0 unless otherwise stated.');
+  }
+});</script></section></article><div class="post-nav"><div class="post-nav-item"><a class="post-nav-prev" href="/2021/11/22/SQL-Collections/" rel="prev" title="Some Thoughts on SQL and LINQ"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-arrow-left-s-line"></use></svg><span class="post-nav-text">Some Thoughts on SQL and LINQ</span></a></div><div class="post-nav-item"><a class="post-nav-next" href="/2021/11/09/Scheme-List/" rel="next" title="Scheme List"><span class="post-nav-text">Scheme List</span><svg class="icon" aria-hidden="true"><use xlink:href="#icon-arrow-right-s-line"></use></svg></a></div></div></div><div class="hty-card" id="comment"><div class="comment-tooltip text-center"><span>Say something?</span><br><a class="hty-button hty-button--raised" id="github-discussions" target="_blank" rel="noopener" href="https://github.com/Reimirno/reimirno.github.io/discussions/new">GitHub Discussions</a></div></div></main><footer class="sidebar-translate" id="footer"><div class="copyright"><span>&copy; 2021 – 2023 </span><a class="with-love" id="animate" href="/thanks/" title="Thank-you page"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-cloud-line"></use></svg></a><span class="author"> Long Yu</span></div><div class="live_time"><span>The blog has run for</span><span id="display_live_time"></span><span class="moe-text">(●'◡'●)</span><script>function blog_live_time() {
+  setTimeout(blog_live_time, 1000);
+  const start = new Date('2021-07-31T00:00:00');
+  const now = new Date();
+  const timeDiff = (now.getTime() - start.getTime());
+  const msPerMinute = 60 * 1000;
+  const msPerHour = 60 * msPerMinute;
+  const msPerDay = 24 * msPerHour;
+  const passDay = Math.floor(timeDiff / msPerDay);
+  const passHour = Math.floor((timeDiff % msPerDay) / 60 / 60 / 1000);
+  const passMinute = Math.floor((timeDiff % msPerHour) / 60 / 1000);
+  const passSecond = Math.floor((timeDiff % msPerMinute) / 1000);
+  display_live_time.innerHTML = " " + passDay + " 天 " + passHour + " 小时 " + passMinute + " 分 " + passSecond + " 秒";
+}
+blog_live_time();
+</script></div><div id="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_site_uv" title="Total Visitors"><span><svg class="icon" aria-hidden="true"><use xlink:href="#icon-user-line"></use></svg></span><span id="busuanzi_value_site_uv"></span></span><span class="footer-separator">|</span><span id="busuanzi_container_site_pv" title="Total Views"><span><svg class="icon" aria-hidden="true"><use xlink:href="#icon-eye-line"></use></svg></span><span id="busuanzi_value_site_pv"></span></span></div></footer><a class="hty-icon-button" id="back-to-top" aria-label="back-to-top" href="#"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-arrow-up-s-line"></use></svg><svg class="progress-circle-container" viewBox="0 0 100 100"><circle class="progress-circle" id="progressCircle" cx="50" cy="50" r="48" fill="none" stroke="#7ccbab" stroke-width="2" stroke-linecap="round"></circle></svg></a><a class="popup-trigger hty-icon-button icon-search" id="search" href="javascript:;" title="Search"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-search-line"></use></svg></span></a><script>window.addEventListener("DOMContentLoaded", () => {
+  // Handle and trigger popup window
+  document.querySelector(".popup-trigger").addEventListener("click", () => {
+    document.querySelector(".popup").classList.add("show");
+    setTimeout(() => {
+      document.querySelector(".search-input").focus();
+    }, 100);
+  });
+
+  // Monitor main search box
+  const onPopupClose = () => {
+    document.querySelector(".popup").classList.remove("show");
+  };
+
+  document.querySelector(".popup-btn-close").addEventListener("click", () => {
+    onPopupClose();
+  });
+
+  window.addEventListener("keyup", event => {
+    if (event.key === "Escape") {
+      onPopupClose();
+    }
+  });
+});
+</script><script src="/js/search/local-search.js" defer></script><div class="popup search-popup"><div class="search-header"><span class="popup-btn-close close-icon hty-icon-button"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-close-line"></use></svg></span></div><div class="search-input-container"><input class="search-input" id="local-search-input" type="text" placeholder="What is in your mind?" value=""></div><div id="local-search-result"></div></div><script>const date = new Date();
+const today = (date.getMonth() + 1) + "-" + date.getDate()
+const mourn_days = ["4-4"]
+if (mourn_days.includes(today)) {
+  document.documentElement.style.filter = "grayscale(1)";
+}</script></div><!-- hexo injector body_end start --><script src="https://cdn.jsdelivr.net/npm/hexo-tag-common@latest/js/index.js"></script><!-- hexo injector body_end end --></body></html>

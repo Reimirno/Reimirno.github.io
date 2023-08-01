@@ -1,0 +1,603 @@
+<!DOCTYPE html><html lang="en"><head><!-- hexo injector head_begin start --><link href="https://cdn.jsdelivr.net/npm/hexo-tag-common@latest/css/index.css" rel="stylesheet"/><!-- hexo injector head_begin end --><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="theme-color" content="#7ccbab"><meta name="author" content="Long Yu"><meta name="copyright" content="Long Yu"><meta name="generator" content="Hexo 5.4.0"><meta name="theme" content="hexo-theme-yun"><title>Some Database Notes | Long Yu's Space</title><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@900&amp;display=swap" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/star-markdown-css@0.1.25/dist/yun/yun-markdown.min.css"><script src="//at.alicdn.com/t/font_1140697_dxory92pb0h.js" async></script><script src="https://cdn.jsdelivr.net/npm/scrollreveal/dist/scrollreveal.min.js" defer></script><script>document.addEventListener("DOMContentLoaded", () => {
+  [".post-card",".post-content img"].forEach((target)=> {
+    ScrollReveal().reveal(target);
+  })
+});
+</script><link id="light-prism-css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@latest/themes/prism.css" media="(prefers-color-scheme: light)"><link id="dark-prism-css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@latest/themes/prism-tomorrow.css" media="(prefers-color-scheme: dark)"><link rel="icon" href="/favicon.ico"><link rel="mask-icon" href="/favicon.ico" color="#7ccbab"><link rel="alternate icon" href="/yun.ico"><link rel="preload" href="/css/hexo-theme-yun.css" as="style"><link rel="preload" href="/js/utils.js" as="script"><link rel="preload" href="/js/hexo-theme-yun.js" as="script"><link rel="prefetch" href="/js/sidebar.js" as="script"><link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin><script id="yun-config">
+    const Yun = window.Yun || {};
+    window.CONFIG = {"hostname":"reimirno.github.io","root":"/","title":["Long","Yu's","Space"],"version":"1.6.2","mode":"time","copycode":true,"page":{"isPost":true},"i18n":{"placeholder":"What is in your mind?","empty":"We didn't find any results for the search: ${query}.","hits":"${hits} results found","hits_time":"${hits} results found in ${time} ms"},"anonymous_image":"https://cdn.jsdelivr.net/gh/YunYouJun/cdn/img/avatar/none.jpg","local_search":{"path":"/search.xml"},"fireworks":{"colors":["124, 203, 171","83, 161, 122","26, 77, 207","20, 115, 239"]}};
+  </script><link rel="stylesheet" href="/css/hexo-theme-yun.css"><script src="/js/utils.js"></script><script src="/js/hexo-theme-yun.js"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css"><link rel="stylesheet" href="/css/admonition.css"><link rel="stylesheet" href="/css/iconstyle.css"><meta name="description" content="How deep one understands database indicates how fast one can debug and in general, how good one is at full-stack development… Says Michael Ball, my Software Engineering professor (My Database professo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Some Database Notes">
+<meta property="og:url" content="https://reimirno.github.io/2022/10/01/Database-Cheatsheet/index.html">
+<meta property="og:site_name" content="Long Yu&#39;s Space">
+<meta property="og:description" content="How deep one understands database indicates how fast one can debug and in general, how good one is at full-stack development… Says Michael Ball, my Software Engineering professor (My Database professo">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://reimirno.github.io/2022/10/01/Database-Cheatsheet/FileCostCompare.png">
+<meta property="article:published_time" content="2022-10-01T15:18:23.000Z">
+<meta property="article:modified_time" content="2023-08-01T06:16:25.681Z">
+<meta property="article:author" content="Long Yu">
+<meta property="article:tag" content="Database">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://reimirno.github.io/2022/10/01/Database-Cheatsheet/FileCostCompare.png"><script src="/js/ui/mode.js"></script></head><body><script defer src="https://cdn.jsdelivr.net/npm/animejs@latest"></script><script defer src="/js/ui/fireworks.js"></script><canvas class="fireworks"></canvas><div class="container"><a class="sidebar-toggle hty-icon-button" id="menu-btn"><div class="hamburger hamburger--spin" type="button"><span class="hamburger-box"><span class="hamburger-inner"></span></span></div></a><div class="sidebar-toggle sidebar-overlay"></div><aside class="sidebar"><script src="/js/sidebar.js"></script><ul class="sidebar-nav"><li class="sidebar-nav-item sidebar-nav-toc hty-icon-button sidebar-nav-active" data-target="post-toc-wrap" title="Table of Contents"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-list-ordered"></use></svg></li><li class="sidebar-nav-item sidebar-nav-overview hty-icon-button" data-target="site-overview-wrap" title="Overview"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-passport-line"></use></svg></li></ul><div class="sidebar-panel" id="site-overview-wrap"><div class="site-info fix-top"><a class="site-author-avatar" href="/about/" title="Long Yu"><img width="96" loading="lazy" src="/images/avatar.jpg" alt="Long Yu"><span class="site-author-status" title="Give me the least, if not the one!">🥰</span></a><div class="site-author-name"><a href="/about/">Long Yu</a></div><a class="site-name" href="/about/site.html">Long Yu's Space</a><sub class="site-subtitle">Where All is Well</sub><div class="site-desciption">How's a day in Gensokyo like?</div></div><nav class="site-state"><a class="site-state-item hty-icon-button icon-home" href="/" title="Home"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-home-4-line"></use></svg></span></a><div class="site-state-item"><a href="/archives/" title="Archives"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-archive-line"></use></svg></span><span class="site-state-item-count">39</span></a></div><div class="site-state-item"><a href="/categories/" title="Categories"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-folder-2-line"></use></svg></span><span class="site-state-item-count">9</span></a></div><div class="site-state-item"><a href="/tags/" title="Tags"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-price-tag-3-line"></use></svg></span><span class="site-state-item-count">36</span></a></div><a class="site-state-item hty-icon-button" href="/random.html" title="Random Page"><span class="site-state-item-icon"><i class="ri-gift-line ri-xl"></i></span></a></nav><hr style="margin-bottom:0.5rem"><div class="links-of-author"><a class="links-of-author-item hty-icon-button" rel="noopener" href="http://wpa.qq.com/msgrd?v=3&amp;uin=1072625448&amp;site=qq&amp;menu=yes" title="QQ" target="_blank" style="color:#12B7F5"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-qq-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="/images/wechatQR.jpg" title="Wechat" target="_blank" style="color:#1AAD19"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-wechat-2-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="mailto:johnsonlongyu@gmail.com?subject=Directed%20from%20Blog%20-%20Subject%3A%20" title="E-Mail" target="_blank" style="color:#e28743"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-mail-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://github.com/Reimirno" title="GitHub" target="_blank" style="color:#6e5494"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-github-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://www.linkedin.com/in/yu-long/" title="LinkedIn" target="_blank" style="color:#0077b5"><i class="ri-linkedin-box-line ri-xl"></i></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://music.163.com/#/user/home?id=296076115" title="Netease Music" target="_blank" style="color:#C20C0C"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-netease-cloud-music-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://space.bilibili.com/436096130" title="Bilibili" target="_blank" style="color:#FF8EB3"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-bilibili-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://www.douban.com/people/169714437/" title="Douban" target="_blank" style="color:#007722"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-douban-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://twitter.com/Johnsonlongyu" title="Twitter" target="_blank" style="color:#1da1f2"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-twitter-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://www.facebook.com/profile.php?id=100014142698530" title="Facebook" target="_blank" style="color:#4267B2"><i class="ri-facebook-box-line ri-xl"></i></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://www.instagram.com/reimirno/" title="Instagram" target="_blank" style="color:#c52262"><i class="ri-instagram-line ri-xl"></i></a></div><hr style="margin:0.5rem 1rem"><div class="links"><a class="links-item hty-icon-button" href="/compass/" title="Compass" style="color:#eb664b"><i class="ri-compass-line ri-xl"></i></a><a class="links-item hty-icon-button" href="/resume/" title="Resume" style="color:#7ef578"><i class="ri-profile-line ri-xl"></i></a><a class="links-item hty-icon-button" href="/works/" title="Works" style="color:#dc7aff"><i class="ri-briefcase-line ri-xl"></i></a><a class="links-item hty-icon-button" href="/links/" title="Friends" style="color:#78acff"><i class="ri-links-line ri-xl"></i></a><a class="links-item hty-icon-button" href="/helps/" title="Help" style="color:#ffcf40"><i class="ri-question-line ri-xl"></i></a></div><br><a class="links-item hty-icon-button" id="toggle-mode-btn" href="javascript:;" title="Mode" style="color: #f1cb64"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-contrast-2-line"></use></svg></a></div><div class="sidebar-panel sidebar-panel-active" id="post-toc-wrap"><div class="post-toc"><div class="post-toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#SQL-Client"><span class="toc-number">1.</span> <span class="toc-text">SQL Client</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#SQL-Background"><span class="toc-number">1.1.</span> <span class="toc-text">SQL Background</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Relational-Model"><span class="toc-number">1.2.</span> <span class="toc-text">Relational Model</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#General-SQL-Syntax"><span class="toc-number">1.3.</span> <span class="toc-text">General SQL Syntax</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Query-Parsing-amp-Optimization"><span class="toc-number">2.</span> <span class="toc-text">Query Parsing &amp; Optimization</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Out-of-Core-Algorithms"><span class="toc-number">2.1.</span> <span class="toc-text">Out-of-Core Algorithms</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Sorting"><span class="toc-number">2.2.</span> <span class="toc-text">Sorting</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Hashing"><span class="toc-number">2.3.</span> <span class="toc-text">Hashing</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Relational-Operators"><span class="toc-number">3.</span> <span class="toc-text">Relational Operators</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#File-and-Index-Organization"><span class="toc-number">4.</span> <span class="toc-text">File and Index Organization</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#B-Tree-Index"><span class="toc-number">4.1.</span> <span class="toc-text">B+ Tree Index</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Buffer-Management"><span class="toc-number">5.</span> <span class="toc-text">Buffer Management</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Concepts"><span class="toc-number">5.1.</span> <span class="toc-text">Concepts</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Strategies"><span class="toc-number">5.2.</span> <span class="toc-text">Strategies</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Eviction-Policies"><span class="toc-number">5.3.</span> <span class="toc-text">Eviction Policies</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Disk-Space-Management"><span class="toc-number">6.</span> <span class="toc-text">Disk Space Management</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Disk-Structure-SSD"><span class="toc-number">6.1.</span> <span class="toc-text">Disk Structure&#x2F;SSD</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DSM-Hierarchy"><span class="toc-number">6.2.</span> <span class="toc-text">DSM Hierarchy</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Organizing-fields-on-a-record"><span class="toc-number">6.3.</span> <span class="toc-text">Organizing fields on a record</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Organizing-records-on-a-page"><span class="toc-number">6.4.</span> <span class="toc-text">Organizing records on a page</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Organizing-pages-on-a-file"><span class="toc-number">6.5.</span> <span class="toc-text">Organizing pages on a file</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Cost-Model-for-Analysis"><span class="toc-number">6.6.</span> <span class="toc-text">Cost Model for Analysis</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Concurrency-Control"><span class="toc-number">7.</span> <span class="toc-text">Concurrency Control</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Recovery"><span class="toc-number">8.</span> <span class="toc-text">Recovery</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Mechanical-Procedures"><span class="toc-number">9.</span> <span class="toc-text">Mechanical Procedures</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Size-Counting"><span class="toc-number">9.1.</span> <span class="toc-text">Size Counting</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#I-O-Counting"><span class="toc-number">9.2.</span> <span class="toc-text">I&#x2F;O Counting</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Questions"><span class="toc-number">10.</span> <span class="toc-text">Questions</span></a></li></ol></div></div></div></aside><main class="sidebar-translate" id="content"><div id="post"><article class="hty-card post-block" itemscope itemtype="https://schema.org/Article"><link itemprop="mainEntityOfPage" href="https://reimirno.github.io/2022/10/01/Database-Cheatsheet/"><span hidden itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="Long Yu"><meta itemprop="description"></span><span hidden itemprop="publisher" itemscope itemtype="https://schema.org/Organization"><meta itemprop="name" content="Long Yu's Space"></span><header class="post-header"><h1 class="post-title" itemprop="name headline">Some Database Notes</h1><div class="post-meta"><div class="post-time" style="display:block"><span class="post-meta-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-calendar-line"></use></svg></span> <time title="Created: 2022-10-01 15:18:23" itemprop="dateCreated datePublished" datetime="2022-10-01T15:18:23+00:00">2022-10-01</time><span class="post-meta-divider">-</span><span class="post-meta-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-calendar-2-line"></use></svg></span> <time title="Modified: 2023-08-01 06:16:25" itemprop="dateModified" datetime="2023-08-01T06:16:25+00:00">2023-08-01</time></div><span class="post-count"><span class="post-symbolcount"><span class="post-meta-item-icon" title="Word count in article"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-file-word-line"></use></svg></span> <span title="Word count in article">5k</span><span class="post-meta-divider">-</span><span class="post-meta-item-icon" title="Reading time"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-timer-line"></use></svg></span> <span title="Reading time">31m</span></span></span><span class="post-busuanzi"><span class="post-meta-divider">-</span><span class="post-meta-item-icon" title="Views"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-eye-line"></use></svg> <span id="busuanzi_value_page_pv"></span></span></span><div class="post-classify"><span class="post-category"> <span class="post-meta-item-icon" style="margin-right:3px;"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-folder-line"></use></svg></span><span itemprop="about" itemscope itemtype="https://schema.org/Thing"><a class="category-item" href="/categories/Technical/" style="--text-color:var(--hty-text-color)" itemprop="url" rel="index"><span itemprop="text">Technical</span></a></span> > <span itemprop="about" itemscope itemtype="https://schema.org/Thing"><a class="category-item" href="/categories/Technical/Cheatsheet/" style="--text-color:var(--hty-text-color)" itemprop="url" rel="index"><span itemprop="text">Cheatsheet</span></a></span></span><span class="post-tag"><span class="post-meta-divider">-</span><a class="tag-item" href="/tags/Database/" style="--text-color:var(--hty-text-color)"><span class="post-meta-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-price-tag-3-line"></use></svg></span><span class="tag-name">Database</span></a></span></div></div></header><section class="post-body" itemprop="articleBody"><div class="post-content markdown-body" style="--smc-primary:#7ccbab;"><link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>How deep one understands database indicates how fast one can debug and in general, how good one is at full-stack development… Says Michael Ball, my Software Engineering professor (My Database professor didn’t say something like this though).</p>
+<span id="more"></span>
+
+<p>Here are things to remember for database design and implementation - i.e. How to develop systems to efficiently manage, maintain, process, query, transact with, and make sense of data.</p>
+<h2 id="SQL-Client"><a href="#SQL-Client" class="headerlink" title="SQL Client"></a>SQL Client</h2><h3 id="SQL-Background"><a href="#SQL-Background" class="headerlink" title="SQL Background"></a>SQL Background</h3><ul>
+<li><p>SQL Roots</p>
+<ul>
+<li>Developed @IBM Research in the 1970s (System R project)</li>
+<li>Berkeley’s Quel language (Ingres)</li>
+<li>Commercialized/Popularized in the 1980s</li>
+<li>IBM started the db2 product line</li>
+<li>IBM beaten to market by a startup called Oracle</li>
+</ul>
+</li>
+<li><p>SQL is questioned repeatedly</p>
+<ul>
+<li>90’s: Object-Oriented DBMS (OQL, etc.)</li>
+<li>2000’s: XML (Xquery, Xpath, XSLT)</li>
+<li>2010’s: NoSQL &amp; MapReduce</li>
+<li>Not the only language to query relations, but SQL keeps re-emerging as the standard</li>
+</ul>
+</li>
+</ul>
+<h3 id="Relational-Model"><a href="#Relational-Model" class="headerlink" title="Relational Model"></a>Relational Model</h3><ul>
+<li>(Relational) Database: set of named relations.</li>
+<li>Relation(Table): Schema, Instance, Attribute (Column, Field), Tuple (Record, Row), Cardinality (# of tuples)</li>
+<li>Property of relations:<ul>
+<li>Tuples are not ordered.</li>
+<li>First Normal Form (Flat): only primitive types as attributes. No nested attributes. No arrays, no structs, no unions.<ul>
+<li>Split into another relation if need to include nested relation.</li>
+</ul>
+</li>
+<li>Multiset: may have duplicate tuples</li>
+<li>Physical data independence: does not prescribe how they are implemented or stored</li>
+</ul>
+</li>
+<li>Important realization: relation is but one of many data strcuture/data models. Graph is another such model.</li>
+</ul>
+<h3 id="General-SQL-Syntax"><a href="#General-SQL-Syntax" class="headerlink" title="General SQL Syntax"></a>General SQL Syntax</h3><ul>
+<li><p>Overview</p>
+<ul>
+<li>Declarative: specify what to do, not how to do it (DBMS figures out a fast way to execute a query, regardless of how it is written)</li>
+<li>Implemented widely with various optimizations, additional features and extensions</li>
+<li>Not targeted at Turing-complete tasks</li>
+</ul>
+</li>
+<li><p>DDl: Data Definition Language (Define and modify schema)</p>
+<ul>
+<li><code>CREATE TABLE Users (uid INTEGER, wid INTEGER, age FLOAT, name VARCHAR(255), PRIMARY KEY (uid), FOREIGN KEY (wid) REFERENCES Websites(wid))</code><ul>
+<li>Primary key can be made up of multiple attributes (<code>(firstname, lastname)</code>)</li>
+<li>Foreign key is a contraint that links a column in one table (<code>Users(uid)</code>) to a column in a different table (<code>Websites(uid)</code>) and ensures that a value can be added to <code>Users</code>‘ <code>uid</code> column only if the same value already exists in <code>Websites</code>‘ <code>uid</code> column.</li>
+</ul>
+</li>
+<li>DROP TABLE</li>
+<li>ALTER TABLE</li>
+<li><code>CREATE VIEW &lt;view_name&gt; AS &lt;select_statement&gt;</code>. Views are not materialized (they can be, though); these are for convenience (and security). Views are used just like tables.</li>
+<li>(CTE) <code>WITH &lt;view_name&gt;(&lt;column expression&gt;) AS (&lt;select_statement&gt;)</code>. With clause is used to define a view that can be used in the same query (it can be directly followed by a <code>SELECT</code> statement). CTEs are materialized.</li>
+</ul>
+</li>
+<li><p>DML: Data Manipulation Language (Read and write data)</p>
+<ul>
+<li><p>Single-table queries</p>
+<ul>
+<li><p>Syntax:</p>
+<pre class="language-sql" data-language="sql"><code class="language-sql"><span class="token comment">-- Comments are prefixed with '--' or enclosed in '/* ... */'</span>
+<span class="token keyword">SELECT</span> <span class="token punctuation">[</span><span class="token keyword">DISTINCT</span><span class="token punctuation">]</span> <span class="token operator">&lt;</span><span class="token keyword">column</span> expression list<span class="token operator">></span> <span class="token comment">-- separate by comma, can be '*'</span>
+  <span class="token keyword">FROM</span> <span class="token operator">&lt;</span>single <span class="token keyword">table</span><span class="token operator">></span>
+  <span class="token punctuation">[</span><span class="token keyword">WHERE</span> <span class="token operator">&lt;</span>predicate<span class="token operator">></span><span class="token punctuation">]</span>
+  <span class="token punctuation">[</span><span class="token keyword">GROUP</span> <span class="token keyword">BY</span> <span class="token operator">&lt;</span><span class="token keyword">column</span> list<span class="token operator">></span> <span class="token comment">-- separate by comma</span>
+  <span class="token punctuation">[</span><span class="token keyword">HAVING</span> <span class="token operator">&lt;</span>predicate<span class="token operator">></span><span class="token punctuation">]</span> <span class="token punctuation">]</span>
+  <span class="token punctuation">[</span><span class="token keyword">ORDER</span> <span class="token keyword">BY</span> <span class="token operator">&lt;</span><span class="token keyword">column</span> list<span class="token operator">></span><span class="token punctuation">]</span> <span class="token comment">-- separate by comma, can append DESC or ASC (ASC by default)</span>
+  <span class="token punctuation">[</span><span class="token keyword">LIMIT</span> <span class="token operator">&lt;</span><span class="token keyword">integer</span><span class="token operator">></span><span class="token punctuation">]</span><span class="token punctuation">;</span></code></pre></li>
+<li><p>Order:</p>
+<ul>
+<li>FROM</li>
+<li>WHERE (no aggregate allowed! Groups have not been formed yet.)</li>
+<li>GROUP BY: form groups and perform all necessary aggregates per group (only aggregate functions referred by in <code>SELECT</code> or <code>HAVING</code> are necessary)</li>
+<li>HAVING (must be used with <code>GROUP BY</code>)</li>
+<li>SELECT (aliases defined in <code>SELECT</code> can strictly only be used after <code>SELECT</code>)</li>
+<li>DISTINCT</li>
+<li>ORDER BY</li>
+<li>LIMIT</li>
+</ul>
+</li>
+<li><p><code>WHERE</code>/<code>HAVING</code> predicate: <code>&lt;=&gt;</code> for (in)equality comparison, <code>BETWEEN</code> for range, <code>LIKE</code> for “Old School SQL” pattern matching (<code>~</code> for standard Regex), <code>IS NULL</code> for null testing, and a series of subquery specific predicates.</p>
+<ul>
+<li>Compound predicate： <code>AND</code> for conjunction, <code>OR</code> for disjunction, <code>NOT</code> for negation.</li>
+<li>Wildcard characters for <code>LIKE</code> pattern: <code>%</code> for any number of characters (0, 1, or more), <code>_</code> for any single character.<ul>
+<li><code>LIKE &#39;z%&#39;</code> or <code>~ &#39;^z&#39;</code> for all strings starting with <code>z</code>.</li>
+<li><code>LIKE &#39;%z&#39;</code> or <code>~ &#39;z$&#39;</code> for all strings ending with <code>z</code>.</li>
+<li><code>LIKE &#39;%z%&#39;</code> or <code>~ &#39;z&#39;</code> for all strings containing <code>z</code>.</li>
+<li><code>LIKE &#39;z&#39;</code> or <code>~ &#39;^z$&#39;</code> for all strings equal to <code>z</code>.</li>
+<li><code>LIKE &#39;z_&#39;</code> or <code>~ &#39;^z.&#39;</code> for all strings starting with <code>z</code> and having length of 2.</li>
+<li><code>LIKE &#39;_z%&#39;</code> or <code>~ &#39;^..z&#39;</code> for all strings whose 2nd character is <code>z</code>.</li>
+</ul>
+</li>
+<li>Predicates for subquery:<ul>
+<li><code>EXISTS</code> for emptiness: <code>WHERE EXISTS (SELECT * FROM Websites WHERE Websites.uid = Users.uid)</code>.</li>
+<li><code>IN</code> for membership: <code>WHERE Users.uid IN (SELECT uid FROM Websites)</code>.</li>
+<li><code>ANY</code>/<code>ALL</code> for quantification: <code>WHERE Users.age &gt;= ALL (SELECT age FROM Users)</code>.</li>
+<li><code>SOME</code> is an alias for <code>ANY</code>.</li>
+</ul>
+</li>
+<li>Comparison of incompatible types will error out. Use <code>CAST</code> to convert types. There’s an edge case in Natural Join: if mutual columns in different tables have different data types; in that situation, the join will error.</li>
+</ul>
+</li>
+<li><p>Column expression can be a column name, a constant, or an aggregate function, or a math expression involving the previous items.</p>
+<ul>
+<li>Aggregate functions: <code>COUNT</code>, <code>SUM</code>, <code>AVG</code>, <code>MIN</code>, <code>MAX</code>, <code>GROUP_CONCAT</code>, <code>STDDEV</code>, <code>STDDEV_POP</code>, <code>STDDEV_SAMP</code>, <code>VAR_POP</code>, <code>VAR_SAMP</code>, <code>VARIANCE</code>…</li>
+<li>Math expression: <code>+</code>, <code>-</code>, <code>*</code>, <code>/</code>, <code>^</code>, <code>()</code>, <code>ABS</code>, <code>CEIL</code>, <code>FLOOR</code>, <code>ROUND</code>, <code>SIGN</code>, <code>SQRT</code>, <code>EXP</code>, <code>LN</code>, <code>LOG</code>, <code>POWER</code>…</li>
+<li><code>COUNT(DISTINCT S.name)</code> and <code>DISTINCT Count(S.name)</code> are different.</li>
+<li><code>COUNT(*)</code> counts the number of tuples regardless of the value of the attributes.</li>
+</ul>
+</li>
+<li><p>If using <code>GROUP BY</code>, only THE GROUP-BY attribute and aggregated values can appear in the <code>SELECT</code> list.</p>
+</li>
+</ul>
+</li>
+<li><p>Multi-table queries</p>
+<ul>
+<li>Only thing changed is the FROM clause: <code>FROM &lt;single table&gt;</code> -&gt; <code>FROM &lt;table expression&gt;</code>.</li>
+<li>Table expression: <code>FROM &lt;table expression&gt; [AS &lt;alias&gt;]</code><ul>
+<li><code>&lt;table expression&gt;</code> can be a table name, a subquery, or a join of two or more table expressions.</li>
+<li><code>&lt;alias&gt;</code> is optional (only in <code>FROM</code> clause; column aliases are always required in <code>SELECT</code> clause).</li>
+<li>Two-table join: <code>FROM &lt;table name&gt; [INNER | NATURAL | &#123;LEFT | RIGHT | FULL&#125; OUTER] JOIN &lt;table name&gt; ON &lt;qualification list&gt;</code></li>
+<li>Default join:<ul>
+<li><code>a JOIN b ON ...</code> – Inner Join<ul>
+<li><code>a JOIN b</code> without <code>ON</code> is equivalent to <code>a, b</code>.</li>
+</ul>
+</li>
+<li><code>a, b</code> – Cross Join, a simple Cartesian product</li>
+</ul>
+</li>
+<li>Joining more than 2 tables can be done by chaining multiple joins.<ul>
+<li>Take note! The <code>INNER JOIN</code> and <code>WHERE</code> clauses will filter out rows with <code>NULL</code> values produced by the <code>OUTER JOIN</code>.</li>
+</ul>
+</li>
+<li>With queries that <code>SELECT *</code>, the order of the columns is dependent on the join order. With queries that <code>SELECT</code> specific columns, the order of the columns is dependent on the order of the columns in the <code>SELECT</code> clause.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><code>NULL</code> values</p>
+<ul>
+<li><code>NULL</code> is used to fill in the entries with no matching data points.<ul>
+<li>Inner join is the only join that wouldn’t have any null values by definition, since the results must match on both sides.</li>
+</ul>
+</li>
+<li><code>WHERE</code> and aggregate functions ignore <code>NULL</code> (Except <code>Count(*)</code>). For example, <code>SELECT * FROM sailors WHERE rating &gt; 8 OR rating &lt;= 8</code> will not select tuples with <code>NULL</code> rating.</li>
+<li>Think about <code>NULL</code> as “I don’t know”. So, <code>(x op NULL) = NULL</code>, where <code>op</code> is any comparison operator. <code>NULL and TRUE = NULL</code>, <code>NULL and FALSE = FALSE</code>, <code>NULL or TRUE = TRUE</code>, <code>NULL or FALSE = NULL</code>.</li>
+</ul>
+</li>
+<li><p>Query composition (Treat tuples within a relation as elements of a set)</p>
+<ul>
+<li>Relation will become sets once <code>UNION</code> <code>INTERSECT</code> <code>EXCEPT</code> is applied (no duplicates).</li>
+<li>Multiset semantics: <code>UNION ALL</code> <code>INTERSECT ALL</code> <code>EXCEPT ALL</code> (duplicates allowed).</li>
+<li>For these operations to be applied correctly, the schema of two tables must be the same.</li>
+</ul>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://www.geeksforgeeks.org/sql-ddl-dql-dml-dcl-tcl-commands/">DCL</a></p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="Query-Parsing-amp-Optimization"><a href="#Query-Parsing-amp-Optimization" class="headerlink" title="Query Parsing &amp; Optimization"></a>Query Parsing &amp; Optimization</h2><h3 id="Out-of-Core-Algorithms"><a href="#Out-of-Core-Algorithms" class="headerlink" title="Out-of-Core Algorithms"></a>Out-of-Core Algorithms</h3><ul>
+<li>Limited RAM spaces (B blocks of disk equivalent)</li>
+<li>Single-pass streaming data through RAM</li>
+<li>Divide (into RAM-sized chunks) and Conquer</li>
+<li>Double buffering</li>
+</ul>
+<h3 id="Sorting"><a href="#Sorting" class="headerlink" title="Sorting"></a>Sorting</h3><p>Produce an output file FS with contents (records) stored in order by a given sorting criterion.DISTINCT, GROUP BY, sort-merge join, tree bulk loading, and ORDER BY all require sorting.</p>
+<ul>
+<li>Procedure<ul>
+<li>Pass 0 (Conquer): Recursively sort sets of B pages. Produce ⌈N/B⌉ sorted runs.</li>
+<li>Pass i (<code>i &gt;= 1</code>, Merge): Use B - 1 input buffers and 1 output buffer. Merge B-1 runs into 1 runs. Repeat until only 1 run is left.</li>
+</ul>
+</li>
+<li>Analysis<ul>
+<li>Total number of passes: <code>⌈log&lt;sub&gt;B-1&lt;/sub&gt;⌈N/B⌉⌉ + 1</code></li>
+<li>Total number of I/OS: <code>2N * Total number of passes</code> (as each pass requires 2N I/Os)</li>
+<li>Two passes can process <code>B(B-1)</code> pages.</li>
+</ul>
+</li>
+</ul>
+<h3 id="Hashing"><a href="#Hashing" class="headerlink" title="Hashing"></a>Hashing</h3><p>Produce an output file FH with contents (records) arranged on disk so that no two records that have the same value are separated by a record with a different value.</p>
+<ul>
+<li>Procedure<ul>
+<li>Pass i (<code>1 &lt;= i &lt;= n - 1</code>, Divide): Use 1 input buffers and B - 1 output buffer. Stream records to disk based on defined hash function. This produces at most B - 1 slots.<ul>
+<li>When an output buffer fills up, we write it to disk and clear it. The next time it fills up, we flush it again. The two pages that came from the same buffer will be placed adjacently.</li>
+<li>If a partition is too large to fit in B pages, recursively partition that partition using a different hash function.</li>
+<li>If there are more than B pages of duplicates, we’ll never get small enough partitions. We can check if all values in partition are the same and terminate algorithm.</li>
+</ul>
+</li>
+<li>Pass n (Conquer): Start when all partitions fit in B pages. Read partitions into in-memory hash table one at a time, using a fine-grained hash function.</li>
+</ul>
+</li>
+<li>Analysis<ul>
+<li>Some partition might not fill up whole page so after a pass we might end up with more pages than we started with.</li>
+<li>Also not sure how many recursive partitions we will have.</li>
+<li>If hash function is perfect, without recursive partitioning we can process <code>B(B-1)</code> pages. Costs can be estimated as <code>4N</code> I/Os.</li>
+<li>No easy formula exist. To get exact I/O cost can only count by hand.</li>
+</ul>
+</li>
+</ul>
+<h2 id="Relational-Operators"><a href="#Relational-Operators" class="headerlink" title="Relational Operators"></a>Relational Operators</h2><h2 id="File-and-Index-Organization"><a href="#File-and-Index-Organization" class="headerlink" title="File and Index Organization"></a>File and Index Organization</h2><h3 id="B-Tree-Index"><a href="#B-Tree-Index" class="headerlink" title="B+ Tree Index"></a>B+ Tree Index</h3><ul>
+<li>Concepts<ul>
+<li>Order(<code>d</code>): <code>2d</code> is the maximum number of keys in a node.</li>
+<li>Fanout(<code>F</code>): max number of child. Always: <code>F = 2d + 1</code>.</li>
+<li>Height(<code>h</code>): number of edges from root to all leaves. All leaf nodes have the same height.</li>
+</ul>
+</li>
+<li>Properties<ul>
+<li>Key defined intervals that are left-closed and right-open: <code>[a, b)</code>.</li>
+<li>Max number of keys in a tree: <code>2d * F^h</code>.</li>
+<li>In each node: <code>d &lt;= #keys &lt;= 2d</code> (Root doesn’t need to obey this invariant).</li>
+<li>In inner node, key is never deleted, even when we delete keys from leaf nodes.</li>
+<li>Balancing requirement not strictly obeyed, especially in deletion/bulk loading.</li>
+<li>Usually has a high fanout, so it’s not very deep.</li>
+<li>Actual keys are always stored on the leaf nodes.</li>
+<li>Leaves need not be stored in sorted order (but often are).</li>
+<li>All leaf nodes are doubly linked so they can go to sibling nodes easily (for range queries).</li>
+</ul>
+</li>
+<li>Operation<ul>
+<li>Read (by key): find split on each and follow children pointers.</li>
+<li>List: find leftmost leaf and follow sibling pointers.</li>
+<li>Insertion: find correct leaf and insert. If leaf is full (<code>2d + 1</code> keys), split it recursively.<ul>
+<li>Split leaf node: the origin leaf has the first <code>d</code> keys and the new leaf has the remaining. The first element of the new leaf is copied up to parent inner node.</li>
+<li>Split inner node: Same as leaf, but instead of copying up the first element, push it up instead.</li>
+<li>Split root node: Create a new root with 1 key and two children are the origin root and the new nodes, each with <code>d</code> keys.</li>
+<li>Splitting root “grows” the tree upwards (<code>h</code> increases by 1).</li>
+</ul>
+</li>
+<li>Deletion: find correct leaf and delete. For our purpose, don’t rebalance it. Don’t delete inner nodes even if empty. Textbook describes algorithm for rebalancing and merging on deletion.</li>
+<li>Bulk loading: insert all keys one by one just like insertion - but once we find a leaf node we load until we cannot - instead of going back to root and trace down every time after an insertion. One more difference: on leaf node we load up to load factors instead of waiting for it to be full to split (this does not apply to inner nodes).<ul>
+<li>Once a inner node split, it and its children node will never be touched again.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Data Storage<ul>
+<li>By value: actual data record (with key value k)</li>
+<li>By reference: <code>[k, rid of matching data record]</code></li>
+<li>By list of references: <code>[k, list of rids of all matching data records]</code><ul>
+<li>More compact.</li>
+<li>Very large rid lists can span multiple blocks, needs bookkeeping to manage that</li>
+<li>Can handle non-unique search keys</li>
+</ul>
+</li>
+<li>Using reference means unless we sort data records by different key and enforce clustering on both, two B+ tree indices can share one copy of table.</li>
+</ul>
+</li>
+<li>Clustering<ul>
+<li>Clusterings are used to reduce the number of I/Os needed to access data, enjoying potential locality benefits from cache hits at the expense of maintaining the clustering.</li>
+<li>Unclustered: about 1 I/O per record. Clustered: about 1 I/O per page of records.</li>
+</ul>
+</li>
+<li>Varible-length key<ul>
+<li>Questioning order<ul>
+<li>Order (d) makes little sense with variable-length entries. Different nodes have different numbers of entries. inner nodes often hold many more entries than leaf nodes. Even with fixed length fields, Alternatives 1 and 3 storage gives variable length data.</li>
+<li>Instead, use a physical criterion in practice: at-least half-full (measured in Bytes).</li>
+</ul>
+</li>
+<li>Compression<ul>
+<li>Prefix Compression: we compress starting at leaf. On split, determine minimum splitting prefix and copy up.</li>
+<li>Suffix Compression: store common prefix once in each node. Leave only suffix as key. (Esp useful for composite keys where first part is common.)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="Buffer-Management"><a href="#Buffer-Management" class="headerlink" title="Buffer Management"></a>Buffer Management</h2><p>Buffer manager hides the fact that not all data are in RAM. Upper layers want to read/write to pages as if they are always in RAM (except they aren’t; buffer manager will read/write to disk if necessary).</p>
+<h3 id="Concepts"><a href="#Concepts" class="headerlink" title="Concepts"></a>Concepts</h3><ul>
+<li>Buffer pool: Large range of memory, malloc’ed at DBMS server boot time (MBs-GBs). Consisting of a set of frames in RAM.</li>
+<li>Buffer Manager metadata: Smallish array in memory, malloc’ed at DBMS server boot time. It records <code>(frameid, pageid, dirty?, pin count)</code>, and other information (e.g., a <code>ref bit</code> for each frame and one single <code>clock hand</code> field in Clock Policy).</li>
+<li>Frame: a block of memory that can hold a page.</li>
+<li>Cache hit</li>
+</ul>
+<h3 id="Strategies"><a href="#Strategies" class="headerlink" title="Strategies"></a>Strategies</h3><ul>
+<li>If requested page is in buffer pool, load it from there. Otherwise, load it from disk and put it in buffer pool. If requested page is not in buffer pool and there is no empty frame available, we need to evict a page from buffer pool to make room for the requested page. That is, some form of eviction policy is needed.</li>
+<li>If the page evicted is dirty, we need to write it back to disk before eviction. Thus, each frame should maintain a isDirty flag.</li>
+<li>If the page evicted is still in use by other transactions, we need to wait until it is no longer in use before we can evict it. Thus, each frame should maintain a pin count. Any request to this page increase the pin count; once we are done with the request we decrease the pin count. If the pin count is 0, we know evicting this page is safe.</li>
+<li>Thus, an eviction policy must at least look for a page with pin count 0, and should always check isDirty flag before evicting a page (if isDirty, write it back to disk first and mark clean).</li>
+<li>If requests can be predicted (e.g., sequential scans) pages can be pre-fetched (several pages at a time!)</li>
+</ul>
+<h3 id="Eviction-Policies"><a href="#Eviction-Policies" class="headerlink" title="Eviction Policies"></a>Eviction Policies</h3><ul>
+<li>Policy can have big impact on #I/Os depending on the access pattern. The database management system knows its data access patterns, which allows it to optimize its buffer replacement policy for each case.</li>
+<li>LRU: Least Recently Used. Evict the page that was least recently used.<ul>
+<li>Good temporal locality.</li>
+<li>Bad in handling sequential scans - basically no hit.</li>
+<li>Heap data structure for min value is costly.</li>
+<li>Can use Clock Approximation to reduce cost.</li>
+</ul>
+</li>
+<li>Clock:<ul>
+<li>Arrange frames in a circular list. Maintain an extra <code>ref bit</code> for each frame, and one single <code>clock hand</code> field. Set all these to <code>0</code> at the beginning.</li>
+<li>When a page is requested, if it is in buffer pool, set its ref bit to <code>1</code>. Do not touch <code>clock hand</code>.</li>
+<li>If it is not in buffer pool and there is empty frame, load it in and set its ref bit to <code>1</code>.</li>
+<li>If it is not in buffer pool and there is no empty frame, start checking from the frame pointed by <code>clock hand</code>. Skip all frames whose <code>pin count</code> is non-zero and move forward clockhand. For all unpinned frames whose <code>ref bit</code> is <code>1</code>, set <code>ref bit</code> to <code>0</code> and move forward clockhand, until we meet the first unpinned frames whose <code>ref bit</code> is <code>0</code>, evict this frame and load the requested page in. Set its ref bit to <code>1</code>.</li>
+</ul>
+</li>
+<li>MRU: Most Recently Used. Evict the page that was most recently used.<ul>
+<li>Handles sequential flooding (accesses) well - <code>B-1</code> hits per round from the second round onwards (<code>B</code> is the buffer pool size).</li>
+<li>Timestamp for “used” is counted by the time it is unpinned, not the time it is pinned. So, more accurately, “most recently unpinned”.</li>
+</ul>
+</li>
+<li>Random: Evict a random frame.</li>
+</ul>
+<h2 id="Disk-Space-Management"><a href="#Disk-Space-Management" class="headerlink" title="Disk Space Management"></a>Disk Space Management</h2><p>Disk Space Management is the lowest layer of DBMS interacting with disk storage. It is responsible for mapping pages to disk blocks, loading pages into the buffer pool, and writing pages back to disk.</p>
+<p>DSM may interface with device directly but that is hard to program due to the variety. So, it is usually implemented over its own file system (Bypass the OS, allocate single large “contiguous”<br>file on an empty disk, assuming sequential/nearby byte access are fast).</p>
+<h3 id="Disk-Structure-SSD"><a href="#Disk-Structure-SSD" class="headerlink" title="Disk Structure/SSD"></a>Disk Structure/SSD</h3><p>Te be updated.</p>
+<h3 id="DSM-Hierarchy"><a href="#DSM-Hierarchy" class="headerlink" title="DSM Hierarchy"></a>DSM Hierarchy</h3><ul>
+<li>Each disk is divided into a number of pages/blocks, the basic unit of data transfer to/from the disk. Each relation is stored in its own file and a file can be organized into multiple pages. Thus, a file stores a relation, and also stores a collection of pages, and a page stores a collection of tuples.</li>
+<li>Loosely, DSM File (= potentially many OS files)= Relation &gt; Page &gt; Tuple</li>
+<li>In some texts, page = a block-sized chunk of RAM. We treat “block” and “page” as synonyms.</li>
+<li>Again, we are not talking to OS. DSM file may span multiple OS files on multiple disks/machines.</li>
+<li>Think pages as the common currency understood by multiple layers. It is Managed on disk by the disk space manager and managed in memory by the buffer manager.</li>
+<li>DSM basically needs to provide API for higher layer to do CRUDI record. This abstraction could span multiple OS files and even machines.</li>
+<li>To keep track at a record level, we potentially need to specify: machine ID, file ID, page ID, record ID.</li>
+</ul>
+<h3 id="Organizing-fields-on-a-record"><a href="#Organizing-fields-on-a-record" class="headerlink" title="Organizing fields on a record"></a>Organizing fields on a record</h3><ul>
+<li>Assume System Catalog stores the Schema, then no need to store type information with records.</li>
+<li>Fixed-length records: fast access to any field via offset calculation.</li>
+<li>Variable-length records: Put fixed length fields before variable length fields. Put a header at beginning of record to save pointer to end of each variable length field for fast access to any field.</li>
+<li>Bitmap can be stored in record header to indicate NULL fields (one bit is needed per nullable field; primary key is not nullable).<ul>
+<li>Without a bitmap, we cannot distinguish between NULL and empty string. (Both will be 0 bytes long in terms of pointers.)</li>
+</ul>
+</li>
+<li>Variable-length pointer approach can also be used to squash fixed length null fields with many NULLs.</li>
+</ul>
+<h3 id="Organizing-records-on-a-page"><a href="#Organizing-records-on-a-page" class="headerlink" title="Organizing records on a page"></a>Organizing records on a page</h3><ul>
+<li>For Fixed Length Records: If packed, record ID can be used to locate a record; if unpacked, a bitmap can be stored in page header to indicate which slots are free.</li>
+<li>For Variable Length Records: A page footer is needed to store metadata of this page.<ul>
+<li>Page footer<ul>
+<li>Slot count (number of slots used and unused from slot directory)</li>
+<li>Free space pointer (points to the first free byte in the page)</li>
+<li>Slot directory (array of record entries, each entry is a [record pointer, record length] pair). This grows inwards.</li>
+</ul>
+</li>
+<li>Adding record: Find the first free slot and insert, update slot directory, update free space pointer, update slot count. If there is NULL in slot directory (can check slot count), use it instead instead of creating new entry.</li>
+<li>Deleting record: Set the slot directory entry to NULL, update slot count.</li>
+<li>If packed, a packing happens directly after deleting a record. If unpacked, a packing happens periodically.</li>
+</ul>
+</li>
+</ul>
+<h3 id="Organizing-pages-on-a-file"><a href="#Organizing-pages-on-a-file" class="headerlink" title="Organizing pages on a file"></a>Organizing pages on a file</h3><ul>
+<li><p>Heap file: Pages are stored in a file in no particular order.</p>
+<ul>
+<li>Linked list implementation: 1 header page containing pointers to 2 doubly linked lists: a linked list of full pages and a linked list of pages with free space. Each data page has pointers to the next and previous pages.<ul>
+<li>Insert: Trace the linked list of pages with free space to find the first page with enough free space. If no such page exists, allocate a new page and append it to the front of the linked list of pages with free space. Insert the record into the page. Update all necessary linked list pointers and header page. If a page becomes full, move it to the front of the linked list of full pages.</li>
+<li>Delete: Find the page containing the record. Delete the record from the page. If the page becomes empty, remove it from the linked list of full pages and append it to the linked list of pages with free space. Update all necessary linked list pointers and header page.</li>
+</ul>
+</li>
+<li>Page directory implementation: A linked list of header pages containing [Amount of free space, pointer to data page] pairs.<ul>
+<li>Insert: Look through the linked list of header page to find a data page with enough space. Insert the record and update the info on header page.</li>
+<li>Delete: Find the page containing the record. Delete the record from the page and update the info on header page.</li>
+</ul>
+</li>
+<li>We can optimize the page directory further (E.g., compressing header page, keeping header page in sorted order based on free space, etc.) But diminishing returns?</li>
+</ul>
+</li>
+<li><p>Sorted file: Pages are stored in a file in sorted order - this implies the records on a page are also sorted.</p>
+<ul>
+<li>Sorted files are implemented using page directory and an ordering is strictly enforced on the pages.</li>
+</ul>
+</li>
+<li><p>Indexed file: Using an index (B+ Tree, Hash, R-Tree, GiST etc.) on the pages in a file for fast lookup and modification by key - the index itself may contain the records directly, or pointers to the pages containing the records (If the latter, the pages themselves may be be clustered - sorted unstrictly - or unclustered).</p>
+</li>
+</ul>
+<h3 id="Cost-Model-for-Analysis"><a href="#Cost-Model-for-Analysis" class="headerlink" title="Cost Model for Analysis"></a>Cost Model for Analysis</h3><ul>
+<li>Parameters:<ul>
+<li><code>B</code>: Number of data blocks in the file</li>
+<li><code>R</code>: Number of records per block</li>
+<li><code>D</code>: Average time to read/write disk block (We can take out a factor of <code>D</code> to count the number of I/O instead of estimated time)</li>
+<li>(For B+ Tree) <code>F</code>: Average inner node fanout</li>
+<li>(For B+ Tree) <code>E</code>: Average # data entries per leaf</li>
+</ul>
+</li>
+<li>Focus: Average case analysis for uniform random workloads for:<ul>
+<li>Sequential scan</li>
+<li>Random read</li>
+<li>Random update</li>
+<li>Random insert</li>
+<li>Random delete</li>
+</ul>
+</li>
+<li>Assumptions: For now, we will ignore:<ul>
+<li>Sequential vs Random I/O</li>
+<li>Pre-fetching and cache eviction costs</li>
+<li>Any CPU costs after fetching data into memory</li>
+<li>Reading/writing of header pages for heap files</li>
+<li>Data need to be brought into memory before operated on (and potentially written back to disk afterwards) and both will cost I/O.</li>
+</ul>
+</li>
+<li>More assumptions:<ul>
+<li>Single record insert and delete</li>
+<li>Equality selection – exactly one match</li>
+<li>For Heap Files: Insert always appends to end of file.</li>
+<li>For Sorted Files: Packed means Files compacted after deletions (i.e., no holes); always search according to sorted key.</li>
+</ul>
+</li>
+<li>Even more assumptions:<ul>
+<li>For B+ Tree: assume each page is 2/3 full.</li>
+<li>For B+ Tree: assume using reference as storage method.</li>
+</ul>
+</li>
+</ul>
+<img src="FileCostCompare.png" alt="Cost Comparison of Heap, Sorted, and Indexed Files" loading="lazy">
+
+<h2 id="Concurrency-Control"><a href="#Concurrency-Control" class="headerlink" title="Concurrency Control"></a>Concurrency Control</h2><h2 id="Recovery"><a href="#Recovery" class="headerlink" title="Recovery"></a>Recovery</h2><h2 id="Mechanical-Procedures"><a href="#Mechanical-Procedures" class="headerlink" title="Mechanical Procedures"></a>Mechanical Procedures</h2><h3 id="Size-Counting"><a href="#Size-Counting" class="headerlink" title="Size Counting"></a>Size Counting</h3><ul>
+<li>Count record size<ul>
+<li>Primary key is not nullable.</li>
+<li>Header: Each variable length field needs a 4-Byte pointer to the end of the field in header.</li>
+<li>Header: Each nullable field needs a 1-bit in bitmap in header. Summing them up and round up to the nearest byte for the total size of bitmap.</li>
+<li>Body: For fixed length fields we always allocate the same amount of space even if the field can be NULL, i.e. <code>topic CHAR[20]</code> will always take 20 bytes.</li>
+<li>Body: For variable length fields, if it is nullable it may take up 0 bytes, i.e. <code>topic VARCHAR[20]</code> will take 0 bytes if it is NULL. If it is not NULL, it may take up a size up to 20 bytes.<ul>
+<li>This is the only part that makes size of record variable.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Count records per page<ul>
+<li>Exclude all metadata in data page: page header/footer, including bitmap, sibling pointer, free space pointer, slot count etc.</li>
+<li>For page footer layout: Each record needs itself and a slot in the slot directory.</li>
+<li>For fixed length record bitmap layout: Each record needs itself and a bit in the bitmap. Round bitmap to the nearest byte.</li>
+<li>Sometimes we only fill up to a certain percentage of the page.</li>
+</ul>
+</li>
+<li>Count number of ader pages<ul>
+<li>Linked list header page: 1 header page only.</li>
+<li>Page directory header page: number of pages divided by number of entries per page.<ul>
+<li>Sometimes need to consider the sibling pointers in header pages when we are counting bytewise.</li>
+</ul>
+</li>
+<li>Data pages: number of records divided by number of records per page.</li>
+</ul>
+</li>
+</ul>
+<h3 id="I-O-Counting"><a href="#I-O-Counting" class="headerlink" title="I/O Counting"></a>I/O Counting</h3><ul>
+<li><p>Count heap file I/O (linked list):</p>
+<ul>
+<li>If no implemention specified, ignore header page costs.</li>
+<li>Header pages and sibling pointers both needs maintenance.</li>
+<li>Moving pages between linked lists needs maintenance. Always move to the front of the list to minimize I/O.</li>
+<li>Insert: finding a page in middle of pages with free space might cause more I/O than finding a page at the end of the list. An insertion that causes a page to be full incurs maximum I/O count.<ul>
+<li>If record is fixed length, then we can be sure the first non-full page will have enough space.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Count heap file I/O (page directory)</p>
+<ul>
+<li>Full scan: needs to read all header + data pages. (There is no sibling pointer in data pages so we can’t skip header pages.)</li>
+<li>Insert: if primary key is inserted, need a full scan to ensure no duplicate and then + 2 I/Os. If primary key is not inserted, just 2 I/Os.</li>
+<li>Full scan: Do we count in 1 header page?</li>
+</ul>
+</li>
+<li><p>Count sorted file I/O</p>
+<ul>
+<li>Count as if you can binary search on data pages (without header pages) and you can go to any data page from any page.</li>
+</ul>
+</li>
+<li><p>Count B+ Tree I/O</p>
+<ul>
+<li>Each node has its own page so reading a node is one I/O.</li>
+<li>Remember to count: reading root, inner, leaf, and actual data page (if implemented with reference).</li>
+<li>Index choice<ul>
+<li>If see <code>AND</code> can choose either key on two sides of <code>AND</code>.</li>
+<li>Always choose lower tree with suitable index.</li>
+</ul>
+</li>
+<li>If no index, may need to full scan all data pages (ignore trees with irrelevant index). For full scan, ignore tree.</li>
+<li>If data page is changed, index might need changing too which incurs additional write I/O.</li>
+<li>Clustered: to get best-case I/O we can assume everything to be on the same page as much as possible.</li>
+<li>Unclustered: to get worst-case I/O we can assume everything to be on different pages as much as possible.<ul>
+<li>One leaf node might need to read many data pages!</li>
+</ul>
+</li>
+<li>Range query<ul>
+<li>Need to count how many leaf nodes are used to encompass the range.<ul>
+<li>If alternative 1 storage, data pages themselves are leaf nodes and order number does not apply. Need to check how many records on one data page.</li>
+<li>If alternative 2/3 storage, need to check order number, fill factor.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Count Sort I/O: use formula</p>
+</li>
+<li><p>Count Hash I/O (By example)</p>
+<ul>
+<li>B = 3, N = 8, assuming first partition pass uses a bad hash function, creating a partition A of size 3 and partition B of 5, but the subsequent partition pass uses perfectly uniform hash function.</li>
+<li>Since B = 3, each time we hash pages into two partitions.</li>
+<li>Pass 1:<ul>
+<li>Read <code>8</code> pages.</li>
+<li>Write <code>3 + 5 = 8</code> pages.</li>
+<li>In total: <code>8 + 8 = 16</code> I/Os.</li>
+</ul>
+</li>
+<li>Pass 2:<ul>
+<li>Partition A only has <code>3</code> pages so no recursive partitioning needed.</li>
+<li>Now for partition B: Read <code>5</code> pages.</li>
+<li>Since hash is uniform now, even partition will have <code>⌈5/2⌉ = 3</code> pages.</li>
+<li>So in total we write <code>3 + 3 = 6</code> pages.</li>
+<li>We can stop for this part, as partition of size 3 will fit in <code>B = 3</code>.</li>
+<li>In total: <code>5 + 6 = 11</code> I/Os.</li>
+</ul>
+</li>
+<li>Conquer:<ul>
+<li>Now, we have <code>3</code> pages in partition A and <code>6</code> pages in partition B.</li>
+<li>Read <code>3 + 6 = 9</code> pages in total.</li>
+<li>Write <code>3 + 6 = 9</code> pages in total.</li>
+<li>In total: <code>9 + 9 = 18</code> I/Os.</li>
+</ul>
+</li>
+<li>Grand total: <code>16 + 11 + 18 = 45</code> I/Os.</li>
+</ul>
+</li>
+</ul>
+<h2 id="Questions"><a href="#Questions" class="headerlink" title="Questions"></a>Questions</h2><p>Questions popped up in my head during the reading:</p>
+<ul>
+<li><p>Can we compress inner nodes in B+ Trees into a single page? (E.g., if the inner node is small enough, we can store it in a single page and use a pointer to the next page to store the rest of the inner node. This is similar to how we store variable length records in pages.)</p>
+</li>
+<li><p>How to deal with multiple B+ Trees defined over the same table, each wanting its own clustering?<br>Is it possible to have two clustered indices on separate columns, but you would generally have to store two copies of the data (and keep both up to date).<br>Special case: if the search key for one index is a subset of the search key for the other (e.g. index 1 on sid, index 2 on (sid, name)), then we can have just one copy (sorted on (sid, name)).</p>
+</li>
+<li><p>How is prefix key compression scalable to insertion?</p>
+</li>
+</ul>
+</div><ul class="post-copyright"><li class="post-copyright-author"><strong>Post author: </strong>Long Yu</li><li class="post-copyright-link"><strong>Post link: </strong><a href="https://reimirno.github.io/2022/10/01/Database-Cheatsheet/" title="Some Database Notes">https://reimirno.github.io/2022/10/01/Database-Cheatsheet/</a></li><li class="post-copyright-license"><strong>Copyright Notice: </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" target="_blank" rel="noopener" title="CC BY-NC-SA 4.0 "><svg class="icon"><use xlink:href="#icon-creative-commons-line"></use></svg><svg class="icon"><use xlink:href="#icon-creative-commons-by-line"></use></svg><svg class="icon"><use xlink:href="#icon-creative-commons-nc-line"></use></svg><svg class="icon"><use xlink:href="#icon-creative-commons-sa-line"></use></svg></a> unless otherwise stated.</li></ul><script>document.addEventListener('copy', function (event) {
+  const clipboardData = event.clipboardData || window.clipboardData;
+  if (!clipboardData) { return; }
+  const text = window.getSelection().toString();
+  if (text) {
+    event.preventDefault();
+    clipboardData.setData('text/plain', text + '\n\nPost author: Long Yu\nPost link: https://reimirno.github.io/2022/10/01/Database-Cheatsheet/\nCopyright Notice: All articles in this blog are licensed under CC BY-NC-SA 4.0 unless otherwise stated.');
+  }
+});</script></section></article><div class="post-nav"><div class="post-nav-item"></div><div class="post-nav-item"><a class="post-nav-next" href="/2022/08/07/I-am-back/" rel="next" title="I am back!"><span class="post-nav-text">I am back!</span><svg class="icon" aria-hidden="true"><use xlink:href="#icon-arrow-right-s-line"></use></svg></a></div></div></div><div class="hty-card" id="comment"><div class="comment-tooltip text-center"><span>Say something?</span><br><a class="hty-button hty-button--raised" id="github-discussions" target="_blank" rel="noopener" href="https://github.com/Reimirno/reimirno.github.io/discussions/new">GitHub Discussions</a></div></div></main><footer class="sidebar-translate" id="footer"><div class="copyright"><span>&copy; 2021 – 2023 </span><a class="with-love" id="animate" href="/thanks/" title="Thank-you page"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-cloud-line"></use></svg></a><span class="author"> Long Yu</span></div><div class="live_time"><span>The blog has run for</span><span id="display_live_time"></span><span class="moe-text">(●'◡'●)</span><script>function blog_live_time() {
+  setTimeout(blog_live_time, 1000);
+  const start = new Date('2021-07-31T00:00:00');
+  const now = new Date();
+  const timeDiff = (now.getTime() - start.getTime());
+  const msPerMinute = 60 * 1000;
+  const msPerHour = 60 * msPerMinute;
+  const msPerDay = 24 * msPerHour;
+  const passDay = Math.floor(timeDiff / msPerDay);
+  const passHour = Math.floor((timeDiff % msPerDay) / 60 / 60 / 1000);
+  const passMinute = Math.floor((timeDiff % msPerHour) / 60 / 1000);
+  const passSecond = Math.floor((timeDiff % msPerMinute) / 1000);
+  display_live_time.innerHTML = " " + passDay + " 天 " + passHour + " 小时 " + passMinute + " 分 " + passSecond + " 秒";
+}
+blog_live_time();
+</script></div><div id="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_site_uv" title="Total Visitors"><span><svg class="icon" aria-hidden="true"><use xlink:href="#icon-user-line"></use></svg></span><span id="busuanzi_value_site_uv"></span></span><span class="footer-separator">|</span><span id="busuanzi_container_site_pv" title="Total Views"><span><svg class="icon" aria-hidden="true"><use xlink:href="#icon-eye-line"></use></svg></span><span id="busuanzi_value_site_pv"></span></span></div></footer><a class="hty-icon-button" id="back-to-top" aria-label="back-to-top" href="#"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-arrow-up-s-line"></use></svg><svg class="progress-circle-container" viewBox="0 0 100 100"><circle class="progress-circle" id="progressCircle" cx="50" cy="50" r="48" fill="none" stroke="#7ccbab" stroke-width="2" stroke-linecap="round"></circle></svg></a><a class="popup-trigger hty-icon-button icon-search" id="search" href="javascript:;" title="Search"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-search-line"></use></svg></span></a><script>window.addEventListener("DOMContentLoaded", () => {
+  // Handle and trigger popup window
+  document.querySelector(".popup-trigger").addEventListener("click", () => {
+    document.querySelector(".popup").classList.add("show");
+    setTimeout(() => {
+      document.querySelector(".search-input").focus();
+    }, 100);
+  });
+
+  // Monitor main search box
+  const onPopupClose = () => {
+    document.querySelector(".popup").classList.remove("show");
+  };
+
+  document.querySelector(".popup-btn-close").addEventListener("click", () => {
+    onPopupClose();
+  });
+
+  window.addEventListener("keyup", event => {
+    if (event.key === "Escape") {
+      onPopupClose();
+    }
+  });
+});
+</script><script src="/js/search/local-search.js" defer></script><div class="popup search-popup"><div class="search-header"><span class="popup-btn-close close-icon hty-icon-button"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-close-line"></use></svg></span></div><div class="search-input-container"><input class="search-input" id="local-search-input" type="text" placeholder="What is in your mind?" value=""></div><div id="local-search-result"></div></div><script>const date = new Date();
+const today = (date.getMonth() + 1) + "-" + date.getDate()
+const mourn_days = ["4-4"]
+if (mourn_days.includes(today)) {
+  document.documentElement.style.filter = "grayscale(1)";
+}</script></div><!-- hexo injector body_end start --><script src="https://cdn.jsdelivr.net/npm/hexo-tag-common@latest/js/index.js"></script><!-- hexo injector body_end end --></body></html>

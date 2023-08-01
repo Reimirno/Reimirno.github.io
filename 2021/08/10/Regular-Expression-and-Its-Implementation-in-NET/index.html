@@ -1,0 +1,324 @@
+<!DOCTYPE html><html lang="en"><head><!-- hexo injector head_begin start --><link href="https://cdn.jsdelivr.net/npm/hexo-tag-common@latest/css/index.css" rel="stylesheet"/><!-- hexo injector head_begin end --><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="theme-color" content="#7ccbab"><meta name="author" content="Long Yu"><meta name="copyright" content="Long Yu"><meta name="generator" content="Hexo 5.4.0"><meta name="theme" content="hexo-theme-yun"><title>Regular Expression, and Its Implementation in .NET and Python | Long Yu's Space</title><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@900&amp;display=swap" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/star-markdown-css@0.1.25/dist/yun/yun-markdown.min.css"><script src="//at.alicdn.com/t/font_1140697_dxory92pb0h.js" async></script><script src="https://cdn.jsdelivr.net/npm/scrollreveal/dist/scrollreveal.min.js" defer></script><script>document.addEventListener("DOMContentLoaded", () => {
+  [".post-card",".post-content img"].forEach((target)=> {
+    ScrollReveal().reveal(target);
+  })
+});
+</script><link id="light-prism-css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@latest/themes/prism.css" media="(prefers-color-scheme: light)"><link id="dark-prism-css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@latest/themes/prism-tomorrow.css" media="(prefers-color-scheme: dark)"><link rel="icon" href="/favicon.ico"><link rel="mask-icon" href="/favicon.ico" color="#7ccbab"><link rel="alternate icon" href="/yun.ico"><link rel="preload" href="/css/hexo-theme-yun.css" as="style"><link rel="preload" href="/js/utils.js" as="script"><link rel="preload" href="/js/hexo-theme-yun.js" as="script"><link rel="prefetch" href="/js/sidebar.js" as="script"><link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin><script id="yun-config">
+    const Yun = window.Yun || {};
+    window.CONFIG = {"hostname":"reimirno.github.io","root":"/","title":["Long","Yu's","Space"],"version":"1.6.2","mode":"time","copycode":true,"page":{"isPost":true},"i18n":{"placeholder":"What is in your mind?","empty":"We didn't find any results for the search: ${query}.","hits":"${hits} results found","hits_time":"${hits} results found in ${time} ms"},"anonymous_image":"https://cdn.jsdelivr.net/gh/YunYouJun/cdn/img/avatar/none.jpg","local_search":{"path":"/search.xml"},"fireworks":{"colors":["124, 203, 171","83, 161, 122","26, 77, 207","20, 115, 239"]}};
+  </script><link rel="stylesheet" href="/css/hexo-theme-yun.css"><script src="/js/utils.js"></script><script src="/js/hexo-theme-yun.js"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css"><link rel="stylesheet" href="/css/admonition.css"><link rel="stylesheet" href="/css/iconstyle.css"><meta name="description" content="My summary notes on how to use regular expression in C#.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Regular Expression, and Its Implementation in .NET and Python">
+<meta property="og:url" content="https://reimirno.github.io/2021/08/10/Regular-Expression-and-Its-Implementation-in-NET/index.html">
+<meta property="og:site_name" content="Long Yu&#39;s Space">
+<meta property="og:description" content="My summary notes on how to use regular expression in C#.">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-08-10T18:26:51.000Z">
+<meta property="article:modified_time" content="2021-12-08T18:41:59.473Z">
+<meta property="article:author" content="Long Yu">
+<meta property="article:tag" content="C#">
+<meta property="article:tag" content="Python">
+<meta property="article:tag" content="Regular Expression">
+<meta name="twitter:card" content="summary"><script src="/js/ui/mode.js"></script></head><body><script defer src="https://cdn.jsdelivr.net/npm/animejs@latest"></script><script defer src="/js/ui/fireworks.js"></script><canvas class="fireworks"></canvas><div class="container"><a class="sidebar-toggle hty-icon-button" id="menu-btn"><div class="hamburger hamburger--spin" type="button"><span class="hamburger-box"><span class="hamburger-inner"></span></span></div></a><div class="sidebar-toggle sidebar-overlay"></div><aside class="sidebar"><script src="/js/sidebar.js"></script><ul class="sidebar-nav"><li class="sidebar-nav-item sidebar-nav-toc hty-icon-button sidebar-nav-active" data-target="post-toc-wrap" title="Table of Contents"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-list-ordered"></use></svg></li><li class="sidebar-nav-item sidebar-nav-overview hty-icon-button" data-target="site-overview-wrap" title="Overview"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-passport-line"></use></svg></li></ul><div class="sidebar-panel" id="site-overview-wrap"><div class="site-info fix-top"><a class="site-author-avatar" href="/about/" title="Long Yu"><img width="96" loading="lazy" src="/images/avatar.jpg" alt="Long Yu"><span class="site-author-status" title="Give me the least, if not the one!">🥰</span></a><div class="site-author-name"><a href="/about/">Long Yu</a></div><a class="site-name" href="/about/site.html">Long Yu's Space</a><sub class="site-subtitle">Where All is Well</sub><div class="site-desciption">How's a day in Gensokyo like?</div></div><nav class="site-state"><a class="site-state-item hty-icon-button icon-home" href="/" title="Home"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-home-4-line"></use></svg></span></a><div class="site-state-item"><a href="/archives/" title="Archives"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-archive-line"></use></svg></span><span class="site-state-item-count">39</span></a></div><div class="site-state-item"><a href="/categories/" title="Categories"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-folder-2-line"></use></svg></span><span class="site-state-item-count">9</span></a></div><div class="site-state-item"><a href="/tags/" title="Tags"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-price-tag-3-line"></use></svg></span><span class="site-state-item-count">36</span></a></div><a class="site-state-item hty-icon-button" href="/random.html" title="Random Page"><span class="site-state-item-icon"><i class="ri-gift-line ri-xl"></i></span></a></nav><hr style="margin-bottom:0.5rem"><div class="links-of-author"><a class="links-of-author-item hty-icon-button" rel="noopener" href="http://wpa.qq.com/msgrd?v=3&amp;uin=1072625448&amp;site=qq&amp;menu=yes" title="QQ" target="_blank" style="color:#12B7F5"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-qq-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="/images/wechatQR.jpg" title="Wechat" target="_blank" style="color:#1AAD19"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-wechat-2-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="mailto:johnsonlongyu@gmail.com?subject=Directed%20from%20Blog%20-%20Subject%3A%20" title="E-Mail" target="_blank" style="color:#e28743"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-mail-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://github.com/Reimirno" title="GitHub" target="_blank" style="color:#6e5494"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-github-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://www.linkedin.com/in/yu-long/" title="LinkedIn" target="_blank" style="color:#0077b5"><i class="ri-linkedin-box-line ri-xl"></i></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://music.163.com/#/user/home?id=296076115" title="Netease Music" target="_blank" style="color:#C20C0C"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-netease-cloud-music-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://space.bilibili.com/436096130" title="Bilibili" target="_blank" style="color:#FF8EB3"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-bilibili-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://www.douban.com/people/169714437/" title="Douban" target="_blank" style="color:#007722"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-douban-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://twitter.com/Johnsonlongyu" title="Twitter" target="_blank" style="color:#1da1f2"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-twitter-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://www.facebook.com/profile.php?id=100014142698530" title="Facebook" target="_blank" style="color:#4267B2"><i class="ri-facebook-box-line ri-xl"></i></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://www.instagram.com/reimirno/" title="Instagram" target="_blank" style="color:#c52262"><i class="ri-instagram-line ri-xl"></i></a></div><hr style="margin:0.5rem 1rem"><div class="links"><a class="links-item hty-icon-button" href="/compass/" title="Compass" style="color:#eb664b"><i class="ri-compass-line ri-xl"></i></a><a class="links-item hty-icon-button" href="/resume/" title="Resume" style="color:#7ef578"><i class="ri-profile-line ri-xl"></i></a><a class="links-item hty-icon-button" href="/works/" title="Works" style="color:#dc7aff"><i class="ri-briefcase-line ri-xl"></i></a><a class="links-item hty-icon-button" href="/links/" title="Friends" style="color:#78acff"><i class="ri-links-line ri-xl"></i></a><a class="links-item hty-icon-button" href="/helps/" title="Help" style="color:#ffcf40"><i class="ri-question-line ri-xl"></i></a></div><br><a class="links-item hty-icon-button" id="toggle-mode-btn" href="javascript:;" title="Mode" style="color: #f1cb64"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-contrast-2-line"></use></svg></a></div><div class="sidebar-panel sidebar-panel-active" id="post-toc-wrap"><div class="post-toc"><div class="post-toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Regex-Basics-Cheat-Sheet"><span class="toc-number">1.</span> <span class="toc-text">Regex Basics Cheat Sheet</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Some-Confusing-Topics"><span class="toc-number">2.</span> <span class="toc-text">Some Confusing Topics</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Lazy-and-Greedy-Matching"><span class="toc-number">2.1.</span> <span class="toc-text">Lazy and Greedy Matching</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Capturing-and-Non-capturing-Group"><span class="toc-number">2.2.</span> <span class="toc-text">Capturing and Non-capturing Group</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Lookarounds"><span class="toc-number">2.3.</span> <span class="toc-text">Lookarounds</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Character-Escape"><span class="toc-number">2.4.</span> <span class="toc-text">Character Escape</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Regex-Flags"><span class="toc-number">2.5.</span> <span class="toc-text">Regex Flags</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Regex-in-Python"><span class="toc-number">3.</span> <span class="toc-text">Regex in Python</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Regex-in-C"><span class="toc-number">4.</span> <span class="toc-text">Regex in C#</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Important-Classes"><span class="toc-number">4.1.</span> <span class="toc-text">Important Classes</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Use-Regex-Class"><span class="toc-number">4.2.</span> <span class="toc-text">Use Regex Class</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Using-Groups"><span class="toc-number">4.3.</span> <span class="toc-text">Using Groups</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#When-to-Use-Which"><span class="toc-number">4.4.</span> <span class="toc-text">When to Use Which?</span></a></li></ol></li></ol></div></div></div></aside><main class="sidebar-translate" id="content"><div id="post"><article class="hty-card post-block" itemscope itemtype="https://schema.org/Article"><link itemprop="mainEntityOfPage" href="https://reimirno.github.io/2021/08/10/Regular-Expression-and-Its-Implementation-in-NET/"><span hidden itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="Long Yu"><meta itemprop="description"></span><span hidden itemprop="publisher" itemscope itemtype="https://schema.org/Organization"><meta itemprop="name" content="Long Yu's Space"></span><header class="post-header"><h1 class="post-title" itemprop="name headline">Regular Expression, and Its Implementation in .NET and Python</h1><div class="post-meta"><div class="post-time" style="display:block"><span class="post-meta-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-calendar-line"></use></svg></span> <time title="Created: 2021-08-10 18:26:51" itemprop="dateCreated datePublished" datetime="2021-08-10T18:26:51+00:00">2021-08-10</time><span class="post-meta-divider">-</span><span class="post-meta-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-calendar-2-line"></use></svg></span> <time title="Modified: 2021-12-08 18:41:59" itemprop="dateModified" datetime="2021-12-08T18:41:59+00:00">2021-12-08</time></div><span class="post-count"><span class="post-symbolcount"><span class="post-meta-item-icon" title="Word count in article"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-file-word-line"></use></svg></span> <span title="Word count in article">1.6k</span><span class="post-meta-divider">-</span><span class="post-meta-item-icon" title="Reading time"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-timer-line"></use></svg></span> <span title="Reading time">9m</span></span></span><span class="post-busuanzi"><span class="post-meta-divider">-</span><span class="post-meta-item-icon" title="Views"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-eye-line"></use></svg> <span id="busuanzi_value_page_pv"></span></span></span><div class="post-classify"><span class="post-category"> <span class="post-meta-item-icon" style="margin-right:3px;"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-folder-line"></use></svg></span><span itemprop="about" itemscope itemtype="https://schema.org/Thing"><a class="category-item" href="/categories/Technical/" style="--text-color:var(--hty-text-color)" itemprop="url" rel="index"><span itemprop="text">Technical</span></a></span> > <span itemprop="about" itemscope itemtype="https://schema.org/Thing"><a class="category-item" href="/categories/Technical/Cheat-Sheet/" style="--text-color:var(--hty-text-color)" itemprop="url" rel="index"><span itemprop="text">Cheat Sheet</span></a></span></span><span class="post-tag"><span class="post-meta-divider">-</span><a class="tag-item" href="/tags/C/" style="--text-color:var(--hty-text-color)"><span class="post-meta-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-price-tag-3-line"></use></svg></span><span class="tag-name">C#</span></a><a class="tag-item" href="/tags/Python/" style="--text-color:#3776ab"><span class="post-meta-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-price-tag-3-line"></use></svg></span><span class="tag-name">Python</span></a><a class="tag-item" href="/tags/Regular-Expression/" style="--text-color:var(--hty-text-color)"><span class="post-meta-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-price-tag-3-line"></use></svg></span><span class="tag-name">Regular Expression</span></a></span></div></div></header><section class="post-body" itemprop="articleBody"><div class="post-content markdown-body" style="--smc-primary:#7ccbab;"><link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>My summary notes on how to use regular expression in C#.</p>
+<span id="more"></span>
+
+<p>!!! info Transplanted Post<br>After setting up this website I am gradually transferring all my previous blogs stored locally and in other blog system towards here. This is one of them. Thus, you should be aware that the date and time displayed on this blog is not accurate.</p>
+<p>!!! warning “Expected Reader Experience: Intermediate”<br>This post is good for readers having reasonable mastery on the topic: <em>Regular Expression</em>. If you are uncertain, try <a target="_blank" rel="noopener" href="https://github.com/ziishaned/learn-regex">this resource</a> for a beginner’s guide.</p>
+<pre><code>Knowledge on the following is also especially helpful: _C# Basic Syntax_.
+</code></pre>
+<h2 id="Regex-Basics-Cheat-Sheet"><a href="#Regex-Basics-Cheat-Sheet" class="headerlink" title="Regex Basics Cheat Sheet"></a>Regex Basics Cheat Sheet</h2><p>A quick look-through of my annotated Regex Cheat Sheet for review. This resource is from Microsoft.</p>
+
+
+	<div class="row">
+    <embed src="regex-cheat-sheet.pdf" width="100%" height="550" type="application/pdf">
+	</div>
+
+
+
+
+<h2 id="Some-Confusing-Topics"><a href="#Some-Confusing-Topics" class="headerlink" title="Some Confusing Topics"></a>Some Confusing Topics</h2><h3 id="Lazy-and-Greedy-Matching"><a href="#Lazy-and-Greedy-Matching" class="headerlink" title="Lazy and Greedy Matching"></a>Lazy and Greedy Matching</h3><p>Quantifiers have lazy and greedy matching variants. Lazy matching asks the regex to match a pattern as short as possible, and greedy matching matches as long as possible.</p>
+<p>Greedy Matching:</p>
+<table>
+<thead>
+<tr>
+<th align="center">Regex</th>
+<th align="center">String</th>
+<th align="center">Result</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><code>5*</code></td>
+<td align="center"><code>255555666</code></td>
+<td align="center"><code>255555</code></td>
+</tr>
+<tr>
+<td align="center"><code>.*at</code></td>
+<td align="center"><code>The fat cat sat on the mat</code></td>
+<td align="center"><code>The fat cat sat on the mat</code></td>
+</tr>
+</tbody></table>
+<p>Lazy Matching:</p>
+<table>
+<thead>
+<tr>
+<th align="center">Regex</th>
+<th align="center">String</th>
+<th align="center">Result</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><code>5*?</code></td>
+<td align="center"><code>255555666</code></td>
+<td align="center"><code>25</code></td>
+</tr>
+<tr>
+<td align="center"><code>.*?at</code></td>
+<td align="center"><code>The fat cat sat on the mat</code></td>
+<td align="center"><code>The fat</code></td>
+</tr>
+</tbody></table>
+<h3 id="Capturing-and-Non-capturing-Group"><a href="#Capturing-and-Non-capturing-Group" class="headerlink" title="Capturing and Non-capturing Group"></a>Capturing and Non-capturing Group</h3><p><code>()</code> in a Regex expression does not just create a logical area where the quantifiers act on - it creates a “grouping” which is returned by the matched instances as a “sub-match”.</p>
+<table>
+<thead>
+<tr>
+<th align="center">Regex</th>
+<th align="center">String</th>
+<th align="center">Result</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><code>([a-z0-9_-])@([a-z])\.com</code></td>
+<td align="center"><code>123abc@test.com</code></td>
+<td align="center"><code>123@test.com</code> <br> group 1: <code>123abc</code>; group 2: <code>test</code></td>
+</tr>
+</tbody></table>
+<p>You have access to the matched instance (in C#, via <code>Match.Value</code>) and all its groups (<code>Match.Groups</code> property, which is an array) - because you used <code>()</code> to capture and group them.</p>
+<p>Of course this compromises performance. If you really do not need this grouping information, use a non-capturing group:</p>
+<table>
+<thead>
+<tr>
+<th align="center">Regex</th>
+<th align="center">String</th>
+<th align="center">Result</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><code>(?:[a-z0-9_-])@(?:[a-z])\.com</code></td>
+<td align="center"><code>123abc@test.com</code></td>
+<td align="center"><code>123@test.com</code> <br> no group info (<code>Match.Groups.Count==0</code>)</td>
+</tr>
+</tbody></table>
+<h3 id="Lookarounds"><a href="#Lookarounds" class="headerlink" title="Lookarounds"></a>Lookarounds</h3><p>Lookaround are special kinds of non-capturing groups. Sometimes, you want a pattern that is preceded/followed by another pattern, but do not want the second pattern to be included into the matched instances returned. In such cases, use lookarounds to not only exclude it from the match’s groups but also the match itself.</p>
+<p>Take positive lookahead (use <code>?=</code>) for an example:</p>
+<table>
+<thead>
+<tr>
+<th align="center">Regex</th>
+<th align="center">String</th>
+<th align="center">Result</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><code>[0-9]+(?=%)</code></td>
+<td align="center"><code>It improves by 24%.</code></td>
+<td align="center"><code>24</code></td>
+</tr>
+</tbody></table>
+<p>The pattern <code>24%</code> is found, but the <code>%</code> character, which is placed in a positive lookahead, is not included in the match result.</p>
+<p>Other kinds of lookaheads function similarly.</p>
+<h3 id="Character-Escape"><a href="#Character-Escape" class="headerlink" title="Character Escape"></a><a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/dotnet/standard/base-types/character-escapes-in-regular-expressions">Character Escape</a></h3><p>Characters <code>. $ ^ &#123; [ ( | ) * + ? \</code> must be escaped or place in a positive character set <code>[]</code>.</p>
+<h3 id="Regex-Flags"><a href="#Regex-Flags" class="headerlink" title="Regex Flags"></a>Regex Flags</h3><p>Regex Flags controls options for regex operations (e.g., whether to do a case-sensitive match or a case-insensitive one). There are two ways to apply flag in C# which are both discussed below.</p>
+<h2 id="Regex-in-Python"><a href="#Regex-in-Python" class="headerlink" title="Regex in Python"></a>Regex in Python</h2><pre class="language-py" data-language="py"><code class="language-py">import re
+re.search(pattern, string)    # returns a match object representing the first occurrence of pattern within string
+re.sub(pattern, repl, string) # substitutes all matches of pattern within string with repl
+re.fullmatch(pattern, string) # returns a match object, requiring that pattern matches the entirety of string
+re.match(pattern, string)     # returns a match object, requiring that string starts with a substring that matches pattern
+re.findall(pattern, string)   # returns a list of strings representing all matches of pattern within string, from left to right</code></pre>
+
+<h2 id="Regex-in-C"><a href="#Regex-in-C" class="headerlink" title="Regex in C#"></a>Regex in C#</h2><p>!!! note Dependencies<br>Namespace: <code>System.Text.RegularExpressions</code></p>
+<pre><code>Assembly: `System.Text.RegularExpressions.dll`
+</code></pre>
+<h3 id="Important-Classes"><a href="#Important-Classes" class="headerlink" title="Important Classes"></a>Important Classes</h3><p>Classes:</p>
+<ul>
+<li><code>Regex</code> Class: the central class in regular expression operation.<ul>
+<li><code>Match()</code> method and <code>Matches()</code> method: returns the first/all results of matching.</li>
+<li><code>IsMatch()</code> method: return <code>true</code> if there is at least one match and <code>false</code> otherwise.</li>
+<li><code>Split()</code> method: split the strings according to the delimiters specified in regular expression syntax.</li>
+<li><code>Replace()</code> method: replace occurrences of one pattern, which is specified in regular expression syntax, with another string.</li>
+</ul>
+</li>
+<li><code>Match</code> Class: a wrapper class used as the return type from methods of <code>Match()</code> method<ul>
+<li><code>Success</code> property: <code>bool</code>, is the match successful</li>
+<li><code>Value</code> property: <code>string</code>, the string matched.</li>
+<li><code>Groups</code> property: <code>GroupCollection</code>, the captured groups.</li>
+<li><code>Length</code>: <code>int</code>, the length of the string matched.</li>
+<li><code>NextMatch()</code> method: get the next match, starting from the current match position.</li>
+</ul>
+</li>
+<li><code>MatchCollection</code> Class: a wrapper class, a collection of Match objects, return by <code>Matches()</code> method.<ul>
+<li><code>Count</code> property: <code>int</code>, the count of matches in the collection.</li>
+<li><code>Item[int index]</code>: get an individual <code>Match</code> object in the collection with the specified index.</li>
+<li>Usually we use <code>foreach</code> to get all <code>Match</code> object in the collection.</li>
+</ul>
+</li>
+<li><code>Group</code> Class:<ul>
+<li><code>Success</code> property: <code>bool</code>, is the match successful</li>
+<li><code>Captures</code> property: <code>CaptureCollection</code>, a collection of all the captures matched by the capturing group</li>
+<li><code>GroupCollection</code> Class has a collection of <code>Group</code> objects.</li>
+</ul>
+</li>
+<li><code>Capture</code> Class:<ul>
+<li><code>Value</code> property:<code>string</code>, the captured substring.</li>
+<li><code>CaptureCollection</code> Class has a collection of <code>Capture</code> objects.</li>
+</ul>
+</li>
+</ul>
+<p>Enums:</p>
+<ul>
+<li>RegexOptions: a flagged enum storing regex options, commonly used flags are listed below:<ul>
+<li><code>IgnoreCase</code>(1): Set to case-insensitive matching instead the case-sensitive by default.</li>
+<li><code>Multiline</code>(2): Set to multiline mode, which changes the meaning of <code>^</code> and <code>$</code> so they match at the beginning and end, respectively, of any line, and not just the beginning and end of the entire string by default.</li>
+<li><code>ExplicitCapture</code>(4): Specifies that the only valid captures are explicitly named or numbered groups of the form (<code>?&lt;name&gt;...</code>).</li>
+<li><code>Singleline</code>(16): Set to singline mode, which changes meaning of the dot (<code>.</code>) so it matches every character, instead of every character except <code>\n</code> be default.</li>
+<li><code>IgnorePatternWhitespace</code>(32): Eliminate unescaped white space from the pattern and enables comments marked with <code>#</code>.</li>
+<li><code>RightToLeft</code>(64): Set to a right-to-left search, instead of searching from left to right by default.</li>
+</ul>
+</li>
+</ul>
+<h3 id="Use-Regex-Class"><a href="#Use-Regex-Class" class="headerlink" title="Use Regex Class"></a>Use Regex Class</h3><p>!!! warning Untested Codes<br>This snippet of codes has not been tested yet and are thus for illustration of concepts only.</p>
+<pre class="language-cs" data-language="cs"><code class="language-cs">&#x2F;&#x2F;Test strings
+string str1 &#x3D; &quot;123_abc|ABC!789@a2K&quot;;
+
+&#x2F;&#x2F;A Regex object stores a regular expression pattern and regex options.
+&#x2F;&#x2F;If options are not specified, default options are used.
+&#x2F;&#x2F;Remember, RegexOptions is a flagged enum!
+Regex reg &#x3D; new Regex(@&quot;[a-b]+&quot;, RegexOptions.ExplicitCapture | RegexOptions.IgnoreCase);
+Match rlt &#x3D; reg.Match(str1);
+Console.WriteLine(rlt.Value); &#x2F;&#x2F;abc
+
+&#x2F;&#x2F;Regex options can also be specified inline:
+Regex reg2 &#x3D; new Regex(@&quot;(?:i)[a-b]+&quot;); &#x2F;&#x2F;case-insensitive match
+Regex reg3 &#x3D; new Regex(@&quot;(?:-i)[a-b]+&quot;); &#x2F;&#x2F;case-sensitive match; the &quot;-&quot; inverses the meaning
+Regex reg4 &#x3D; new Regex(@&quot;(?-i)[a-z]+(?i)[k-n]+&quot;); &#x2F;&#x2F; case sensitive, then case-insensitive match (switch on and off)
+Regex reg5 &#x3D; new Regex(2&quot;(?is-m:expression)&quot;); &#x2F;&#x2F; set multiple options in one go
+
+&#x2F;&#x2F;You can also specify the character position in the input string at which to start the search.
+Match rlt2 &#x3D; reg.Match(str1, 7);
+Console.WriteLine(rlt2.Value); &#x2F;&#x2F;ABC
+
+&#x2F;&#x2F;Get the next match
+Match rlt3 &#x3D; rlt2.NextMatch();
+Console.WriteLine(rlt3.Value); &#x2F;&#x2F;a
+
+&#x2F;&#x2F;Use Matches to get and print all matches
+MatchCollection allRlt &#x3D; reg.Matches(str1);
+foreach (Match rlt in allRlt)&#123;
+  Console.WriteLine(rlt.Value); &#x2F;&#x2F;prints abc, ABC, a, K
+&#125;
+
+&#x2F;&#x2F;Split strings, using the pattern as delimiters
+Regex reg &#x3D; new Regex(@&quot;[_|!@]&quot;, RegexOptions.ExplicitCapture);
+string[] strs &#x3D; reg.Split(str1);
+foreach (string rlt in strs)&#123;
+  Console.WriteLine(rlt); &#x2F;&#x2F;prints abc, ABC, a, K
+&#125;
+
+&#x2F;&#x2F;Replace all numbers with letter Z
+Regex reg &#x3D; new Regex(@&quot;[0-9]+&quot;);
+string newStr &#x3D; reg.Replace(str1);
+Console.WriteLine(newStr); &#x2F;&#x2F;Z_abc|ABC!Z@aZK</code></pre>
+
+<p>The Regex Class can also be used as a static class. In such cases, pass the regular expression pattern and the regex options as parameters into the methods such as <code>Match()</code>.</p>
+<pre class="language-cs" data-language="cs"><code class="language-cs">Match rlt_alt &#x3D; Regex.Match(str1,@&quot;[a-b]+&quot;, RegexOptions.ExplicitCapture | RegexOptions.IgnoreCase);
+Console.WriteLine(rlt_alt.Value); &#x2F;&#x2F;abc</code></pre>
+
+<h3 id="Using-Groups"><a href="#Using-Groups" class="headerlink" title="Using Groups"></a>Using Groups</h3><p>!!! warning Not My Codes<br>This snippet of codes are not my work. They are modified from Microsoft’s <a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/dotnet/api/system.text.regularexpressions.group?view=net-5.0">Official Documentation</a>.</p>
+<pre class="language-cs" data-language="cs"><code class="language-cs">string pattern &#x3D; @&quot;(\b(\w+?)[,:;]?\s?)+[?.!]&quot;;
+string input &#x3D; &quot;This is one sentence. This is a second sentence.&quot;;
+
+Match match &#x3D; Regex.Match(input, pattern);
+if(!match.Success) return;
+Console.WriteLine(&quot;Match: &quot; + match.Value); &#x2F;&#x2F;Match: This is one sentence.
+int groupCtr &#x3D; 0;
+foreach (Group group in match.Groups)
+&#123;
+  groupCtr++;
+  Console.WriteLine(&quot;Group &#123;0&#125;: &#39;&#123;1&#125;&#39;&quot;, groupCtr, group.Value);
+  int captureCtr &#x3D; 0;
+  foreach (Capture capture in group.Captures)
+  &#123;
+    captureCtr++;
+    Console.WriteLine(&quot;   Capture &#123;0&#125;: &#39;&#123;1&#125;&#39;&quot;, captureCtr, capture.Value);
+  &#125;
+&#125;
+&#x2F;&#x2F;Prints:
+&#x2F;&#x2F;Group 1: &#39;This is one sentence.&#39;
+&#x2F;&#x2F;   Capture 1: &#39;This is one sentence.&#39;
+&#x2F;&#x2F;Group 2: &#39;sentence&#39;
+&#x2F;&#x2F;   Capture 1: &#39;This &#39;
+&#x2F;&#x2F;   Capture 2: &#39;is &#39;
+&#x2F;&#x2F;   Capture 3: &#39;one &#39;
+&#x2F;&#x2F;   Capture 4: &#39;sentence&#39;
+&#x2F;&#x2F;Group 3: &#39;sentence&#39;
+&#x2F;&#x2F;   Capture 1: &#39;This&#39;
+&#x2F;&#x2F;   Capture 2: &#39;is&#39;
+&#x2F;&#x2F;   Capture 3: &#39;one&#39;
+&#x2F;&#x2F;   Capture 4: &#39;sentence&#39;</code></pre>
+
+<h3 id="When-to-Use-Which"><a href="#When-to-Use-Which" class="headerlink" title="When to Use Which?"></a>When to Use Which?</h3><ul>
+<li>Use <code>String</code> Class when matching a specific string; use <code>Regex</code> Class when matching a pattern.</li>
+<li>Use the static <code>Regex</code> Class if the regular expression and the associated options will only be used once; use a <code>Regex</code> object if it needs to be used multiple times.</li>
+</ul>
+</div><ul class="post-copyright"><li class="post-copyright-author"><strong>Post author: </strong>Long Yu</li><li class="post-copyright-link"><strong>Post link: </strong><a href="https://reimirno.github.io/2021/08/10/Regular-Expression-and-Its-Implementation-in-NET/" title="Regular Expression, and Its Implementation in .NET and Python">https://reimirno.github.io/2021/08/10/Regular-Expression-and-Its-Implementation-in-NET/</a></li><li class="post-copyright-license"><strong>Copyright Notice: </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" target="_blank" rel="noopener" title="CC BY-NC-SA 4.0 "><svg class="icon"><use xlink:href="#icon-creative-commons-line"></use></svg><svg class="icon"><use xlink:href="#icon-creative-commons-by-line"></use></svg><svg class="icon"><use xlink:href="#icon-creative-commons-nc-line"></use></svg><svg class="icon"><use xlink:href="#icon-creative-commons-sa-line"></use></svg></a> unless otherwise stated.</li></ul><script>document.addEventListener('copy', function (event) {
+  const clipboardData = event.clipboardData || window.clipboardData;
+  if (!clipboardData) { return; }
+  const text = window.getSelection().toString();
+  if (text) {
+    event.preventDefault();
+    clipboardData.setData('text/plain', text + '\n\nPost author: Long Yu\nPost link: https://reimirno.github.io/2021/08/10/Regular-Expression-and-Its-Implementation-in-NET/\nCopyright Notice: All articles in this blog are licensed under CC BY-NC-SA 4.0 unless otherwise stated.');
+  }
+});</script></section></article><div class="post-nav"><div class="post-nav-item"><a class="post-nav-prev" href="/2021/08/11/Java-Collections/" rel="prev" title="My Notes on Java SE"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-arrow-left-s-line"></use></svg><span class="post-nav-text">My Notes on Java SE</span></a></div><div class="post-nav-item"><a class="post-nav-next" href="/2021/08/09/Unit-Conversion-Standard-and-Imperial/" rel="next" title="Unit Conversion - Standard and Imperial"><span class="post-nav-text">Unit Conversion - Standard and Imperial</span><svg class="icon" aria-hidden="true"><use xlink:href="#icon-arrow-right-s-line"></use></svg></a></div></div></div><div class="hty-card" id="comment"><div class="comment-tooltip text-center"><span>Say something?</span><br><a class="hty-button hty-button--raised" id="github-discussions" target="_blank" rel="noopener" href="https://github.com/Reimirno/reimirno.github.io/discussions/new">GitHub Discussions</a></div></div></main><footer class="sidebar-translate" id="footer"><div class="copyright"><span>&copy; 2021 – 2023 </span><a class="with-love" id="animate" href="/thanks/" title="Thank-you page"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-cloud-line"></use></svg></a><span class="author"> Long Yu</span></div><div class="live_time"><span>The blog has run for</span><span id="display_live_time"></span><span class="moe-text">(●'◡'●)</span><script>function blog_live_time() {
+  setTimeout(blog_live_time, 1000);
+  const start = new Date('2021-07-31T00:00:00');
+  const now = new Date();
+  const timeDiff = (now.getTime() - start.getTime());
+  const msPerMinute = 60 * 1000;
+  const msPerHour = 60 * msPerMinute;
+  const msPerDay = 24 * msPerHour;
+  const passDay = Math.floor(timeDiff / msPerDay);
+  const passHour = Math.floor((timeDiff % msPerDay) / 60 / 60 / 1000);
+  const passMinute = Math.floor((timeDiff % msPerHour) / 60 / 1000);
+  const passSecond = Math.floor((timeDiff % msPerMinute) / 1000);
+  display_live_time.innerHTML = " " + passDay + " 天 " + passHour + " 小时 " + passMinute + " 分 " + passSecond + " 秒";
+}
+blog_live_time();
+</script></div><div id="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_site_uv" title="Total Visitors"><span><svg class="icon" aria-hidden="true"><use xlink:href="#icon-user-line"></use></svg></span><span id="busuanzi_value_site_uv"></span></span><span class="footer-separator">|</span><span id="busuanzi_container_site_pv" title="Total Views"><span><svg class="icon" aria-hidden="true"><use xlink:href="#icon-eye-line"></use></svg></span><span id="busuanzi_value_site_pv"></span></span></div></footer><a class="hty-icon-button" id="back-to-top" aria-label="back-to-top" href="#"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-arrow-up-s-line"></use></svg><svg class="progress-circle-container" viewBox="0 0 100 100"><circle class="progress-circle" id="progressCircle" cx="50" cy="50" r="48" fill="none" stroke="#7ccbab" stroke-width="2" stroke-linecap="round"></circle></svg></a><a class="popup-trigger hty-icon-button icon-search" id="search" href="javascript:;" title="Search"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-search-line"></use></svg></span></a><script>window.addEventListener("DOMContentLoaded", () => {
+  // Handle and trigger popup window
+  document.querySelector(".popup-trigger").addEventListener("click", () => {
+    document.querySelector(".popup").classList.add("show");
+    setTimeout(() => {
+      document.querySelector(".search-input").focus();
+    }, 100);
+  });
+
+  // Monitor main search box
+  const onPopupClose = () => {
+    document.querySelector(".popup").classList.remove("show");
+  };
+
+  document.querySelector(".popup-btn-close").addEventListener("click", () => {
+    onPopupClose();
+  });
+
+  window.addEventListener("keyup", event => {
+    if (event.key === "Escape") {
+      onPopupClose();
+    }
+  });
+});
+</script><script src="/js/search/local-search.js" defer></script><div class="popup search-popup"><div class="search-header"><span class="popup-btn-close close-icon hty-icon-button"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-close-line"></use></svg></span></div><div class="search-input-container"><input class="search-input" id="local-search-input" type="text" placeholder="What is in your mind?" value=""></div><div id="local-search-result"></div></div><script>const date = new Date();
+const today = (date.getMonth() + 1) + "-" + date.getDate()
+const mourn_days = ["4-4"]
+if (mourn_days.includes(today)) {
+  document.documentElement.style.filter = "grayscale(1)";
+}</script></div><!-- hexo injector body_end start --><script src="https://cdn.jsdelivr.net/npm/hexo-tag-common@latest/js/index.js"></script><!-- hexo injector body_end end --></body></html>

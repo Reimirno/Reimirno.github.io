@@ -1,0 +1,1654 @@
+<!DOCTYPE html><html lang="en"><head><!-- hexo injector head_begin start --><link href="https://cdn.jsdelivr.net/npm/hexo-tag-common@latest/css/index.css" rel="stylesheet"/><!-- hexo injector head_begin end --><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="theme-color" content="#7ccbab"><meta name="author" content="Long Yu"><meta name="copyright" content="Long Yu"><meta name="generator" content="Hexo 5.4.0"><meta name="theme" content="hexo-theme-yun"><title>My Notes on Python - Phase 1 | Long Yu's Space</title><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@900&amp;display=swap" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/star-markdown-css@0.1.25/dist/yun/yun-markdown.min.css"><script src="//at.alicdn.com/t/font_1140697_dxory92pb0h.js" async></script><script src="https://cdn.jsdelivr.net/npm/scrollreveal/dist/scrollreveal.min.js" defer></script><script>document.addEventListener("DOMContentLoaded", () => {
+  [".post-card",".post-content img"].forEach((target)=> {
+    ScrollReveal().reveal(target);
+  })
+});
+</script><link id="light-prism-css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@latest/themes/prism.css" media="(prefers-color-scheme: light)"><link id="dark-prism-css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@latest/themes/prism-tomorrow.css" media="(prefers-color-scheme: dark)"><link rel="icon" href="/favicon.ico"><link rel="mask-icon" href="/favicon.ico" color="#7ccbab"><link rel="alternate icon" href="/yun.ico"><link rel="preload" href="/css/hexo-theme-yun.css" as="style"><link rel="preload" href="/js/utils.js" as="script"><link rel="preload" href="/js/hexo-theme-yun.js" as="script"><link rel="prefetch" href="/js/sidebar.js" as="script"><link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin><script id="yun-config">
+    const Yun = window.Yun || {};
+    window.CONFIG = {"hostname":"reimirno.github.io","root":"/","title":["Long","Yu's","Space"],"version":"1.6.2","mode":"time","copycode":true,"page":{"isPost":true},"i18n":{"placeholder":"What is in your mind?","empty":"We didn't find any results for the search: ${query}.","hits":"${hits} results found","hits_time":"${hits} results found in ${time} ms"},"anonymous_image":"https://cdn.jsdelivr.net/gh/YunYouJun/cdn/img/avatar/none.jpg","local_search":{"path":"/search.xml"},"fireworks":{"colors":["124, 203, 171","83, 161, 122","26, 77, 207","20, 115, 239"]}};
+  </script><link rel="stylesheet" href="/css/hexo-theme-yun.css"><script src="/js/utils.js"></script><script src="/js/hexo-theme-yun.js"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css"><link rel="stylesheet" href="/css/admonition.css"><link rel="stylesheet" href="/css/iconstyle.css"><meta name="description" content="I take notes here as I learn Python (Phase 1).">
+<meta property="og:type" content="article">
+<meta property="og:title" content="My Notes on Python - Phase 1">
+<meta property="og:url" content="https://reimirno.github.io/2021/08/12/Python-Collections/index.html">
+<meta property="og:site_name" content="Long Yu&#39;s Space">
+<meta property="og:description" content="I take notes here as I learn Python (Phase 1).">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-08-12T00:29:28.000Z">
+<meta property="article:modified_time" content="2021-12-09T23:15:02.791Z">
+<meta property="article:author" content="Long Yu">
+<meta property="article:tag" content="Python">
+<meta name="twitter:card" content="summary"><script src="/js/ui/mode.js"></script></head><body><script defer src="https://cdn.jsdelivr.net/npm/animejs@latest"></script><script defer src="/js/ui/fireworks.js"></script><canvas class="fireworks"></canvas><div class="container"><a class="sidebar-toggle hty-icon-button" id="menu-btn"><div class="hamburger hamburger--spin" type="button"><span class="hamburger-box"><span class="hamburger-inner"></span></span></div></a><div class="sidebar-toggle sidebar-overlay"></div><aside class="sidebar"><script src="/js/sidebar.js"></script><ul class="sidebar-nav"><li class="sidebar-nav-item sidebar-nav-toc hty-icon-button sidebar-nav-active" data-target="post-toc-wrap" title="Table of Contents"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-list-ordered"></use></svg></li><li class="sidebar-nav-item sidebar-nav-overview hty-icon-button" data-target="site-overview-wrap" title="Overview"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-passport-line"></use></svg></li></ul><div class="sidebar-panel" id="site-overview-wrap"><div class="site-info fix-top"><a class="site-author-avatar" href="/about/" title="Long Yu"><img width="96" loading="lazy" src="/images/avatar.jpg" alt="Long Yu"><span class="site-author-status" title="Give me the least, if not the one!">🥰</span></a><div class="site-author-name"><a href="/about/">Long Yu</a></div><a class="site-name" href="/about/site.html">Long Yu's Space</a><sub class="site-subtitle">Where All is Well</sub><div class="site-desciption">How's a day in Gensokyo like?</div></div><nav class="site-state"><a class="site-state-item hty-icon-button icon-home" href="/" title="Home"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-home-4-line"></use></svg></span></a><div class="site-state-item"><a href="/archives/" title="Archives"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-archive-line"></use></svg></span><span class="site-state-item-count">39</span></a></div><div class="site-state-item"><a href="/categories/" title="Categories"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-folder-2-line"></use></svg></span><span class="site-state-item-count">9</span></a></div><div class="site-state-item"><a href="/tags/" title="Tags"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-price-tag-3-line"></use></svg></span><span class="site-state-item-count">36</span></a></div><a class="site-state-item hty-icon-button" href="/random.html" title="Random Page"><span class="site-state-item-icon"><i class="ri-gift-line ri-xl"></i></span></a></nav><hr style="margin-bottom:0.5rem"><div class="links-of-author"><a class="links-of-author-item hty-icon-button" rel="noopener" href="http://wpa.qq.com/msgrd?v=3&amp;uin=1072625448&amp;site=qq&amp;menu=yes" title="QQ" target="_blank" style="color:#12B7F5"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-qq-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="/images/wechatQR.jpg" title="Wechat" target="_blank" style="color:#1AAD19"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-wechat-2-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="mailto:johnsonlongyu@gmail.com?subject=Directed%20from%20Blog%20-%20Subject%3A%20" title="E-Mail" target="_blank" style="color:#e28743"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-mail-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://github.com/Reimirno" title="GitHub" target="_blank" style="color:#6e5494"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-github-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://www.linkedin.com/in/yu-long/" title="LinkedIn" target="_blank" style="color:#0077b5"><i class="ri-linkedin-box-line ri-xl"></i></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://music.163.com/#/user/home?id=296076115" title="Netease Music" target="_blank" style="color:#C20C0C"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-netease-cloud-music-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://space.bilibili.com/436096130" title="Bilibili" target="_blank" style="color:#FF8EB3"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-bilibili-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://www.douban.com/people/169714437/" title="Douban" target="_blank" style="color:#007722"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-douban-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://twitter.com/Johnsonlongyu" title="Twitter" target="_blank" style="color:#1da1f2"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-twitter-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://www.facebook.com/profile.php?id=100014142698530" title="Facebook" target="_blank" style="color:#4267B2"><i class="ri-facebook-box-line ri-xl"></i></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://www.instagram.com/reimirno/" title="Instagram" target="_blank" style="color:#c52262"><i class="ri-instagram-line ri-xl"></i></a></div><hr style="margin:0.5rem 1rem"><div class="links"><a class="links-item hty-icon-button" href="/compass/" title="Compass" style="color:#eb664b"><i class="ri-compass-line ri-xl"></i></a><a class="links-item hty-icon-button" href="/resume/" title="Resume" style="color:#7ef578"><i class="ri-profile-line ri-xl"></i></a><a class="links-item hty-icon-button" href="/works/" title="Works" style="color:#dc7aff"><i class="ri-briefcase-line ri-xl"></i></a><a class="links-item hty-icon-button" href="/links/" title="Friends" style="color:#78acff"><i class="ri-links-line ri-xl"></i></a><a class="links-item hty-icon-button" href="/helps/" title="Help" style="color:#ffcf40"><i class="ri-question-line ri-xl"></i></a></div><br><a class="links-item hty-icon-button" id="toggle-mode-btn" href="javascript:;" title="Mode" style="color: #f1cb64"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-contrast-2-line"></use></svg></a></div><div class="sidebar-panel sidebar-panel-active" id="post-toc-wrap"><div class="post-toc"><div class="post-toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Start-Python"><span class="toc-number">1.</span> <span class="toc-text">Start Python</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Behind-the-Hood"><span class="toc-number">2.</span> <span class="toc-text">Behind the Hood</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Style"><span class="toc-number">3.</span> <span class="toc-text">Style</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Naming"><span class="toc-number">3.1.</span> <span class="toc-text">Naming</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Imports"><span class="toc-number">3.2.</span> <span class="toc-text">Imports</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Line-Break"><span class="toc-number">3.3.</span> <span class="toc-text">Line Break</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#White-Spaces"><span class="toc-number">3.4.</span> <span class="toc-text">White Spaces</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Line-Indentation"><span class="toc-number">3.5.</span> <span class="toc-text">Line, Indentation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Comments-Docstring-Doctest"><span class="toc-number">3.6.</span> <span class="toc-text">Comments, Docstring, Doctest</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Data-Types"><span class="toc-number">4.</span> <span class="toc-text">Data Types</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Numericals-Booleans"><span class="toc-number">4.1.</span> <span class="toc-text">Numericals, Booleans</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Strings"><span class="toc-number">4.2.</span> <span class="toc-text">Strings</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Related-Built-in-functions"><span class="toc-number">4.3.</span> <span class="toc-text">Related Built-in functions</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Basic-Syntax"><span class="toc-number">5.</span> <span class="toc-text">Basic Syntax</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Quick-facts"><span class="toc-number">5.1.</span> <span class="toc-text">Quick facts</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Flow-Control"><span class="toc-number">5.2.</span> <span class="toc-text">Flow Control</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Define-a-function"><span class="toc-number">5.3.</span> <span class="toc-text">Define a function</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Define-a-Class"><span class="toc-number">5.4.</span> <span class="toc-text">Define a Class</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Iterator-Generator"><span class="toc-number">5.5.</span> <span class="toc-text">Iterator&#x2F;Generator</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Code-Structure"><span class="toc-number">5.6.</span> <span class="toc-text">Code Structure</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Sequences"><span class="toc-number">6.</span> <span class="toc-text">Sequences</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Sequences-in-general"><span class="toc-number">6.1.</span> <span class="toc-text">Sequences in general</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#List"><span class="toc-number">6.2.</span> <span class="toc-text">List</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Set"><span class="toc-number">6.3.</span> <span class="toc-text">Set</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Tuple"><span class="toc-number">6.4.</span> <span class="toc-text">Tuple</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Dictionary"><span class="toc-number">6.5.</span> <span class="toc-text">Dictionary</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#IO"><span class="toc-number">7.</span> <span class="toc-text">IO</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Error-Testing"><span class="toc-number">8.</span> <span class="toc-text">Error, Testing</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Exception"><span class="toc-number">8.1.</span> <span class="toc-text">Exception</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Assertion"><span class="toc-number">8.2.</span> <span class="toc-text">Assertion</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Run-Doctest"><span class="toc-number">8.3.</span> <span class="toc-text">Run Doctest</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Testing-in-Practice"><span class="toc-number">8.4.</span> <span class="toc-text">Testing in Practice</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Other-Built-in-Modules"><span class="toc-number">9.</span> <span class="toc-text">Other Built-in Modules</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#operator"><span class="toc-number">9.1.</span> <span class="toc-text">operator</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#sys"><span class="toc-number">9.2.</span> <span class="toc-text">sys</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#os-and-os-path"><span class="toc-number">9.3.</span> <span class="toc-text">os and os.path</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reference"><span class="toc-number">10.</span> <span class="toc-text">Reference</span></a></li></ol></div></div></div></aside><main class="sidebar-translate" id="content"><div id="post"><article class="hty-card post-block" itemscope itemtype="https://schema.org/Article"><link itemprop="mainEntityOfPage" href="https://reimirno.github.io/2021/08/12/Python-Collections/"><span hidden itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="Long Yu"><meta itemprop="description"></span><span hidden itemprop="publisher" itemscope itemtype="https://schema.org/Organization"><meta itemprop="name" content="Long Yu's Space"></span><header class="post-header"><h1 class="post-title" itemprop="name headline">My Notes on Python - Phase 1</h1><div class="post-meta"><div class="post-time" style="display:block"><span class="post-meta-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-calendar-line"></use></svg></span> <time title="Created: 2021-08-12 00:29:28" itemprop="dateCreated datePublished" datetime="2021-08-12T00:29:28+00:00">2021-08-12</time><span class="post-meta-divider">-</span><span class="post-meta-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-calendar-2-line"></use></svg></span> <time title="Modified: 2021-12-09 23:15:02" itemprop="dateModified" datetime="2021-12-09T23:15:02+00:00">2021-12-09</time></div><span class="post-count"><span class="post-symbolcount"><span class="post-meta-item-icon" title="Word count in article"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-file-word-line"></use></svg></span> <span title="Word count in article">11.5k</span><span class="post-meta-divider">-</span><span class="post-meta-item-icon" title="Reading time"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-timer-line"></use></svg></span> <span title="Reading time">71m</span></span></span><span class="post-busuanzi"><span class="post-meta-divider">-</span><span class="post-meta-item-icon" title="Views"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-eye-line"></use></svg> <span id="busuanzi_value_page_pv"></span></span></span><div class="post-classify"><span class="post-category"> <span class="post-meta-item-icon" style="margin-right:3px;"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-folder-line"></use></svg></span><span itemprop="about" itemscope itemtype="https://schema.org/Thing"><a class="category-item" href="/categories/Technical/" style="--text-color:var(--hty-text-color)" itemprop="url" rel="index"><span itemprop="text">Technical</span></a></span> > <span itemprop="about" itemscope itemtype="https://schema.org/Thing"><a class="category-item" href="/categories/Technical/Notes/" style="--text-color:var(--hty-text-color)" itemprop="url" rel="index"><span itemprop="text">Notes</span></a></span></span><span class="post-tag"><span class="post-meta-divider">-</span><a class="tag-item" href="/tags/Python/" style="--text-color:#3776ab"><span class="post-meta-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-price-tag-3-line"></use></svg></span><span class="tag-name">Python</span></a></span></div></div></header><section class="post-body" itemprop="articleBody"><div class="post-content markdown-body" style="--smc-primary:#7ccbab;"><link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>I take notes here as I learn Python (Phase 1).</p>
+<span id="more"></span>
+
+<p>!!! warning Fragmented Content<br>This post content may appear fragmented or disjointed for I only noted down things I think I need to look at a second time. Therefore, this post is primarily meant for personal consumption.</p>
+<h2 id="Start-Python"><a href="#Start-Python" class="headerlink" title="Start Python"></a>Start Python</h2><ul>
+<li>Type <code>python.exe</code> to start Python interpreter, which turns the current terminal into a Python terminal.<ul>
+<li><code>start python.exe</code> to open a Python terminal it in a new window. For method of starting exe, check <a href="/2021/08/05/Common-CMD-Commands/" title="my other post on CMD Commands">my other post on CMD Commands</a>.</li>
+<li>If <code>python.exe</code> does not work and PATH is correct, <a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/40914108/bash-python3-command-not-found-windows-discord-py">try <code>py</code>, <code>python</code>, <code>python3</code></a>.</li>
+<li>Use <code>-O</code> or <code>-OO</code> switches on the Python command to reduce the size of a compiled module. The <code>-O</code> switch removes <code>assert</code> statements, the <code>-OO</code> switch removes both <code>assert</code> statements and <code>__doc__</code> strings.</li>
+</ul>
+</li>
+<li>Type an end-of-file character (Ctrl-Z on Windows) or <code>quit()</code> at the primary prompt causes the interpreter to exit with a zero exit status.</li>
+<li>Run a Python command after starting an interpreter by <code>python -c command [arg] ...</code></li>
+<li>Run any source code file with <code>python &lt;file-name.py&gt;</code>; Yes, run directly from the source code.<ul>
+<li>Use <code>-i</code> to run the script and after that open an interactive shell, which is usually what we want. That is, <code>python -i &lt;file-name.py&gt;</code>.</li>
+<li>Use <code>-v</code> to show how <code>doctest</code> are run verbosely, which is usually what we want. That is <code>python -m doctest -v &lt;file-name.py&gt;</code>. (They will run automatically and silently. Usually, if nothing shows up, all tests are passed.)</li>
+<li>Python is an interpreted language. For difference between compiler and interpreted languages, see <a target="_blank" rel="noopener" href="https://www.bbc.co.uk/bitesize/guides/zgmpr82/revision/2">here</a>.</li>
+</ul>
+</li>
+<li>By default, Python source files are treated as encoded in UTF-8. The standard library only uses ASCII characters for identifiers.<ul>
+<li>That means you can choose to use characters beyond ASCII - but do not do that! It is a convention that any identifiers should use ASCII characters.</li>
+<li>Change the encoding method by adding this as the first line of the source code file: <code># -*- coding: xxx -*-</code>. (UNIX “shebang” line should come even before that, if any)</li>
+</ul>
+</li>
+</ul>
+<pre class="language-py" data-language="py"><code class="language-py"># This works fine - but not recommended.
+# Use ASCII only.
+にほんご &#x3D; 0
+我的数组 &#x3D; [&#39;एक&#39;,にほんご,4.99,(&quot;σ&quot;,&quot;α&quot;)]
+for вещь in 我的数组: print(вещь)</code></pre>
+
+<ul>
+<li>Besides the <code>print</code> calls, the Interactive Shell always prints the <strong>final</strong> returned value of each expression (not including evaluated results halfway; If the final returned value is a string, enclose them in quotes). If that value is <code>None</code> then nothing showed - but if you <code>print(None)</code> then a <code>None</code> is printed.</li>
+</ul>
+<h2 id="Behind-the-Hood"><a href="#Behind-the-Hood" class="headerlink" title="Behind the Hood"></a>Behind the Hood</h2><ul>
+<li>Python evaluates a call expression with three steps:<ul>
+<li>Evaluate the operator (operator are also expression that needs evaluation)</li>
+<li>Evaluate the operands (left to right)</li>
+<li>Apply the operator (a function) to the evaluated operands (arguments)</li>
+</ul>
+</li>
+</ul>
+<pre class="language-py" data-language="py"><code class="language-py">add(add(6, mul(4,6)), mul(3,5))
+- add(add(6,24),mul(3,5))
+- add(30,mul(3,5))
+- add(30,15)
+- 45</code></pre>
+
+<ul>
+<li><p>Python evaluates an assignment statement with two steps:</p>
+<ul>
+<li>Evaluate the expression at RHS and get its value</li>
+<li>Check to see if the variable name at LHS currently exists in the current frame.<ul>
+<li>If it does, then do re-bind the variable to the new value.</li>
+<li>Otherwise, create a new variable in this frame, and set it to the given value.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Python interprets a function call in three steps:</p>
+<ul>
+<li>Create a new frame(local frame) in the environment</li>
+<li>Bind the argument passed in to the parameters’ names, which live on the new frame</li>
+<li>Execute the body of the function, in the new frame</li>
+</ul>
+</li>
+<li><p>Python handles a for loop:</p>
+</li>
+</ul>
+<pre class="language-py" data-language="py"><code class="language-py">for &lt;name&gt; in &lt;expression&gt;:
+  &lt;suite&gt;</code></pre>
+
+<ul>
+<li><p>Evaluate <code>&lt;expression&gt;</code>, which must returns a iterable value.</p>
+</li>
+<li><p>For each element in that iterable, do:</p>
+<ul>
+<li>Bind <code>&lt;name&gt;</code> to that element in the current frame (no new frame!)</li>
+<li>Run <code>&lt;suite&gt;</code></li>
+</ul>
+</li>
+<li><p>Scope</p>
+<ul>
+<li><p>A function is always evaluated in the same environment it was <strong>defined</strong> in, not where it is <strong>called</strong>.</p>
+<ul>
+<li>The function remembers the original frame it was defined in.</li>
+<li>Upon running and encountering a name, Python searches in the local frame first, and if not found it goes to search the parent frame. The parent frame is the frame it is defined but not where it is called.<ul>
+<li>In other words, it searches names in the current environment. An environment is a sequence of frame, starting from the local frame propagating up along its parent frame chain, all the way up to the global frame.</li>
+</ul>
+</li>
+<li>In terms of nested function definitions, this evaluation method allows the inner functions to see variables defined by the enclosing function.</li>
+</ul>
+<pre class="language-py" data-language="py"><code class="language-py">x &#x3D; 10
+
+def f1():
+  x &#x3D; 5
+  f2()
+def f2():
+  print(x)
+def f3():
+  x &#x3D; 5
+  def f4():
+    print(x)
+    f2()
+
+f1() # 10
+f3() # 5</code></pre>
+
+<ul>
+<li><code>global</code>: access/create global variables (or even functions, classes or other objects) in a local context.</li>
+<li><code>nonlocal</code>: access/create a variable of local scope from inside a nested function.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<pre class="language-py" data-language="py"><code class="language-py"># global
+x &#x3D; 50
+z &#x3D; 50
+def bar():
+  global x,y
+  x &#x3D; 10
+  y &#x3D; 10
+  z &#x3D; 10
+  return (x,y,z)
+x1,y1,z1 &#x3D; bar()
+print(x1,y1,z1) #10 10 10
+print(x,y,z)    #10 10 50
+
+# non-local
+def some_fun():
+  my_var1 &#x3D; 10
+  my_var2 &#x3D; 20
+  def some_nested_fun():
+    nonlocal my_var2
+    my_var1 &#x3D; 30
+    my_var2 &#x3D; 40
+  print(my_var1, my_var2) # 10, 40</code></pre>
+
+<ul>
+<li>Python searches for identifier in this order:<ul>
+<li>Search in the local frame, and if not found</li>
+<li>Search in the parent frame, and if not found, search a higher level parent frame</li>
+<li>Until Python reaches the global frame. If the identifier is still not found, throw <code>NameError</code>.</li>
+</ul>
+</li>
+</ul>
+<h2 id="Style"><a href="#Style" class="headerlink" title="Style"></a>Style</h2><h3 id="Naming"><a href="#Naming" class="headerlink" title="Naming"></a>Naming</h3><ul>
+<li>Variables and functions are named with all lowercase letters, separated with underscores <code>_</code>. (<code>name</code>, <code>test</code>, <code>do_this</code>).<ul>
+<li>Lead one underscore for internal methods and instance variables (<code>_my_protected_method</code>).</li>
+<li>Lead one underscore for private methods variables (<code>__my_private_method</code>).</li>
+</ul>
+</li>
+<li>Functions that perform comparisons and return boolean values typically begin with is, not followed by an underscore (<code>isfinite</code>, <code>isdigit</code>, <code>isinstance</code>).</li>
+<li>Class and Error names should normally use the CapWords convention. (<code>MyClass</code>, <code>Error</code>)</li>
+<li>Module names should be all lowercase, without underscores. (<code>mymath.py</code>)</li>
+</ul>
+<h3 id="Imports"><a href="#Imports" class="headerlink" title="Imports"></a>Imports</h3><ul>
+<li><code>import</code> statement should be at the front of the file, just behind any module comment and docstring, and before module globals and constants.</li>
+<li>Separate different module on different lines.</li>
+<li>Keep names in the same module at the same line.</li>
+</ul>
+<pre class="language-py" data-language="py"><code class="language-py">import sys
+import os
+from types import StringType, ListType</code></pre>
+
+<ul>
+<li>Order imported module declaration using this order, and separate each with a blank line.<ul>
+<li>Standard lib imports</li>
+<li>Related major package imports</li>
+<li>Application-specific imports</li>
+</ul>
+</li>
+</ul>
+<h3 id="Line-Break"><a href="#Line-Break" class="headerlink" title="Line Break"></a>Line Break</h3><ul>
+<li>One line break:<ul>
+<li>Separate functions in a class</li>
+<li>Separate logical sections in a function (rarely)</li>
+</ul>
+</li>
+<li>Two line breaks<ul>
+<li>Separate groups of related functions</li>
+</ul>
+</li>
+<li>No line breaks:<ul>
+<li>Between a bunch of related one-liners.</li>
+<li>Between a bunch of c</li>
+</ul>
+</li>
+</ul>
+<h3 id="White-Spaces"><a href="#White-Spaces" class="headerlink" title="White Spaces"></a>White Spaces</h3><ul>
+<li>Yes:<ul>
+<li>After commas, semicolons or colons</li>
+<li>Around an arithmetic/boolean/comparison or assignment operator (<code>+</code>, <code>=</code>, <code>&lt;</code>, <code>and</code>, <code>not</code>, <code>:=</code>)</li>
+</ul>
+</li>
+<li>No:<ul>
+<li>Before commas, semicolons or colons</li>
+<li>Inside parentheses, brackets or braces</li>
+<li>Do not surround <code>=</code> with white space when it is indicating keyword arguments or default parameter values.</li>
+</ul>
+</li>
+</ul>
+<h3 id="Line-Indentation"><a href="#Line-Indentation" class="headerlink" title="Line, Indentation"></a>Line, Indentation</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/1125653/python-using-4-spaces-for-indentation-why">4 spaces, or 2 spaces, or Tab?</a></li>
+<li>Max 72 characters (never exceed 79 characters) for one line.<ul>
+<li>Use line break <code>\</code>.</li>
+</ul>
+</li>
+<li>No two expression on the same line</li>
+</ul>
+<h3 id="Comments-Docstring-Doctest"><a href="#Comments-Docstring-Doctest" class="headerlink" title="Comments, Docstring, Doctest"></a>Comments, Docstring, Doctest</h3><ul>
+<li>Block comments<ul>
+<li>Should start with <code># </code> (# and a space).</li>
+<li>Have the same indentation level.</li>
+<li>Paragraphing is allowed in block comments. (Just put a <code>#</code> without other stuff for a line.)</li>
+<li>Surround block comments by a blank line above and below.</li>
+</ul>
+</li>
+<li>In-line comments<ul>
+<li>Should start with <code># </code> (# and a space).</li>
+<li>Should be separated by at least two spaces from the statement they apply to.</li>
+</ul>
+</li>
+<li>Docstring<ul>
+<li>Write docstrings for all public modules, functions, classes, and methods.</li>
+<li>Docstring is not necessary for non-public methods, but you should have a comment that describes what the method does. This comment should appear after the “def” line.</li>
+</ul>
+</li>
+<li>One-line Docstring:<ul>
+<li>The opening and closing “”” are on the same line.</li>
+<li>There is no blank line either before or after the docstring.</li>
+<li>Describes the function or method’s effect as a command (“Do this”, “Return that”), not as a description.</li>
+</ul>
+</li>
+<li>Multi-line Docstring:<ul>
+<li>The <code>&quot;&quot;&quot;</code> that ends a multiline docstring should be on a line by itself.</li>
+<li>Script: The docstring for a script should be usable as its “usage” message. It should document the script’s function, the command line syntax, and the environment variables.</li>
+<li>Module: The docstring for a module should generally list the classes, exceptions and functions (and any other objects) that are exported by the module, with a one-line summary of each.</li>
+<li>Class:<ul>
+<li>The docstring for a class should summarize its behavior and list the public methods and instance variables.</li>
+<li>If the class is intended to be subclassed, and has an additional interface for subclasses, this interface should be listed separately.</li>
+<li>If a class subclasses another class and its behavior is mostly inherited from that class, its docstring should mention this and summarize the differences.</li>
+<li>The class constructor should be documented in the docstring for its <code>__init__</code> method.</li>
+<li>Insert a blank line before and after any docstring that document a class.</li>
+</ul>
+</li>
+<li>Function or method:<ul>
+<li>The docstring should summarizes its behavior and document its arguments, return value, side effects, exceptions raised, and restrictions on when it can be called.</li>
+<li>Optional arguments should be indicated.</li>
+<li>Use the verb “override” to indicate that a subclass method replaces a superclass method and does not call the superclass method; use the verb “extend” to indicate that a subclass method calls the superclass method.</li>
+<li>The docstring should contain a summary line, followed by a blank line, followed by a more elaborate description.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="Data-Types"><a href="#Data-Types" class="headerlink" title="Data Types"></a>Data Types</h2><h3 id="Numericals-Booleans"><a href="#Numericals-Booleans" class="headerlink" title="Numericals, Booleans"></a>Numericals, Booleans</h3><ul>
+<li>Quick facts<ul>
+<li>Python does not have <code>double</code> or <code>char</code>. The <code>float</code> is in double precision.</li>
+<li><code>/</code> division returns a float; <code>//</code> floor division returns an integer. Use the <code>**</code> operator to calculate powers.</li>
+<li>In interactive mode, the last printed expression is assigned to the variable <code>_</code>.</li>
+<li>Boolean literals are <code>True</code> and <code>False</code> (instead of <code>true</code> <code>false</code>).</li>
+<li>Logical operations are <code>and</code> <code>or</code> and <code>not</code> instead of <code>&amp;&amp;</code> <code>||</code> and <code>!</code> - BUT ‘does not equal to’ is still <code>!=</code>.</li>
+<li><code>and</code> and <code>or</code> does not return <code>True</code> or <code>False</code>; it returns the first operand that determines the result; <code>not</code>, however, always returns a boolean value.</li>
+<li>Any object can be tested for truth value (put as an <code>if</code> condition). The following are considered <code>False</code>: <code>None</code>, any numerical zero, any empty sequence/mapping (<code>&quot;&quot;,[]</code>etc), and any instances of user-defined class when <code>__len__()</code> is defined and returns <code>0</code> (integer), or when <code>__nonzero__()</code> is defined and returns <code>False</code>. Any other values are true.</li>
+<li>Bitwise operators are still <code>&amp;</code> <code>|</code> <code>~</code> and <code>^</code>.</li>
+<li>Use <code>**</code> for exponents instead of <code>^</code>.</li>
+<li>No <code>char</code> or <code>long</code>.</li>
+<li>Use <code>#</code> to lead a line comment, triple quotes to surround a multi-line comment.</li>
+<li>Chain comparison operators like this: <code>1&lt;x&lt;5&lt;x**2</code></li>
+<li>Ternary (<code>exp ? a : b</code> in many other languages) is <code>a if exp else b</code> in Python.</li>
+<li>Conversion can be done easily: <code>float(&#39;12&#39;)</code>,<code>bool([])</code>,<code>str(12312)</code> etc.</li>
+<li>All numerical types support <code>max()</code>,<code>min()</code>,<code>abs()</code>,<code>round()</code> and <code>pow()</code>. For <code>sqrt()</code>, you have to import <code>math</code>.</li>
+<li>The <code>operator</code> module has functions that corresponds to an operator.(e.g. <code>add</code> <code>mul</code> <code>truediv</code> <code>floordiv</code>); <code>pow</code> is the only one already available.</li>
+<li>Use <code>bin()</code> to get bit-string for numbers. For example, <code>bin(3)</code> returns <code>&#39;0b11&#39;</code></li>
+</ul>
+</li>
+<li>Complex: Python support natively <code>complex</code> type.</li>
+</ul>
+<pre class="language-py" data-language="py"><code class="language-py">my_complex &#x3D; 4.22 + 20j
+my_complex &#x3D; complex(4.22, 20)</code></pre>
+
+<ul>
+<li>Fraction: Python has a library from fractions.</li>
+</ul>
+<pre class="language-py" data-language="py"><code class="language-py">from fractions import Fraction
+half &#x3D; Fraction(1,2)</code></pre>
+
+<h3 id="Strings"><a href="#Strings" class="headerlink" title="Strings"></a>Strings</h3><ul>
+<li>String supports slicing, <code>+</code>, <code>*</code>, and membership test. Two or more string literals (not variables or expressions) next to each other are automatically concatenated.</li>
+</ul>
+<pre class="language-py" data-language="py"><code class="language-py">p &#x3D; &#39;Py&#39; &#39;thon&#39;
+print(p) # Python
+print(p + p) #PythonPython
+print(p * 3) #PythonPythonPython
+longstr &#x3D; (&#39;Put several strings within parentheses &#39;
+         &#39;to have them joined together.&#39;)
+print(&quot;234&quot; in &quot;12345&quot;) #True</code></pre>
+
+<ul>
+<li>String supports indexing and slicing. Attempting to use an index that is too large will result in an error, but out of range slice indexes are handled gracefully (with modulo operation) when used for slicing.<ul>
+<li>There is no <code>char</code>. Indexer returns a string.</li>
+</ul>
+</li>
+<li>Use <code>r</code> to lead non-escaped raw string literals (like <code>@</code> in C#, e.g., <code>r&#39;New lines are marked by \n&#39;</code>).</li>
+<li>Use <code>u</code> to lead a Unicode string literal (e.g., <code>u&#39;Hello\u0020World !&#39;</code> is <code>Hello World !</code>).</li>
+<li>Use <code>&quot;&quot;&quot; &quot;&quot;&quot;</code> (or <code>&#39;&#39;&#39; &#39;&#39;&#39;</code>) to surround a string that spans multiple lines.</li>
+<li>Strings are immutable; all methods that seem to modify string do not actually modify the original strings but return a new string.</li>
+<li><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/2220699/whats-the-difference-between-eval-exec-and-compile"><code>eval</code> and <code>exec</code></a></li>
+</ul>
+<pre class="language-py" data-language="py"><code class="language-py">myStr &#x3D; &quot;012345abcde_WASD&quot;
+print (myStr.startswith(&#39;01&#39;) and myStr.endswith(&#39;D&#39;)) # prints True
+print (&#39;W&#39; in myStr or &#39;w&#39; not in myStr) # prints True
+
+print (myStr.find(&#39;a&#39;)) # prints 6;
+# the find() method can take in two optional arguments for start and end index to search
+# same as Java&#x2F;C# IndexOf; returns -1 if not found
+# there is also a index() method which behaves the same but throw an error when not found
+
+str2 &#x3D; &quot;this is string example....wow!!! this is really string&quot;
+print str2.replace(&quot;is&quot;, &quot;was&quot;) # thwas was string example....wow!!! thwas was really string
+print str2.replace(&quot;is&quot;, &quot;was&quot;, 3) # thwas was string example....wow!!! thwas is really string
+# the third optional argument limits the number of replacement
+
+delimiter &#x3D; &#39;*-*&#39;
+myList &#x3D; [&#39;Me&#39;,&#39;My&#39;,&#39;I&#39;]
+print(delimiter.join(myList)) # prints Me*-*My*-*I
+
+txt &#x3D; &quot;Google#Taobao#Facebook&quot;
+print(txt.split(&quot;#&quot;)) # [&#39;Google&#39;, &#39;Taobao&#39;, Facebook&#39;]
+print(txt.split(&quot;#&quot;,1)) # [&#39;Google&#39;, &#39;Taobao#Facebook&#39;]
+# the second optional argument limits the number of split
+# for multiple delimiters: import re and use regex
+
+print (&quot;My name is %s and weight is %d kg!&quot; % (&#39;Zara&#39;, 21))
+print (&quot;My name is &#123;0&#125; and weight is &#123;1&#125; kg!&quot;.format(&#39;Zara&#39;, 21))
+# Both prints &quot;My name is Zara and weight is 21 kg!&quot;
+# String literals can be used as variables directly.
+
+print(len(my_string)) # Returns the length of a string
+print(ord(&quot;c&quot;)) # 99 # Returns a Unicode of a character
+print(chr(ord(&quot;c&quot;))) # c # Returns Converted the Unicode to a character</code></pre>
+
+<ul>
+<li><p>String Formatting</p>
+<ul>
+<li><p><a target="_blank" rel="noopener" href="https://docs.python.org/3.9/reference/lexical_analysis.html#f-strings">Formatted string literals(“f-string”)</a>: String literals that have embedded expressions.</p>
+<ul>
+<li>f strings uses <code>str()</code> to evaluate each expression</li>
+</ul>
+<pre class="language-py" data-language="py"><code class="language-py">from fractions import Fraction
+print(f&quot;half &#x3D; &#123;Fraction(1,2)&#125;&quot;)
+# half &#x3D; 1&#x2F;2</code></pre>
+
+<ul>
+<li>expressions are evaluated in current environment</li>
+</ul>
+<pre class="language-py" data-language="py"><code class="language-py">s &#x3D; -3
+x &#x3D; f&quot;abs(s)&#x3D;&#123;abs(s)&#125;&quot;
+print(x) #abs(s)&#x3D;3
+abs &#x3D; float
+print(f&quot;abs(s)&#x3D;&#123;abs(s)&#125;&quot;) #abs(s)&#x3D;-3.0
+print(x) #abs(s)&#x3D;3</code></pre>
+
+<ul>
+<li>Remember this may have side-effects.</li>
+</ul>
+<pre class="language-py" data-language="py"><code class="language-py">s &#x3D; [1,2,3]
+print(f&quot;last element is &#123;s.pop()&#125;&quot;)
+# now s only have two elements left</code></pre></li>
+<li><p><a target="_blank" rel="noopener" href="https://docs.python.org/3.9/library/string.html#formatstrings">Format String Syntax</a>: Information about string formatting with <code>str.format()</code>.</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://docs.python.org/3.9/library/stdtypes.html#old-string-formatting"><code>printf</code>-style String Formatting</a>: The old formatting operations invoked when strings are the left operand of the % operator are described in more detail here.</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://docs.python.org/3.9/library/stdtypes.html#string-methods">Style-making methods</a> (stripping empty spaces, capitalization, justification and padding)</p>
+<ul>
+<li><code>strip()</code>, <code>upper()</code>, <code>lower()</code>, <code>swapcase()</code>. All these return a modified string without changing the original string</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Encoding</p>
+</li>
+</ul>
+<pre class="language-py" data-language="py"><code class="language-py">from unicodedata import name, lookup
+print(name(&#39;A&#39;)) # LATIN CAPITAL LETTER A
+lookup(&#39;WHITE SMILING FACE&#39;) #☺
+print(&#39;A&#39;.encode()) #b&#39;A&#39;
+print(lookup(&#39;BABY&#39;).encode()) #b&#39;\xed\xa0\xbd\xed\xb1\xb6&#39;</code></pre>
+
+<h3 id="Related-Built-in-functions"><a href="#Related-Built-in-functions" class="headerlink" title="Related Built-in functions"></a>Related Built-in functions</h3><pre class="language-py" data-language="py"><code class="language-py"># type() Returns the class_name of an object.
+a &#x3D; &quot;What?&quot;
+print(type(a)) # str
+b &#x3D; 1+1j
+print(type(b)) # complex
+
+# isinstance() Checks if a object is an instance of a particular class. Returns True&#x2F;False.
+a &#x3D; 23
+print(isinstance(a, int)) # True
+print(isinstance(a, float)) # False
+print(isinstance(a, str)) # False
+
+# id() Returns object id (int) of a object.
+my_float &#x3D; 50.0
+# object id wil differ each time with program
+print(id(my_float)) # 1875526208176
+
+# is Keyword
+# &#x3D;&#x3D; tests for value equality. Use it when you would like to know if two objects have the same value.
+## &#x3D;&#x3D; does as what you think it does for strings and lists
+## &#x3D;&#x3D; uses the __eq__() method to compare two objects (if not defined, &#x3D;&#x3D; check memory location equality)
+## implementing __eq__() automatically makes instances of your class unhashable, which means they can&#39;t be stored in sets and dicts.
+# is tests for reference equality. Use it when you would like to know if two references refer to the same object.
+a, b &#x3D; list, list[:]
+print(a &#x3D;&#x3D; b) #True
+print(a is b) #False</code></pre>
+
+<h2 id="Basic-Syntax"><a href="#Basic-Syntax" class="headerlink" title="Basic Syntax"></a>Basic Syntax</h2><h3 id="Quick-facts"><a href="#Quick-facts" class="headerlink" title="Quick facts"></a>Quick facts</h3><ul>
+<li>Python is a dynamically typed (type safety is checked at runtime). Variables are not declared as a certain type but are instead given a value directly.</li>
+<li>Do not need any semicolon at the end of the expression (you can add one if you want); but if multiple expressions are on the same line, separate them with a semicolon (this is a bad practice).</li>
+<li>Multiple assigment at the same time: <code>x, y = y, x + y</code>.<blockquote><p>This order of events – evaluating everything on the right of <code>=</code> before updating any bindings on the left – is essential for correctness…</p>
+<footer><strong>John DeNero, Composing Programs</strong><cite><a target="_blank" rel="noopener" href="http://composingprograms.com/pages/15-control.html">Chapter 1.5 Control</a></cite></footer></blockquote></li>
+<li>De-construct assignment</li>
+</ul>
+<pre class="language-py" data-language="py"><code class="language-py">(a, (b, c)) &#x3D; (1, (2, 3))
+first, *middles, last &#x3D; range(5)
+foo,bar &#x3D; bar,foo</code></pre>
+
+<ul>
+<li>Use <code>\&lt;newline&gt;</code> to split an expression to multiple lines. For example:</li>
+</ul>
+<pre class="language-py" data-language="py"><code class="language-py">i &#x3D; \
+5</code></pre>
+
+<h3 id="Flow-Control"><a href="#Flow-Control" class="headerlink" title="Flow Control"></a>Flow Control</h3><ul>
+<li>Python use indentation instead of <code>&#123;&#125;</code> to mark code blocks. (This is because Python is an interpreter language?)<ul>
+<li>Python doesn’t mind whether you use two spaces or four spaces (or any other number of spaces) as long as you are consistent.</li>
+<li>Inconsistent indentation results in <code>IndentationError: unindent does not match any outer indentation level</code>.</li>
+</ul>
+</li>
+<li><code>if</code> and <code>while</code> use <code>:</code> instead of <code>()</code>.</li>
+<li><code>for</code> iterates over the items of any iterable in the order that they appear in the iterable. (Somewhat like the <code>foreach</code> in C#).<ul>
+<li>Unlike <code>foreach</code>, code that modifies a collection while iterating over that same collection is allowed but error-prone. It is usually more straight-forward to loop over a copy of the collection or to create a new collection.</li>
+</ul>
+</li>
+<li><code>pass</code> is used as a placeholder to empty expression. It is used when a statement is required syntactically but you do not want any command or code to execute. Think of <code>pass</code> as an empty block.</li>
+<li><code>for</code> and <code>while</code> can be followed by an <code>else</code> (the codes in <code>else</code> will be run after the <code>for</code> is finished, unless the program runs into a <code>break</code>).</li>
+</ul>
+<pre class="language-py" data-language="py"><code class="language-py">#if
+if guess &#x3D;&#x3D; number:
+  print(&quot;Yes&quot;)
+elif guess &lt; number:
+  print(&quot;Too small&quot;)
+else:
+  print(&quot;Too large&quot;)
+
+if (guess &#x3D;&#x3D; number): print(&quot;Ok&quot;) # in one line only
+
+# Faster ways to test numbers
+if 3 &lt;&#x3D; x &lt; 9:
+  pass
+if x in tange(3,8):
+  pass
+
+#while
+while True:
+  print(&quot;True&quot;)
+while chunk :&#x3D; fp.read(200): # Assignment expressions using the walrus operator :&#x3D; assign a variable in an expression
+   print(chunk)
+total &#x3D; 0
+while k &lt;&#x3D; n: # Compress the code
+  total, k &#x3D; total + k, k + 1
+
+#for
+for i in range(1,5):
+  print(i) # 1,2,3,4
+for _ in range(1,3): # When index is not important, use _
+  print(&quot;Hi!&quot;)
+for j in reversed(range(1,6,2)):
+  print(j) # 5,3,1
+for num in numbers: # numbers is a tuple or list
+  print(num)
+for i, item in enumerate(iterable): # To access index, use enumerate()
+  print i, item
+for x,y in [[1,2],[4,5],[0,9]]: # Unpack list in for
+  print(x, y)
+# Here is another example:
+questions &#x3D; [&#39;name&#39;, &#39;quest&#39;, &#39;favorite color&#39;]
+answers &#x3D; [&#39;lancelot&#39;, &#39;the holy grail&#39;, &#39;blue&#39;]
+for q, a in zip(questions, answers):#To loop two lists simultaneously, use zip()
+    print(&#39;What is your &#123;0&#125;?  It is &#123;1&#125;.&#39;.format(q, a))
+
+#for and else
+for i in foo:
+    if i &#x3D;&#x3D; 0:
+        break
+else:
+    print(&quot;i was never 0&quot;)
+
+#pass
+if 3 &gt; 5: pass
+else:
+  print(&quot;Why?&quot;)</code></pre>
+
+<h3 id="Define-a-function"><a href="#Define-a-function" class="headerlink" title="Define a function"></a>Define a function</h3><ul>
+<li><p>Return type is not specified at signature; by default <code>return None</code>.</p>
+</li>
+<li><p>Return multiple values by passing out a tuple.</p>
+</li>
+<li><p><strong>Keyword arguments</strong></p>
+<ul>
+<li>Must not be followed by positional arguments (positionally accessed arguments). Never.</li>
+<li>Limit the ways that functions can be called with <code>/</code> and <code>*</code>. This feature cannot be used together with variadic parameters.</li>
+</ul>
+</li>
+</ul>
+<pre class="language-py" data-language="py"><code class="language-py">def standard_arg(arg):
+    print(arg)
+def pos_only_arg(arg, &#x2F;):
+    print(arg)
+def kywd_only_arg(*, arg):
+    print(arg)
+def combined_example(pos_only, &#x2F;, standard, *, kywd_only):
+    print(pos_only, standard, kywd_only)</code></pre>
+
+<ul>
+<li><strong>Parameters with default value</strong><ul>
+<li>Must not be followed by non-default parameters, except variadic positional parameters.</li>
+<li>Mutable default arguments are dangerous!</li>
+</ul>
+</li>
+</ul>
+<pre class="language-py" data-language="py"><code class="language-py">def foo(a, b &#x3D; 1): # b as standard parameter
+  pass
+def foo2(a, *, b &#x3D; 1): # b as keyword-only parameter
+  pass
+def foo3(a, b &#x3D; 1, &#x2F;): # b as positional-only parameter
+  pass
+
+foo(1,2)     # ok
+foo(1,b&#x3D;2)   # ok
+foo2(1,2)    # TypeError: foo2() takes 1 positional argument but 2 were given
+foo2(1,b&#x3D;2)  # ok
+foo3(1,2)    # ok
+foo3(1,b&#x3D;2)  # TypeError: foo3() got some positional-only arguments passed as keyword arguments: &#39;b&#39;
+
+## Mutable default arguments are dangerous!
+def f(s &#x3D; []):
+    s.append(5)
+    return len(s)
+f() # 1
+f() # 2
+f() # 3</code></pre>
+
+<ul>
+<li><strong>Variadic parameter</strong>: use <code>*args</code> or <code>**kwargs</code>.<ul>
+<li>Any formal parameters which occur after the <code>*args</code> parameter are considered ‘keyword-only’ arguments - these arguments have to be passed in by keywords.</li>
+<li>Cannot have more than one <code>*</code> or more than one <code>**</code>.</li>
+<li><code>**kwargs</code> must not be followed by any parameter.</li>
+</ul>
+</li>
+</ul>
+<pre class="language-py" data-language="py"><code class="language-py">def total(a &#x3D; 1, *numbers, **phonebook):
+  print(&#39;a &#x3D; &#123;0&#125;&#39;.format(a))
+total(100,1,2,3,4,Jack&#x3D;123,Mike&#x3D;357,b&#x3D;15) # a &#x3D; 100</code></pre>
+
+<ul>
+<li>Variadic arguments will be last in the list of formal parameters.<ul>
+<li>You cannot have any formal argument following a variadic dictionary argument.</li>
+</ul>
+</li>
+</ul>
+<pre class="language-py" data-language="py"><code class="language-py">def sumPow(*nums,pow&#x3D;2):
+  sum &#x3D; 0
+  for num in nums:
+    sum +&#x3D; num ** pow
+  return sum
+print(sumPow(3,4,5)) #50 &#x3D; 9+16+25
+print(sumPow(3,4,pow&#x3D;5)) #1267 &#x3D;3^5+4^5
+
+def bar(arg, kywd_arg &#x3D; 0, *pos_vari_arg, **kywd_vari_arg):
+  print(arg, kywd_arg, pos_vari_arg, kywd_vari_arg)
+bar(0,1,2,3,4,foo&#x3D;5, test&#x3D;6)
+#0 1 (2, 3, 4) &#123;&#39;foo&#39;: 5, &#39;test&#39;: 6&#125;
+bar(0,1,2,3,4,foo&#x3D;5, test&#x3D;6, default_arg &#x3D; 99)
+#TypeError: bar() got multiple values for argument &#39;default_arg&#39;
+
+def bar2(arg, *vari_arg, default_arg &#x3D; 99, **vari_kwarg):
+  print(arg, default_arg, vari_arg, vari_kwarg)
+bar2(0,1,2,3,4,foo&#x3D;5, test&#x3D;6)
+#0 99 (1, 2, 3, 4) &#123;&#39;foo&#39;: 5, &#39;test&#39;: 6&#125;</code></pre>
+
+<ul>
+<li>De-construct arguments</li>
+</ul>
+<pre class="language-py" data-language="py"><code class="language-py">def showPow(x, y):
+    print(x**y)
+point_foo &#x3D; (3, 4)
+point_bar &#x3D; &#123;&#39;y&#39;: 3, &#39;x&#39;: 2&#125;
+showPow(*point_foo) # 81
+showPow(**point_bar) # 8</code></pre>
+
+<ul>
+<li>Anonymous functions<ul>
+<li>If using Lambda: syntactically restricted to a single expression.</li>
+<li><code>def</code> is a statement, while <code>lambda</code> is an expression. Evaluating a <code>def</code> statement will have a side-effect, namely it creates a new function binding in the current environment. On the other hand, evaluating a <code>lambda</code> expression will not change the environment unless we do something with the function created by the <code>lambda</code>. For instance, we could assign it to a variable or pass it as a function argument (most of the time we actually do those).</li>
+</ul>
+</li>
+</ul>
+<pre class="language-py" data-language="py"><code class="language-py"># Lambda: only a single expression as body (no statement!), and it will return that expression
+cube &#x3D; lambda x: x ** 3
+print(cube(3)) # 125
+print(len)     # &lt;built-in function len&gt;
+print(cube)    # &lt;function &lt;lambda&gt;&gt;
+# It does not have a intrinsic name! &quot;cube&quot; is just a way to refer to this func object
+
+def make_repeater(n):
+    return lambda x: x * n
+twice &#x3D; make_repeater(2)
+print(twice(&#39;word&#39;))
+print(twice(5))</code></pre>
+
+<ul>
+<li>Function Annotations: You can annotate the parameters and return type and access it with the function’s <code>__annotation__</code> field. This is completely optional and has no effect on function’s functionality.</li>
+</ul>
+<pre class="language-py" data-language="py"><code class="language-py">def f(ham: str, eggs: str &#x3D; &#39;eggs&#39;) -&gt; str:
+    return &#39;breakfast!&#39;
+print(f.__annotations__)
+# This prints &#123;&#39;ham&#39;: &lt;class &#39;str&#39;&gt;, &#39;return&#39;: &lt;class &#39;str&#39;&gt;, &#39;eggs&#39;: &lt;class &#39;str&#39;&gt;&#125;</code></pre>
+
+<ul>
+<li>Rebinding functions</li>
+</ul>
+<p>Just define a second function with the same signature below will override the first function/originally imported function. You can also assign value to a already existing function name.</p>
+<pre class="language-py" data-language="py"><code class="language-py">from operator import add
+print(pow(2,3)) # 8
+def pow(x,y):
+    return &quot;H!&quot;
+print(pow(2,3)) # H!
+pow &#x3D; add
+print(pow(2,3)) # 5</code></pre>
+
+<p>Note that functions are also objects. Assignment and identity test are done on a reference level.</p>
+<pre class="language-py" data-language="py"><code class="language-py">f &#x3D; max # both max and f points to the built-in max object
+max &#x3D; min # the built-in max object has its no. of handle -1, because &#39;max&#39; now points to the built-in min object
+print(max(3,4))       # prints 3
+print(f(3,4))         # prints 4
+print(max &#x3D;&#x3D; min)     # prints True
+print(max &#x3D;&#x3D; f)       # prints False (max now references the built-in min object)
+print(min &#x3D;&#x3D; f)       # prints False</code></pre>
+
+<ul>
+<li>Decorator</li>
+</ul>
+<pre class="language-py" data-language="py"><code class="language-py">def trace(fn):
+  def wrapped(x):
+    print(&#39;&#123;&#125; is called on argument &#123;&#125;&#39;.format(fn,x))
+    return fn(x)
+  return wrapped
+
+def cube(x):
+  return x ** 3
+cube &#x3D; trace(cube)
+
+@trace  # This achieves basically the same effect as above
+def square(x):
+  return x * x</code></pre>
+
+<h3 id="Define-a-Class"><a href="#Define-a-Class" class="headerlink" title="Define a Class"></a>Define a Class</h3><ul>
+<li>Constructors work the same way as in C#/Java. If a user-defined constructor is supplied, the parameterless argument will not be added by the compiler.</li>
+<li><code>self</code> in Python is like <code>this</code> in C#/Java. You need a <code>self</code> as the first argument for every class method.</li>
+<li>All variables are public. Inside a class, use “_“ underscore for protected, and “**” double underscore for private (e.g., <code>**name</code>).</li>
+<li>Refer <a target="_blank" rel="noopener" href="https://diveintopython3.net/special-method-names.html">here</a> for special method names.</li>
+</ul>
+<pre class="language-py" data-language="py"><code class="language-py">class Person: # Define a class
+    &quot;&quot;&quot;Represents a person&quot;&quot;&quot;
+    population &#x3D; 0 # Static variable for the class
+    # Variables declared inside the class definition, but not inside a method are class or static variables
+    # Note that you can access this from instance level, too. So print(jack.population) works.
+    # You could have another &quot;population&quot; variable defined in instances as well!!!
+    @classmethod
+    def report_population(cls):
+        return cls.population
+    @staticmethod
+    def report_population_2():
+        return Person.population
+    # Both class method can static method can be called by instance or from class level
+    # The difference is class method takes in the current class as an argument
+    def __init__(self, name, age &#x3D; 18): # Constructor
+        self.name &#x3D; name # Instance variable - no need to declare beforehand
+        self.age &#x3D; age
+        Person.population +&#x3D; 1 # Access the static variable
+        print(name + &#39; joined!&#39;)
+    def sayHi(self): # Any method defined in class should have the first argument: self
+        &quot;&quot;&quot;Give a greeting&quot;&quot;&quot;
+        print(&#39;Hello, I am &#123;0&#125;. How are you?&#39;.format(self.name))
+    def __del__(self): # Destructor; Called when an instance is garbage collected
+        Person.population -&#x3D; 1
+        if Person.population &#x3D;&#x3D; 0:
+            print(&#39;I am the last one.&#39;)
+        else:
+            print(self.name + &#39; left!&#39;,end&#x3D;&quot; &quot;)
+            print(&#39;There are still %d people left.&#39; % Person.population)
+    def __str__ (self):
+        return &#39;I am a simple person named &#39; + self.name
+    # You can overwrite repr() too
+    def __lt__(self,other): # implement &lt; operator
+        return self.name &lt; other.name
+    # The other operators to implement: le, gt, ge, eq, ne, pos, neg, add&#x2F;radd, sub&#x2F;rsub, pow, mod, divmod, mul, and, or, xor, iadd(+&#x3D;), isub(-&#x3D;), lshift, rshift
+    # you can do __radd__ &#x3D; __add__ if the add is commutative
+    def __bool__(self):
+        return self.age &gt;&#x3D; 18
+    # This is invoke when you try to convert a person object to bool.
+    # It is also used when you pass this object into if condition
+    # The other conversion methods can be: float, int
+    def __getitem__(self, key): # indexer
+        return name[key]
+    # you can have a __setitem__(self, key, value), __missing__(nonexistent_key) too
+    def __len__(self) # override len
+        return len(self.name)
+    def __call__(self, k):
+        print(k)
+    # If __call__ is defined, you could use this object like a function. It becomes callable.
+
+Mike &#x3D; Person(&#39;Mike&#39;) # Mike joined!
+Sarah &#x3D; Person(&quot;Sarah&quot;) # Sarah joined!
+Sarah.sayHi() # Hello, I am Sarah. How are you?
+Sarah &#x3D; Mike # Sarah left! There are still 1 people left.
+
+class StudyMixin: # Another class, acts as interface
+    pass
+
+class Student(Person, StudyMixin): # Define a child class that inherits two parents
+    &quot;&quot;&quot;Represents a student; a child class of Person&quot;&quot;&quot;
+    def __init__(self, name, age, sch):
+        super().__init(name, age) # Use super()
+        self.school &#x3D; sch</code></pre>
+
+<ul>
+<li>Documentation Strings<ul>
+<li>Declared using triple quotes just below the class, method declaration, or at the beginning of each source file(module), before the <code>import</code> statements.</li>
+<li>Accessed by <code>__doc__</code> or <code>help()</code>.</li>
+<li>The doc string line should begin with a capital letter and end with a period.</li>
+<li>The first line should be a short description.</li>
+<li>If there are more lines in the documentation string, the second line should be blank; the following lines should be one or more paragraphs describing the object’s calling conventions, its side effects, etc.</li>
+<li>There are various formats to write doc strings. Check <a target="_blank" rel="noopener" href="https://realpython.com/documenting-python-code/#docstring-formats">here</a>.</li>
+<li>The lines that begin with <code>&gt;&gt;&gt;</code> are called doctest. Recall that when using the Python interpreter, you write Python expressions next to <code>&gt;&gt;&gt;</code> and the output is printed below that line. Doctests explain what the function does by showing actual Python code.</li>
+</ul>
+</li>
+</ul>
+<pre class="language-py" data-language="py"><code class="language-py">class SimpleClass:
+    &quot;&quot;&quot;Class docstrings go here.&quot;&quot;&quot;
+
+    def say_hello(self, name: str):
+        &quot;&quot;&quot;Class method docstrings go here.
+
+        This method says hello!
+
+        &gt;&gt;&gt; say_hello(&quot;Mike&quot;)
+        Hello Mike
+        &quot;&quot;&quot;
+
+        print(f&#39;Hello &#123;name&#125;&#39;)
+
+print(demo.__doc__)
+help(demo)</code></pre>
+
+<ul>
+<li>Enum</li>
+</ul>
+<pre class="language-py" data-language="py"><code class="language-py">from enum import Enum
+class Color(Enum):
+    RED &#x3D; 1 #member values can be anything
+    GREEN &#x3D; 2
+    BLUE &#x3D; 3
+    FF0000 &#x3D; 1 #Values can be repeated; they act as aliases
+print(Color(1) &#x3D;&#x3D; Color[&#39;RED&#39;]) # True
+print(Color.RED is Color.RED) #True
+print(Color.RED.name) # RED
+print(Color.RED.value) # 1
+
+print(Color.RED) # this gives Color.RED
+type(Color.RED) # &lt;enum &#39;Color&#39;&gt;
+isinstance(Color.GREEN, Color) # True
+
+for col in Color: print(col) # prints all colors
+
+#Flag enum
+class Perm(IntFlag):
+    R &#x3D; 4
+    W &#x3D; 2
+    X &#x3D; 1
+    RWX &#x3D; 7</code></pre>
+
+<ul>
+<li>Related built-in functions</li>
+</ul>
+<pre class="language-py" data-language="py"><code class="language-py"># string representation
+
+# For most object types, eval(repr(statement)) &#x3D; calling the statement
+# In interactive shell, the result is print(repr(result))
+&gt;&gt;&gt; 12e12
+1200000000000.0
+&gt;&gt;&gt; print(repr(12e12))
+1200000000000.0
+&gt;&gt;&gt; s &#x3D; &quot;Hello&quot;
+&gt;&gt;&gt; s
+&#39;Hello&#39;
+&gt;&gt;&gt; repr(s)
+&quot;&#39;Hello&#39;&quot;
+&gt;&gt;&gt; print(repr(s))
+&#39;Hello&#39;
+&gt;&gt;&gt; print(s)
+Hello
+&gt;&gt;&gt; str(s)
+&#39;Hello&#39;
+&gt;&gt;&gt; print(str(s))
+Hello
+&gt;&gt;&gt; eval(repr(s))
+&#39;Hello&#39;
+&gt;&gt;&gt; repr(repr(repr(s)))
+&#39;\&#39;&quot;\\\&#39;Hello\\\&#39;&quot;\&#39;&#39;
+&gt;&gt;&gt; eval(s)
+Error
+
+# str(), repr() can only be called at a class level; any instance calling is still the same as calling at the class level. This means: str(a) is actually type(a).__str__(a) and not a.__str__()
+# calling str() when there is no __str__ would use __repr__
+class Bear:
+    def __init__(self):
+        self.__repr__ &#x3D; lambda: &#39;override repr&#39;
+        self.__str__ &#x3D; lambda: &#39;override str&#39;
+    def __repr__(self):
+        return &#39;repr&#39;
+    def __str__(self):
+        return &#39;str&#39;
+
+&gt;&gt;&gt; oski &#x3D; Bear()
+&gt;&gt;&gt; oski
+repr
+&gt;&gt;&gt; print(oski)
+str
+&gt;&gt;&gt; str(oski)
+&#39;str&#39;
+&gt;&gt;&gt; repr(oski)
+&#39;repr&#39;
+&gt;&gt;&gt; str(Bear)
+&quot;&lt;class &#39;__main__.Bear&#39;&gt;&quot;
+&gt;&gt;&gt; repr(Bear)
+&quot;&lt;class &#39;__main__.Bear&#39;&gt;&quot;
+&gt;&gt;&gt; oski.__repr__()
+&#39;override repr&#39;
+&gt;&gt;&gt; oski.__str__()
+&#39;override str&#39;
+
+
+
+# dot operator
+hasattr()
+setattr()</code></pre>
+
+<h3 id="Iterator-Generator"><a href="#Iterator-Generator" class="headerlink" title="Iterator/Generator"></a>Iterator/Generator</h3><ul>
+<li>An iterable (Like <code>IEnumerable</code> in C#) is an object where we can go through its elements one at a time (e.g., can be iterated with <code>for</code>). Specifically, we define an iterable as any object where calling the built-in <code>iter</code> function on it returns an iterator; It must have an<code>__iter__()</code> method that returns an iterator object (like <code>GetEnumerator()</code> in C# that returns an <code>IEnumerator</code> object), or defines a <code>__getitem__()</code> method that can take sequential indexes starting from zero (and raises an <code>IndexError</code> when the indexes are no longer valid).</li>
+<li>An iterator (Like <code>IEnumerator</code> in C#) is another type of object which can iterate over an iterable by keeping track of which element is next in the iterable. You can also call <code>iter</code> on the iterator itself, which will just return the same iterator without changing its state. This class can be thought as a helper class which should implement <code>__next()__</code> (and raises <code>StopIteration</code> upon running out). In C#, a helper <code>IEnumerator</code> class which has <code>Current</code> <code>MoveNext()</code> <code>Reset()</code> must be implemented.<ul>
+<li>Usually, we let the <code>__iter__()</code> return <code>this</code> and write the <code>__next__()</code> method inside the same class, instead of making two classes.</li>
+</ul>
+</li>
+<li>Analogy: An iterable is like a book (one can flip through the pages) and an iterator for a book would be a bookmark (saves the position and can locate the next page). Calling <code>iter</code> on a book gives you a new bookmark independent of other bookmarks, but calling <code>iter</code> on a bookmark gives you the bookmark itself, without changing its position at all. Calling <code>next</code> on the bookmark moves it to the next page, but does not change the pages in the book. Calling <code>next</code> on the book wouldn’t make sense semantically. We can also have multiple bookmarks, all independent of each other.</li>
+</ul>
+<pre class="language-py" data-language="py"><code class="language-py"># Call iter() on a iterable to get an iterator
+iterator &#x3D; iter(iterable)
+try:
+    while True:
+        elem &#x3D; next(iterator)
+        # do something
+except StopIteration:
+    pass
+
+# This would return itself, with the state unchanged.
+iter_copy &#x3D; iter(iterator)
+# This returns a new, fresh iterator
+another_iter &#x3D; iter(iterable)
+
+# Iterator can be used as an iterable in for
+list_iter &#x3D; iter([4, 3, 2, 1])
+for e in list_iter:
+     print(e)
+# but you cannot do for a second time on this
+# This is because iterator is exhausted
+list(another_iter)
+# This would also exhaust an iterator
+# Generally, any attempt to &quot;list&quot; the iterator exhaust it
+# Calling for loop on an exhausted iterator won&#39;t throw an error; it just does nothing
+
+# iterator of an iterable always tracks the latest update of the iterable
+li &#x3D; [3,4]
+it &#x3D; iter(li)
+print(next(it)) # 3
+print(next(it)) # 4
+li.append(5)
+print(next(it)) # 5
+print(next(it)) # StopIteration
+
+# For dictionary however, adding&#x2F;removing elements makes all its iterator invalid
+# You don&#39;t have this problem with list
+dict &#x3D; &#123;&quot;one&quot;:1, &quot;two&quot;:2, &quot;three&quot;:3&#125;
+it &#x3D; iter(dict) # same as iter(dict.keys); for values&#x2F;kvp, use &#96;values&#96;&#x2F;&#96;items&#96;
+print(next(it))
+dict[&quot;four&quot;] &#x3D; 4 # RuntimeError: dictionary changed size during iteration
+print(next(it))
+
+# use hasattr to check if some object has some particular function
+print(hasattr(my_iter, &quot;__iter__&quot;)) # True
+print(hasattr(list, &#39;__iter__&#39;)) # True
+print(hasattr(tuple, &#39;__iter__&#39;)) # True
+
+# Make a class both an iterable and an iterator
+class SquareIterator: # Both an iterable and an iterator
+  &quot;&quot;&quot;SquareIterator takes items and returns item&#39;s square upon call&quot;&quot;&quot;
+  def __init__(self, *args):
+    self.args &#x3D; args
+    self.iter_len &#x3D; len(args)-1
+  def __iter__(self):
+    &quot;&quot;&quot;This method is used to initialize a iterator, it returns an iterator object.&quot;&quot;&quot;
+    self.idx &#x3D; -1 # we initialize index
+    return self
+  def __next__(self):
+    &quot;&quot;&quot;This method is used to fetch next value, it can be called or loops do call it automatically.&quot;&quot;&quot;
+    self.idx +&#x3D; 1
+    if self.idx &gt; self.iter_len:
+      raise StopIteration
+    return self.args[self.idx]**2
+
+my_iter &#x3D; SquareIterator(10,20,30,40,50)
+my_iter &#x3D; iter(my_iter) # initialize iterator
+print(next(my_iter)) # 100
+print(my_iter.__next__()) # 400
+for v in my_iter: print(v) # for loop call __iter__ and __next__ functions on a iterable</code></pre>
+
+<ul>
+<li>Generator: A method has at least one <code>yield</code> statement and returns a generator object when we call it, without evaluating the body of the generator function itself. When we first call <code>next</code> on the returned generator, then we will begin evaluating the body of the generator function until an element is yielded or the function otherwise stops (such as if we <code>return</code>). The generator remembers where we stopped, and will continue evaluating from that stopping point on the <code>next</code> time we call next.</li>
+</ul>
+<pre class="language-py" data-language="py"><code class="language-py">def count_three():# generator without loop
+  yield 1
+  yield 2
+  yield 3
+for a in count_three():
+  print(a)
+
+def countdown(n):
+    print(&quot;Beginning countdown!&quot;)
+    while n &gt;&#x3D; 0:
+        yield n
+        n -&#x3D; 1
+    print(&quot;Blastoff!&quot;)
+c1, c2 &#x3D; countdown(3), countdown(3) # Does not print anything
+print(c1 is iter(c1)) # True, a generator object is an iterator
+print(c1 is c2) # Not the same iterator
+next(c1) # Beginning countdown! 2
+
+def my_generator(*args): # generator with a loop
+  for a in args:
+    yield a
+generator &#x3D; my_generator(10,20,30,40,50)
+generator &#x3D; (a for a in [10,20,30,40,50]) # or using comprehension
+print(type(generator)) # &lt;class &#39;generator&#39;&gt;
+print(next(generator)) # 10
+for a in generator:
+  print(a) # loop over all values
+
+def gen_list(lst): # You can do yield from an iterator or iterable.
+  yield from lst
+
+def gen_list2(lst):
+  yield from iter(lst)
+
+# mix return and yield
+def f(x):
+  yield x
+  yield 1
+  return x + 1 # not yielded using next(); returned value lost
+  yield 2 # never reached
+
+def h(x):
+  y &#x3D; yield from f(x)
+  yield y # in this way you can get the returned value
+
+# Recursive generator
+def primes_gen(n):
+  &quot;&quot;&quot;Generates primes in decreasing order.
+  &gt;&gt;&gt; pg &#x3D; primes_gen(7)
+  &gt;&gt;&gt; list(pg)
+  [7, 5, 3, 2]
+  &quot;&quot;&quot;
+  if n &lt; 2:
+    return
+  if is_prime(n):
+    yield n
+  yield from primes_gen(n-1)
+  # Do not just do yield primes_gen(n-1)
+
+# Some examples:
+def prefixed(s):
+    &quot;&quot;&quot;Generates prefixes of a word.
+    &gt;&gt;&gt; list(prefixes(&#39;both&#39;))
+    [&#39;b&#39;,&#39;bo&#39;,&#39;bot&#39;,&#39;both]
+    &quot;&quot;&quot;
+    if s:
+      yield from prefixes(s[:-1])
+      yield s
+
+def substrings(s):
+    if s:
+      yield from prefixes(s)
+      yield from substrings(s[1:])</code></pre>
+
+<h3 id="Code-Structure"><a href="#Code-Structure" class="headerlink" title="Code Structure"></a>Code Structure</h3><ul>
+<li><code>import</code><ul>
+<li>If you <code>import math</code> you can use <code>math.sqrt()</code>.</li>
+<li>You can also do <code>from math import *</code> or even <code>from math import *</code> to call this method by just <code>sqrt()</code> (A bit like the static import in Java and C# - not a good practice).</li>
+<li>If a built-in module like <code>sys</code> (they are compiled) is imported, Python knows where to get it; if not, Python searches from the <code>sys.path</code> directory, and once found will run those imported codes at run time, before running codes in this file.<ul>
+<li>sys.path is initialized from these locations: The directory containing the input script (or the current directory when no file is specified).PYTHONPATH (a list of directory names, with the same syntax as the shell variable PATH). The installation-dependent default.</li>
+</ul>
+</li>
+<li><code>.pyc</code> files (Byte-Compiled files) are created by the Python interpreter when a .py file is imported. They contain the “compiled bytecode” of the imported module/program so that the “translation” from source code to bytecode (which only needs to be done once) can be skipped on subsequent imports if the .pyc is newer than the corresponding .py file, thus speeding startup a little. But it’s still interpreted. Once the _.pyc file is generated, there is no need of _.py file, unless you edit it.</li>
+<li>Easter Egg: <code>import this</code>, <code>import antigravity</code>, <code>from __future__ import braces</code>.</li>
+</ul>
+</li>
+<li>A module is just a Python source file. It has these attributes:<ul>
+<li><code>__doc__</code>: discussed above. The function <code>help()</code> has the same effect.</li>
+<li><code>__file__</code>: holds the name and path of the module file from which it is loaded.</li>
+<li><code>__name__</code>: ttribute: By default, is the file name (if imported by another module) or <code>__main__</code> (if invoked directly), unless this string is changed in file by code (e.g., <code>__name__</code> = <code>my own name</code>). Hence, we use the following codes to check whether a module is imported:</li>
+</ul>
+</li>
+</ul>
+<pre class="language-py" data-language="py"><code class="language-py">if __name__ &#x3D;&#x3D; &quot;__main__&quot;:
+    print (&quot;Executed when invoked directly&quot;)
+else:
+    print (&quot;Executed when imported&quot;)</code></pre>
+
+<ul>
+<li><p><code>__dict__</code>: return a dictionary object of module attributes, functions and other definitions and their respective values. The function <code>dir()</code> has the same effect.</p>
+</li>
+<li><p>A package is a collection of Python modules: while a module is a single Python file, a package is a directory of Python modules containing an additional <code>__init__.py</code> file at the root folder (The <code>__init__.py</code> distinguishes a package from a directory that just happens to contain a bunch of Python scripts.).</p>
+<ul>
+<li>A package can contain other package folder (sub-packages), too (in those folder there will be separate <code>__init__.py</code> files). Packages can be nested to any depth.</li>
+<li>The distinction between module and package seems to hold just at the file system level. When you import a module or a package, the corresponding object created by Python is always of type module.</li>
+<li>When you import a package, only variables/functions/classes in the <code>__init__.py</code> file of that package are directly visible, not sub-packages or modules. To access variables/functions/classes in its sub-package/contained modules, call it behind the package name, e.g., <code>math.sqrt()</code> after <code>import math</code>; Directly calling <code>sqrt()</code> will not work.<ul>
+<li>You could import and give an alias to a package at the same time using <code>import cPickle as p</code>.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="Sequences"><a href="#Sequences" class="headerlink" title="Sequences"></a>Sequences</h2><h3 id="Sequences-in-general"><a href="#Sequences-in-general" class="headerlink" title="Sequences in general"></a>Sequences in general</h3><ul>
+<li>Common Operations</li>
+</ul>
+<pre class="language-py" data-language="py"><code class="language-py">## All sequences support indexing operations
+myList &#x3D; [1, 2, 4]
+myTuple &#x3D; (&#39;tom&#39;,&#39;jerry&#39;)
+phonebook &#x3D; &#123;
+  &#39;john&#39;: &#39;88888888&#39; # keys can only be immutable types (numbers, strings, tuples)
+  &#39;mike&#39;: &#39;99999999&#39;
+&#125;
+print(myList[0])
+print(phonebook[&#39;mike&#39;])
+# This is a syntax suger of operator.getitem
+from operator import getitem
+print(getitem(myList, 0))
+
+## All sequences support slicing operations
+print(myList[0:-1])
+print(myList[::-1]) # get a reversed string or list like this
+print(myList[99:999]) # you can do things out of bound; it will not show errors but simply give you [] or &quot;&quot;
+# Slicing does create a new iterable, but it is only a shallow copy. It simply bundle reference to each element
+# together and put them in a new iterable.
+b &#x3D; a[:]
+print(a is b) # False
+print[a[0] is b[0]) # True
+
+## All sequences are iterable
+for number in myList:
+  print(number)
+
+## All sequences support membership test
+print(3 in [1, 2, 3]) # True
+if &#39;mike&#39; in phonebook:
+  print(phonebook[&#39;mike&#39;])
+# in will only search for the first layer element
+# [1,2] in [1,2,3] -- False
+# 1 in [[1,2],3] -- False
+
+## Sequences may support len
+print(len(myList)) # prints 3
+
+## Sequences can be converted to one another
+my_list &#x3D; list((1,2,3,4,5)) # tuple to list
+my_list &#x3D; list(&#123;1,2,3,4,5&#125;) # set to list
+my_list &#x3D; list(rang(1,6)) # range to list
+my_tuple &#x3D; tuple([1,2,3,4,5]) # list to tuple
+my_tuple &#x3D; tuple(&#123;1,2,3,4,5&#125;) # set to tuple
+myDict &#x3D; dict.fromkeys(myList) #myDict is &#123;1:None, 2:None, 4:None&#125;
+myDict &#x3D; dict.fromkeys(myTuple,10) # myDict is &#123;&#39;tom&#39;:10, &#39;jerry&#39;:10&#125;
+myDict &#x3D; dict([(3, 9), (4, 16), (5, 25)]) #myDict is &#123;3: 9, 4: 16, 5: 25&#125;
+my_set &#x3D; set(my_list) # this unpacks items from list to set
+# also if my_list contained a list inside it, TypeError: unhashable type: &#39;list&#39; is raised
+my_set &#x3D; set((1,2,3,4,5)) # tuple to set
+keys &#x3D; [1,2]
+values &#x3D; [2,3]
+my_dict &#x3D; dict([keys, values]) # list to dict
+my_dict &#x3D; dict(((1,2), (2,3))) # tuple to dict
+
+## Sequence objects typically may be compared using lexicographical ordering
+print([1,2,3] &#x3D;&#x3D; [1,2,3]) # True
+print([1,2,3,4] &lt; [1,2,4]) # True
+print((1, 2, 3) &#x3D;&#x3D; (1.0, 2.0, 3.0)) # True
+print(&#39;ABC&#39; &lt; &#39;C&#39; &lt; &#39;Pascal&#39; &lt; &#39;Python&#39;) # True
+print((1, 2, (&#39;aa&#39;, &#39;ab&#39;)) &lt; (1, 2, (&#39;abc&#39;, &#39;a&#39;), 4)) # True
+
+## List, tuples, strings support count()
+my_list.count(2) # returns number of appearance of 2
+
+## You can print sequences nicely without a foreach</code></pre>
+
+<ul>
+<li><a target="_blank" rel="noopener" href="https://docs.python.org/3/library/functions.html">Built-in Functions</a></li>
+</ul>
+<p>Related built-in functions:</p>
+<pre class="language-py" data-language="py"><code class="language-py">nums &#x3D; [-1, 0, 1, 2, 3, 4, 5]
+
+# range(start, stop[, step])
+# Returns a sequence of consecutive integers separated by step.
+# Follows a similar syntax to that of slicing
+range(4) # 0, 1, 2, 3
+range(1,5) # 1, 2, 3, 4
+range(1,5,2) # 1, 3
+# range is immutable
+
+# sum(iterable,&#x2F;,start&#x3D;0)
+# start from start, applies &quot;+&quot; to each element in the iterable and the previous result, returns the final result
+# sum takes at most 2 arguments!
+sum(nums)
+# returns 14
+sum(nums, [3, 4]) #[3, 4] is the start parameter
+# returns [3, 4, -1, 0, 1, 2, 3, 4, 5]
+sum([&quot;hi&quot;,&quot;I&quot;,&quot;ih&quot;])
+# TypeError: unsupported operand type(s) for + : &#39;int&#39; and &#39;str&#39;
+sum([&quot;hi&quot;,&quot;I&quot;,&quot;ih&quot;],[])
+# TypeError: can only concatenate list (not &quot;str&quot;) to list
+sum([[&quot;hi&quot;,&quot;I&quot;,&quot;ih&quot;]],[])
+# [&#39;hi&#39;, &#39;I&#39;, &#39;ih&#39;]
+sum([[&#39;2&#39;,&#39;3&#39;],[&#39;5&#39;],[&#39;9&#39;]],[])
+# [&#39;2&#39;,&#39;3&#39;,&#39;5&#39;,&#39;9&#39;]
+sum([[1,[&quot;3&quot;],(3,4),2,3],[&quot;!&quot;,[4]],[]],[])
+# [1, [&#39;3&#39;], (3, 4), 2, 3, &#39;!&#39;, [4]]
+sum([(1,),(2,),[3,]],())
+# TypeError: can only concatenate list (not &quot;list&quot;) to list
+
+# max(), min()
+# max(iterable, *[, key, default])
+# max(arg1, arg2, *args[, key])
+# key and default are keyword-only argument; The key argument specifies a one-argument ordering function like that used for list.sort(), and  The default argument specifies an object to return if the provided iterable is empty. If the iterable is empty and default is not provided, a ValueError is raised.
+# If multiple items are maximal, the function returns the first one encountered.
+max(range(5)) # If one positional argument is provided, it should be an iterable.
+max(0, 2, 4) # cannot mix up iterables and values
+max(range(10), key &#x3D; lambda x: 7 - (x - 4) * (x - 2)) # Get max point on a parabola, returns 3
+max(range(0), default &#x3D; &quot;!&quot;) # return &quot;!&quot;
+max(range(0)) # ValueError: max() arg is an empty sequence
+# Strings are compared lexicographically
+max(&quot;Hi&quot;,&quot;There&quot;,&quot;a&quot;)
+# &#39;a&#39;
+
+# any(), all()
+# any() returns True if any element of the iterable is true. If the iterable is empty, returns False.
+# all() returns True if all elements of the iterable are true (or if the iterable is empty).
+any(True, 0, &#39;&#39;) # True
+all(range(5)) # False (there is a zero)
+all([x &lt; 5 for x in range(5)&gt;]) # True, because all elements in the list are true
+
+# sorted(iterable)
+# Creates a sorted list containing all the elements in the input iterable
+# It is the same as calling li &#x3D; list(iterable) and then sort it by li.sort()</code></pre>
+
+<p>Lazy evaluation functions: acts like an iterator</p>
+<pre class="language-py" data-language="py"><code class="language-py"># enumerate(iterable, start&#x3D;0)
+# Takes in an iterable and returns an iterator that yield a tuple each time. Each tuple consists of an index and its actual content.
+seasons &#x3D; [&#39;Spring&#39;, &#39;Summer&#39;, &#39;Fall&#39;, &#39;Winter&#39;]
+it &#x3D; enumerate(seasons)
+next(it) # (0, Spring)
+list(enumerate(seasons, start&#x3D;1))
+# [(1, &#39;Spring&#39;), (2, &#39;Summer&#39;), (3, &#39;Fall&#39;), (4, &#39;Winter&#39;)]
+
+# zip(iterable*)
+# Returns a zip object, which is an iterator of tuples where the first item in each passed iterator is paired together, and then the second item in each passed iterator are paired together etc.
+# Any extra element from any iterable would simply be ignored
+a &#x3D; (&quot;John&quot;, &quot;Charles&quot;, &quot;Mike&quot;)
+b &#x3D; (&quot;Jenny&quot;, &quot;Christy&quot;, &quot;Monica&quot;, &quot;Vicky&quot;)
+for each in zip(a, b):
+    print(each)
+# Result:
+# (&#39;John&#39;, &#39;Jenny&#39;)
+# (&#39;Charles&#39;, &#39;Christy&#39;)
+# (&#39;Mike&#39;, &#39;Monica&#39;)
+
+# filter(f, iterable)
+# Creates iterator over x for each x in iterable if f(x).
+# Take note of the double lazy evaluation
+def double(x):
+  print(&quot;&#123;&#125; is doubled&quot;.format(x))
+  return x + x
+t &#x3D; filter(lambda x: x &gt; 10, map(double, range(0,10)))
+next(t)
+# You will see:
+# 0 is doubled
+# 1 is doubled
+# 2 is doubled
+# 3 is doubled
+# 4 is doubled
+# 5 is doubled
+# 6 is doubled
+# Because it keeps evaluating until it hits the first element that doubles to be more than 10
+
+# map(f, iterable*)
+# Takes in a function and a (or many) iterable(s), apply the function to every element and return an iterator
+# map() returns an iterator (a map object), and you need list() to convert that to a list
+this_is_iter &#x3D; map(lambda x: x + 10, range(5))
+next(this_is_iter) # 10
+# map() is written in C and is highly optimized, its internal implied loop can be more efficient than a regular Python for loop
+# In some cases, computing a list of the values in this iterable will give us the same result as [func(x) for x in iterable]. However, it&#39;s important to keep in mind that iterators can potentially have infinite values because they are evaluated lazily, while lists cannot have infinite elements.
+nums_abs &#x3D; list(map(int,[&quot;1&quot;,&quot;2&quot;,&quot;3&quot;])) # let int() parses every element to an int
+the_powers &#x3D; [4, 5, 6, 7]
+pow_list &#x3D; list(map(pow, nums_abs, the_powers))  # [1, 32, 729]
+
+# reversed(iterable)
+# Creates iterator over all the elements in the input iterable in reverse order.
+# Take not its lazy evaluation!
+mynum &#x3D; [1,2,3,2,1]
+rev &#x3D; reversed(mynum)
+print(rev &#x3D;&#x3D; mynum) # False! An iterator !&#x3D; a list
+
+# import reduce from functools
+# reduce(f, iterable)
+# Apply function of two arguments f cumulatively to the items of iterable, from left to right, so as to reduce the sequence to a single value.
+</code></pre>
+
+<h3 id="List"><a href="#List" class="headerlink" title="List"></a>List</h3><ul>
+<li>Lists are mutable. List operations, such as <code>remove</code>,<code>pop</code>,<code>sort</code>, does not return a sorted list; instead, change the original list.</li>
+</ul>
+<pre class="language-py" data-language="py"><code class="language-py">shopping &#x3D; [&#39;apple&#39;,&#39;rice&#39;,&#39;washboard&#39;,&#39;rice&#39;,&#39;triangle&#39;,&#39;house&#39;,3,4,5] # elements can have different types
+shopping.append(&#39;milk&#39;) # append; return None[1]
+shopping.insert(3,&#39;porridge&#39;)
+shopping.extend([&#39;egg&#39;,&#39;bread&#39;,&#39;potato&#39;]) # append the whole list
+copy &#x3D; shopping.copy() # or use Slicing to copy a list, see below
+copy2 &#x3D; shopping[:] # or [::]; they are the same
+del copy2[2:4] # delete by continuous index
+print(shopping.count(&#39;rice&#39;)) # (this prints 2) get number of appearances of a certain value in list
+del shopping[0], shopping[2] # remove by index (it removes one by one! The second item to remove may have its positive moved)
+shopping.remove(&#39;rice&#39;) # remove by value; will remove the first occurence only; returns None
+# Use filter or list comprehension to remove all occurence
+del copy, copy2
+print(shopping.pop()) # pop the last element - stack behaviour
+print(shopping.popleft()) # pop the last element - queue behaviour
+shopping.pop(1) # pop by index, would return the removed element
+shopping.sort()
+shopping.reverse() # this changes the original list
+revCopy &#x3D; shopping[::-1] # this returns a reversed list (works for strings too)
+myList &#x3D; [1, 2, 3, 4]
+print(max(myList)) # prints 4 (note that all elements must be of the same type for comparison)
+addList &#x3D; [1, 2, 3] + [4, 5, 6]
+addList +&#x3D; [7]
+mulList &#x3D; [&#39;Hi&#39;] * 4 # mulList is [&#39;Hi&#39;,&#39;Hi&#39;,&#39;Hi&#39;,&#39;Hi&#39;]
+# The same effect can bes achieved by add(), mul() method
+# But there is no subtraction or division defined for list
+# More dimension
+matrix &#x3D; [
+    [1, 2, 3, 4],
+    [5, 6, 7, 8],
+    [9, 10, 11, 12],
+]
+for a, b, c, d in matrix:# unpacking
+  print(a, b, c, d)
+# List comprehension
+# Take a existing sequence and build a new list from it.
+# LIST &#x3D; [function(ITEM) for ITEM in ITERABLE_OBJ if condition(ITEM)]
+# This picks all ITEM that satisfies condition from ITERABLE_OBJ, and apply a function to them, and put them into LIST
+list1 &#x3D; [0 for _ in range(10)] # ten zeros in the list
+list2 &#x3D; [2*i for i in (2,3,4) if i &gt; 2]
+list3 &#x3D; [(x, y) for x in [1,2,3] for y in [3,1,4] if x !&#x3D; y]
+list4 &#x3D; [str(round(pi, i)) for i in range(1, 6)] # [&#39;3.1&#39;, &#39;3.14&#39;, &#39;3.142&#39;, &#39;3.1416&#39;, &#39;3.14159&#39;]
+
+# Take note the reference
+child &#x3D; [1,2]
+parent &#x3D; [child, child[:], list(child) 3]
+child.append(3)
+print(parent) # [[1, 2, 3], [1, 2], [1, 2], 3]
+# This is because:
+print(child is child[:]) # False
+print(child is list(child)) # False
+
+# List seems to be passed by reference!
+# In env diag they point to the same object, too.
+def pops(orig):
+    orig.pop()
+list &#x3D; [1,2,3,4]
+pops(list)
+print(list) # [1,2,3]</code></pre>
+
+<ul>
+<li>Very elegant explanation on <a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/18072759/list-comprehension-on-a-nested-list">nested list comprehension</a>.</li>
+</ul>
+<h3 id="Set"><a href="#Set" class="headerlink" title="Set"></a>Set</h3><p>Set represents a mathematical set (with no repeated element). Set objects also support mathematical operations like union, intersection, difference, and symmetric difference.</p>
+<pre class="language-py" data-language="py"><code class="language-py">basket &#x3D; &#123;&#39;orange&#39;, &#39;apple&#39;, &#39;banana&#39;&#125;
+empty &#x3D; set() # cannot do &#123;&#125;; this is a dict
+a &#x3D; set(&#39;abracadabra&#39;)
+b &#x3D; &#123;&#39;a&#39;,&#39;l&#39;,&#39;a&#39;,&#39;c&#39;,&#39;m&#39;,&#39;a&#39;,&#39;z&#39;&#125;
+c &#x3D; set([&#39;orange&#39;, &#39;apple&#39;, &#39;banana&#39;])
+d &#x3D; &#123;x for x in &#39;abracadabra&#39; if x not in &#39;abc&#39;&#125;
+print(b - a) # in b but not in a: &#123;&#39;l&#39;, &#39;m&#39;, &#39;z&#39;&#125;
+print(b | a) # union: &#123;&#39;d&#39;, &#39;z&#39;, &#39;l&#39;, &#39;b&#39;, &#39;c&#39;, &#39;m&#39;, &#39;a&#39;, &#39;r&#39;&#125;
+print(b &amp; a) # intersect: &#123;&#39;a&#39;, &#39;c&#39;&#125;
+print(a ^ b) # xor:&#123;&#39;d&#39;, &#39;m&#39;, &#39;z&#39;, &#39;l&#39;, &#39;b&#39;, &#39;r&#39;&#125;
+
+## Some methods of sets
+my_set1 &#x3D; &#123;3,5,7,1,8&#125;
+my_set2 &#x3D; &#123;1,2,3,4,5&#125;
+# find intersection, or similar to &#39;my_set1 &amp; my_set2&#39;
+print(my_set1.intersection(my_set2)) # &#123;1, 3, 5&#125;
+# to find union, or similar to &#39;my_set1 | my_set2&#39;
+print(my_set1.union(my_set2)) # &#123;1, 2, 3, 4, 5, 7, 8&#125;
+my_copy &#x3D; my_set1.copy() # returns a copy of a set
+my_copy.clear() # removes all members of set
+# checks if my_set2 is a subset of my_set1
+print(my_set1.issubset(my_set2)) # False
+# checks if my_set2 is a superset of my_set1
+print(my_set1.issuperset(my_set2)) # False</code></pre>
+
+<h3 id="Tuple"><a href="#Tuple" class="headerlink" title="Tuple"></a>Tuple</h3><p>Tuples are immutable. Cannot use <code>append</code> or <code>del</code>.</p>
+<pre class="language-py" data-language="py"><code class="language-py">zoo &#x3D; (&#39;python&#39;,&#39;elephant&#39;,&#39;zebra&#39;) # Brackets are optional - but please use them
+parent_zoo &#x3D; (&#39;monkey&#39;,&#39;tiger&#39;,zoo) # Element does not have to be the same type
+singleton &#x3D; (2,) # you need this comma
+empty_tuple &#x3D; ()
+print(zoo[0], parent_zoo[2][0]) # indexer access
+del zoo # you cannot delete an element, but you can delete the whole tuple
+print(max(zoo)) # prints zebra (note that all elements must be of the same type for comparison)
+mulTuple &#x3D; (&#39;Hi!&#39;,) * 4 # mulTuple is (&#39;Hi&#39;,&#39;Hi&#39;,&#39;Hi&#39;,&#39;Hi&#39;)</code></pre>
+
+<h3 id="Dictionary"><a href="#Dictionary" class="headerlink" title="Dictionary"></a>Dictionary</h3><p>The class is <code>dict</code>. The object that uses <code>&#123;&#125;</code> to initialize is a <code>dict</code> object.</p>
+<p>The order of items in dictionary is the order in which they were added (Python 3.6+). Historically items appeared in an arbitrary order.</p>
+<pre class="language-py" data-language="py"><code class="language-py">phonebook &#x3D; &#123;
+  &#39;john&#39;: &#39;88888888&#39;, # keys can only be immutable types (numbers, strings, tuples); it must be hashable; if a tuple contains a list it becommes unhashable, too. This is because an immutable sequence might still change if it contains a mutable value.
+  &#39;mike&#39;: &#39;99999999&#39;,
+  333 : &#39;11111111&#39;, # keys can values can have different types
+  &#39;mike&#39;: 100 # if keys repeated, the one that comes later is used
+&#125;
+my_dict &#x3D; &#123;i: i * i for i in range(3,6)&#125; # faster setup for &#123;3: 9, 4: 16, 5: 25&#125;
+print(phonebook[&#39;mike&#39;]) # prints 100
+phonebook[&#39;fido&#39;] &#x3D; &#39;00000000&#39;
+copy &#x3D; phonebook.copy() # shallow copy
+del phonebook[&#39;john&#39;]
+copy.clear() # clean the dict
+del copy # delete the dict
+phonebook2 &#x3D; &#123;
+  &#39;nancy&#39;: &#39;44444444&#39;,
+  &#39;john&#39;: &#39;22222222&#39;
+&#125;
+phonebook.update(phonebook2) # include the second dict into the first, override any repeated key
+print(phonebook.pop(&#39;john&#39;)) # prints 22222222; &#39;john&#39; is then deleted
+phonebook.pop(&#39;mary&#39;,&#39;Not Found&#39;) # prints &#39;Not Found&#39;
+phonebook.popitem() # returns a tuple (containing the last key-value pair)
+phonebook.keys() # returns a fake list containing all keys)
+list(phonebook) # returns a list of keys; same as calling keys()
+iter(phonebook)
+iter(phonebook.keys) # these two lines are the same; both return an iterator of dictionary keys
+iter(phonebook.values)
+iter(phonebook.items) # Kvp
+phonebook.values() # returns a fake list of values
+for name, number in phonebook:
+  print(&#39;call &#123;&#125; at &#123;&#125;&#39;.format(name,number))
+if &#39;mike&#39; in phonebook:
+  print(phonebook[&#39;mike&#39;])
+print(phonebook.get(&#39;tom&#39;,&#39;No such person&#39;)) # try get, if no such key then return the value specified as the second argument (None by default)
+print(phonebook.setdefault(&#39;jerry&#39;,&#39;00000000&#39;)) # try get, if no such key then create a key with the value specified as the second argument (None by default)</code></pre>
+
+<h2 id="IO"><a href="#IO" class="headerlink" title="IO"></a>IO</h2><ul>
+<li><code>print()</code><ul>
+<li>It appends a <code>\n</code> by default. To print without changing line, use <code>print(...,end=&#39;&#39;)</code>.</li>
+</ul>
+</li>
+<li><a target="_blank" rel="noopener" href="https://docs.python.org/3/library/pprint.html"><code>pprint()</code></a></li>
+<li><code>input()</code><ul>
+<li>The type of the value stored is always string.</li>
+<li><code>raw_input()</code> is only used in Python 2.x.</li>
+</ul>
+</li>
+</ul>
+<pre class="language-py" data-language="py"><code class="language-py">val1 &#x3D; input(&quot;Enter the name: &quot;)
+
+print(type(val1)) # &lt;class &#39;str&#39;&gt;
+print(val1)
+
+val2 &#x3D; input(&quot;Enter the number: &quot;)
+print(type(val2)) # &lt;class &#39;str&#39;&gt;
+
+val2 &#x3D; int(val2)
+print(type(val2))
+print(val2)</code></pre>
+
+<ul>
+<li><code>file</code> Class<ul>
+<li>There are many other modes like <code>a</code> For appending. Use <code>help(file)</code> to learn more.</li>
+</ul>
+</li>
+</ul>
+<pre class="language-py" data-language="py"><code class="language-py">poem &#x3D; &#39;&#39;&#39;
+Programming is fun
+When the work is done
+if you wanna make your work also fun:
+        use Python!
+&#39;&#39;&#39;
+
+f &#x3D; file(&#39;poem.txt&#39;, &#39;w&#39;) # open for &#39;w&#39;riting
+f.write(poem) # write text to file
+f.close() # close the file
+
+f &#x3D; file(&#39;poem.txt&#39;)
+# if no mode is specified, &#39;r&#39;ead mode is assumed by default
+while True:
+    line &#x3D; f.readline()
+    if len(line) &#x3D;&#x3D; 0: # Zero length indicates EOF
+        break
+    print(line, end&#x3D;&quot;&quot;) # Print a line includes printing the linefeed at the end of the line; hence, avoid adding a line break automatically
+f.close() # close the file
+
+# with keyword in Python is like using keyword in C#
+with open(&quot;poem.txt&quot;) as f:
+    for line in f:
+        print(line, end&#x3D;&quot;&quot;)</code></pre>
+
+<ul>
+<li><code>cPickle</code> Class<ul>
+<li><code>cPickle</code> is done by C and thus is 100 times faster than <code>pickle</code> and they have the same functionalities.</li>
+<li>They can serialize <strong>any</strong> Python objects.</li>
+</ul>
+</li>
+</ul>
+<pre class="language-py" data-language="py"><code class="language-py">import cPickle as p
+#import pickle as p (this is slower)
+
+shoplistfile &#x3D; &#39;shoplist.data&#39;
+# the name of the file where we will store the object
+
+shoplist &#x3D; [&#39;apple&#39;, &#39;mango&#39;, &#39;carrot&#39;]
+
+# Write to the file
+f &#x3D; file(shoplistfile, &#39;w&#39;)
+p.dump(shoplist, f) # dump the object to a file
+f.close()
+
+del shoplist # remove the shoplist
+
+# Read back from the storage
+f &#x3D; file(shoplistfile)
+storedlist &#x3D; p.load(f)
+print storedlist</code></pre>
+
+<ul>
+<li><code>BytesIO</code> and <code>StringIO</code></li>
+</ul>
+<pre class="language-py" data-language="py"><code class="language-py">import io</code></pre>
+
+<h2 id="Error-Testing"><a href="#Error-Testing" class="headerlink" title="Error, Testing"></a>Error, Testing</h2><h3 id="Exception"><a href="#Exception" class="headerlink" title="Exception"></a>Exception</h3><p>Like in many OOP languages, exceptions are objects. They have classes with contructors and you can define customized exceptions.<br>They enable non-lcoal contintuations of control: If f calls g and g calls h, exceptions can shift control from h directly back to f without waiting for g to return.<br>However, exception handling tends to be slow.</p>
+<pre class="language-py" data-language="py"><code class="language-py"># Custom Exception
+class MyOwnError(Exception):
+    &quot;&quot;&quot;My own error.&quot;&quot;&quot;
+    pass
+
+# throw an error
+raise MyOwnError(&#39;HiThere&#39;)
+
+# try, catch, finally block
+try:
+    s &#x3D; int(input(&#39;Enter a number&#39;))
+except (RuntimeError, TypeError, NameError):
+    pass
+except ValueError:
+    sys.exit() # exit the program
+except myOwnError as err:
+    print(err)
+except:
+    print(&#39;\nSome error&#x2F;exception occurred.&#39;)
+    # here, we are not exiting the program
+finally: # the finally block always runs
+    print(&quot;Do clean-ups here!&quot;)</code></pre>
+
+<p>Common types of errors:</p>
+<ul>
+<li>TypeError: wrong number/type of argument(s) passed into a function</li>
+<li>NameError: a name wasn’t found</li>
+<li>KeyError: a key wasn’t found in dict</li>
+<li>RuntimeError: catch-all for troubles during interpretation</li>
+</ul>
+<p>Debugging tips:</p>
+<ul>
+<li>IndentationError/TabError: Check indentation inconsistency/misalignment; Check mixing tabs and spaces.</li>
+<li>UnboundLocalError: This means a variable that is local to a frame used before assigned. Check whether you are using a using a variable from a parent frame.</li>
+</ul>
+<h3 id="Assertion"><a href="#Assertion" class="headerlink" title="Assertion"></a>Assertion</h3><p>Assertion in Python are designed pretty much the same as in other OOP languages. They usually serves as sanity checks during development and helps to rule out very basic errors in earlier stages.</p>
+<pre class="language-py" data-language="py"><code class="language-py"># assert (if assertion fails, an AssertionError is thrown)
+mylist &#x3D; [&#39;item&#39;]
+assert len(mylist) &gt;&#x3D; 1
+# You can customize error message to be shown, too.
+# assert &lt;expression&gt;, &lt;string&gt;
+mylist.pop()
+assert len(mylist) &gt;&#x3D; 2, &#39;Length of myList should &gt;&#x3D; 2!&#39;
+# AssertionError: Length of myList should &gt;&#x3D; 2!</code></pre>
+
+<p>If Python is run with the <code>-O</code> flag (O for optimize) then all assertion checks are ignored. They can also be gloablly turned on or off by toggling the bool <code>__debug__</code>, and running python with <code>-O</code> will toggle the <code>__debug__</code> to be <code>False</code>.</p>
+<h3 id="Run-Doctest"><a href="#Run-Doctest" class="headerlink" title="Run Doctest"></a>Run Doctest</h3><p>To test a specific function:</p>
+<pre class="language-py" data-language="py"><code class="language-py">from doctest import run_docstring_examples
+run_docstring_examples(func_to_test, globals(), True)</code></pre>
+
+<p>Or</p>
+<pre class="language-py" data-language="py"><code class="language-py">from doctest import testmod
+testmod(name &#x3D;&#39;func_to_test&#39;, verbose &#x3D; True)</code></pre>
+
+<p>When writing Python in files, all doctests in a file can be run by starting Python with the doctest command line option: <code>python3 -m doctest _mytest.txt</code>.</p>
+<ul>
+<li>Yes. The file can just be a <code>.txt</code> that has all doctest with no python codes. Of course it can also be a <code>.py</code> file.</li>
+<li>You can also add a <code>-v</code> for verbose.</li>
+</ul>
+<h3 id="Testing-in-Practice"><a href="#Testing-in-Practice" class="headerlink" title="Testing in Practice"></a>Testing in Practice</h3><p>When writing Python in files, rather than directly into the interpreter, tests are typically written in the same file or a neighboring file with the suffix _test.py.</p>
+<h2 id="Other-Built-in-Modules"><a href="#Other-Built-in-Modules" class="headerlink" title="Other Built-in Modules"></a>Other Built-in Modules</h2><h3 id="operator"><a href="#operator" class="headerlink" title="operator"></a><code>operator</code></h3><ul>
+<li>This module has operators for you to import so you can perform operations like a function call.</li>
+</ul>
+<pre class="language-py" data-language="py"><code class="language-py">from operator import add, sub, mul, truediv, floordiv, mod
+sub(pow(3, truediv(365, 52)), 1) # same as (3 ** (365&#x2F;52)) - 1
+mod(floordiv(25, 4), truediv(25, 4)) # Q9: (25 &#x2F;&#x2F; 4) % (25 &#x2F; 4)</code></pre>
+
+<h3 id="sys"><a href="#sys" class="headerlink" title="sys"></a><code>sys</code></h3><ul>
+<li>This module provides access to some variables used or maintained by the interpreter and to functions that interact strongly with the interpreter. You have to <code>import sys</code> to use the following:</li>
+<li><code>sys.exit()</code>: Exit from Python.<ul>
+<li>Can pass in an optional argument as the exit status (0 by default, considered “successful termination”).<ul>
+<li>Most systems require it to be in the range 0–127, and produce undefined results otherwise. Some systems have a convention for assigning specific meanings to specific exit codes, but these are generally underdeveloped; Unix programs generally use 2 for command line syntax errors and 1 for all other kind of errors.</li>
+</ul>
+</li>
+<li>This raises the SystemExit exception - it can be caught and intercepted at an outer level. It will only exit the process when called from the main thread, and the exception is not intercepted.<ul>
+<li>Changed in version 3.6: If an error occurs in the cleanup after the Python interpreter has caught SystemExit (such as an error flushing buffered data in the standard streams), the exit status is changed to 120.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><code>sys.argv</code>: The list of command line arguments passed to a Python script.<ul>
+<li><code>argv[0]</code> is the script name (it is operating system dependent whether this is a full pathname or not).</li>
+<li>If the command was executed using the <code>-c</code> command line option to the interpreter, <code>argv[0]</code> is set to the string <code>&#39;-c&#39;</code>.</li>
+<li>If no script name was passed to the Python interpreter, <code>argv[0]</code> is the empty string.</li>
+</ul>
+</li>
+<li><code>sys.stdxxx</code>: Read <a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/31420317/how-to-understand-sys-stdout-and-sys-stderr-in-python">this</a> and <a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/3263672/the-difference-between-sys-stdout-write-and-print">this</a>.</li>
+</ul>
+<h3 id="os-and-os-path"><a href="#os-and-os-path" class="headerlink" title="os and os.path"></a><code>os</code> and <code>os.path</code></h3><ul>
+<li>This module represents generic operating system functionality. This module is especially important if you want to make your programs platform-independent (Linux and Windows).</li>
+<li><code>os.name</code> string specifies which platform you are using, such as <code>&#39;nt&#39;</code> for Windows and <code>&#39;posix&#39;</code> for Linux/Unix users.</li>
+<li><code>os.getcwd()</code>: gets the current working directory i.e. the path of the directory from which the curent Python script is working.</li>
+<li><code>os.getenv()</code> and <code>os.putenv()</code>: get and set environment variables respectively.</li>
+<li><code>os.listdir()</code>: returns the name of all files and directories in the specified directory.</li>
+<li><code>os.remove()</code>: delete a file.</li>
+<li><code>os.system()</code>: run a shell command.</li>
+<li><code>os.linesep</code> string gives the line terminator used in the current platform (e.g., Windows uses <code>&#39;\r\n&#39;</code>, Linux uses <code>&#39;\n&#39;</code> and Mac uses <code>&#39;\r&#39;</code>.)</li>
+<li><code>os.sep</code>: The character used by the operating system to separate pathname components (e.g. <code>&#39;/&#39;</code> for POSIX and <code>&#39;\\&#39;</code> for Windows). This is not sufficient to parse or concatenate pathnames; use the following two:</li>
+<li><code>os.path.split()</code>: returns the directory name and file name of the path.</li>
+<li><code>os.path.join()</code>: joins the folder names with the correct separator in the current platform.</li>
+<li><code>os.path.exists()</code>: checks whether a path exists.</li>
+<li><code>os.path.isfile()</code> and <code>os.path.isdir()</code>: check whether the path is a file or a directory.</li>
+</ul>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://docs.python.org/3/reference/index.html#reference-index">The official Python Documentation</a></li>
+<li><a target="_blank" rel="noopener" href="https://python.swaroopch.com/">A Byte of Python (3rd Edition) by Swaroop C. H.</a></li>
+<li><a target="_blank" rel="noopener" href="http://www.composingprograms.com/">Composing Programs (2nd Edition) by John Denero</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.liaoxuefeng.com/wiki/1016959663602400">Python Tutorial from Liao Xuefeng (in Chinese)</a></li>
+<li><a target="_blank" rel="noopener" href="https://item.jd.com/54690397547.html">ISBN: 9787218136172 (in Chinese)</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.runoob.com/python/">Python Tutorial from RUNOOB (in Chinese)</a></li>
+</ul>
+</div><ul class="post-copyright"><li class="post-copyright-author"><strong>Post author: </strong>Long Yu</li><li class="post-copyright-link"><strong>Post link: </strong><a href="https://reimirno.github.io/2021/08/12/Python-Collections/" title="My Notes on Python - Phase 1">https://reimirno.github.io/2021/08/12/Python-Collections/</a></li><li class="post-copyright-license"><strong>Copyright Notice: </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" target="_blank" rel="noopener" title="CC BY-NC-SA 4.0 "><svg class="icon"><use xlink:href="#icon-creative-commons-line"></use></svg><svg class="icon"><use xlink:href="#icon-creative-commons-by-line"></use></svg><svg class="icon"><use xlink:href="#icon-creative-commons-nc-line"></use></svg><svg class="icon"><use xlink:href="#icon-creative-commons-sa-line"></use></svg></a> unless otherwise stated.</li></ul><script>document.addEventListener('copy', function (event) {
+  const clipboardData = event.clipboardData || window.clipboardData;
+  if (!clipboardData) { return; }
+  const text = window.getSelection().toString();
+  if (text) {
+    event.preventDefault();
+    clipboardData.setData('text/plain', text + '\n\nPost author: Long Yu\nPost link: https://reimirno.github.io/2021/08/12/Python-Collections/\nCopyright Notice: All articles in this blog are licensed under CC BY-NC-SA 4.0 unless otherwise stated.');
+  }
+});</script></section></article><div class="post-nav"><div class="post-nav-item"><a class="post-nav-prev" href="/2021/08/25/R-Collections/" rel="prev" title="My Notes on R"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-arrow-left-s-line"></use></svg><span class="post-nav-text">My Notes on R</span></a></div><div class="post-nav-item"><a class="post-nav-next" href="/2021/08/11/Different-Systems-of-Escape/" rel="next" title="Different Systems of Escape"><span class="post-nav-text">Different Systems of Escape</span><svg class="icon" aria-hidden="true"><use xlink:href="#icon-arrow-right-s-line"></use></svg></a></div></div></div><div class="hty-card" id="comment"><div class="comment-tooltip text-center"><span>Say something?</span><br><a class="hty-button hty-button--raised" id="github-discussions" target="_blank" rel="noopener" href="https://github.com/Reimirno/reimirno.github.io/discussions/new">GitHub Discussions</a></div></div></main><footer class="sidebar-translate" id="footer"><div class="copyright"><span>&copy; 2021 – 2023 </span><a class="with-love" id="animate" href="/thanks/" title="Thank-you page"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-cloud-line"></use></svg></a><span class="author"> Long Yu</span></div><div class="live_time"><span>The blog has run for</span><span id="display_live_time"></span><span class="moe-text">(●'◡'●)</span><script>function blog_live_time() {
+  setTimeout(blog_live_time, 1000);
+  const start = new Date('2021-07-31T00:00:00');
+  const now = new Date();
+  const timeDiff = (now.getTime() - start.getTime());
+  const msPerMinute = 60 * 1000;
+  const msPerHour = 60 * msPerMinute;
+  const msPerDay = 24 * msPerHour;
+  const passDay = Math.floor(timeDiff / msPerDay);
+  const passHour = Math.floor((timeDiff % msPerDay) / 60 / 60 / 1000);
+  const passMinute = Math.floor((timeDiff % msPerHour) / 60 / 1000);
+  const passSecond = Math.floor((timeDiff % msPerMinute) / 1000);
+  display_live_time.innerHTML = " " + passDay + " 天 " + passHour + " 小时 " + passMinute + " 分 " + passSecond + " 秒";
+}
+blog_live_time();
+</script></div><div id="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_site_uv" title="Total Visitors"><span><svg class="icon" aria-hidden="true"><use xlink:href="#icon-user-line"></use></svg></span><span id="busuanzi_value_site_uv"></span></span><span class="footer-separator">|</span><span id="busuanzi_container_site_pv" title="Total Views"><span><svg class="icon" aria-hidden="true"><use xlink:href="#icon-eye-line"></use></svg></span><span id="busuanzi_value_site_pv"></span></span></div></footer><a class="hty-icon-button" id="back-to-top" aria-label="back-to-top" href="#"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-arrow-up-s-line"></use></svg><svg class="progress-circle-container" viewBox="0 0 100 100"><circle class="progress-circle" id="progressCircle" cx="50" cy="50" r="48" fill="none" stroke="#7ccbab" stroke-width="2" stroke-linecap="round"></circle></svg></a><a class="popup-trigger hty-icon-button icon-search" id="search" href="javascript:;" title="Search"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-search-line"></use></svg></span></a><script>window.addEventListener("DOMContentLoaded", () => {
+  // Handle and trigger popup window
+  document.querySelector(".popup-trigger").addEventListener("click", () => {
+    document.querySelector(".popup").classList.add("show");
+    setTimeout(() => {
+      document.querySelector(".search-input").focus();
+    }, 100);
+  });
+
+  // Monitor main search box
+  const onPopupClose = () => {
+    document.querySelector(".popup").classList.remove("show");
+  };
+
+  document.querySelector(".popup-btn-close").addEventListener("click", () => {
+    onPopupClose();
+  });
+
+  window.addEventListener("keyup", event => {
+    if (event.key === "Escape") {
+      onPopupClose();
+    }
+  });
+});
+</script><script src="/js/search/local-search.js" defer></script><div class="popup search-popup"><div class="search-header"><span class="popup-btn-close close-icon hty-icon-button"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-close-line"></use></svg></span></div><div class="search-input-container"><input class="search-input" id="local-search-input" type="text" placeholder="What is in your mind?" value=""></div><div id="local-search-result"></div></div><script>const date = new Date();
+const today = (date.getMonth() + 1) + "-" + date.getDate()
+const mourn_days = ["4-4"]
+if (mourn_days.includes(today)) {
+  document.documentElement.style.filter = "grayscale(1)";
+}</script></div><!-- hexo injector body_end start --><script src="https://cdn.jsdelivr.net/npm/hexo-tag-common@latest/js/index.js"></script><!-- hexo injector body_end end --></body></html>

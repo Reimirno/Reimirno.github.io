@@ -1,0 +1,256 @@
+<!DOCTYPE html><html lang="en"><head><!-- hexo injector head_begin start --><link href="https://cdn.jsdelivr.net/npm/hexo-tag-common@latest/css/index.css" rel="stylesheet"/><!-- hexo injector head_begin end --><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="theme-color" content="#7ccbab"><meta name="author" content="Long Yu"><meta name="copyright" content="Long Yu"><meta name="generator" content="Hexo 5.4.0"><meta name="theme" content="hexo-theme-yun"><title>My Notes on Java SE | Long Yu's Space</title><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@900&amp;display=swap" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/star-markdown-css@0.1.25/dist/yun/yun-markdown.min.css"><script src="//at.alicdn.com/t/font_1140697_dxory92pb0h.js" async></script><script src="https://cdn.jsdelivr.net/npm/scrollreveal/dist/scrollreveal.min.js" defer></script><script>document.addEventListener("DOMContentLoaded", () => {
+  [".post-card",".post-content img"].forEach((target)=> {
+    ScrollReveal().reveal(target);
+  })
+});
+</script><link id="light-prism-css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@latest/themes/prism.css" media="(prefers-color-scheme: light)"><link id="dark-prism-css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@latest/themes/prism-tomorrow.css" media="(prefers-color-scheme: dark)"><link rel="icon" href="/favicon.ico"><link rel="mask-icon" href="/favicon.ico" color="#7ccbab"><link rel="alternate icon" href="/yun.ico"><link rel="preload" href="/css/hexo-theme-yun.css" as="style"><link rel="preload" href="/js/utils.js" as="script"><link rel="preload" href="/js/hexo-theme-yun.js" as="script"><link rel="prefetch" href="/js/sidebar.js" as="script"><link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin><script id="yun-config">
+    const Yun = window.Yun || {};
+    window.CONFIG = {"hostname":"reimirno.github.io","root":"/","title":["Long","Yu's","Space"],"version":"1.6.2","mode":"time","copycode":true,"page":{"isPost":true},"i18n":{"placeholder":"What is in your mind?","empty":"We didn't find any results for the search: ${query}.","hits":"${hits} results found","hits_time":"${hits} results found in ${time} ms"},"anonymous_image":"https://cdn.jsdelivr.net/gh/YunYouJun/cdn/img/avatar/none.jpg","local_search":{"path":"/search.xml"},"fireworks":{"colors":["124, 203, 171","83, 161, 122","26, 77, 207","20, 115, 239"]}};
+  </script><link rel="stylesheet" href="/css/hexo-theme-yun.css"><script src="/js/utils.js"></script><script src="/js/hexo-theme-yun.js"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css"><link rel="stylesheet" href="/css/admonition.css"><link rel="stylesheet" href="/css/iconstyle.css"><meta name="description" content="I take notes here as I learn Java SE. Some of these are really, really basic, while some are more advanced.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="My Notes on Java SE">
+<meta property="og:url" content="https://reimirno.github.io/2021/08/11/Java-Collections/index.html">
+<meta property="og:site_name" content="Long Yu&#39;s Space">
+<meta property="og:description" content="I take notes here as I learn Java SE. Some of these are really, really basic, while some are more advanced.">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-08-11T04:42:22.000Z">
+<meta property="article:modified_time" content="2021-08-11T13:42:47.487Z">
+<meta property="article:author" content="Long Yu">
+<meta property="article:tag" content="Java">
+<meta name="twitter:card" content="summary"><script src="/js/ui/mode.js"></script></head><body><script defer src="https://cdn.jsdelivr.net/npm/animejs@latest"></script><script defer src="/js/ui/fireworks.js"></script><canvas class="fireworks"></canvas><div class="container"><a class="sidebar-toggle hty-icon-button" id="menu-btn"><div class="hamburger hamburger--spin" type="button"><span class="hamburger-box"><span class="hamburger-inner"></span></span></div></a><div class="sidebar-toggle sidebar-overlay"></div><aside class="sidebar"><script src="/js/sidebar.js"></script><ul class="sidebar-nav"><li class="sidebar-nav-item sidebar-nav-toc hty-icon-button sidebar-nav-active" data-target="post-toc-wrap" title="Table of Contents"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-list-ordered"></use></svg></li><li class="sidebar-nav-item sidebar-nav-overview hty-icon-button" data-target="site-overview-wrap" title="Overview"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-passport-line"></use></svg></li></ul><div class="sidebar-panel" id="site-overview-wrap"><div class="site-info fix-top"><a class="site-author-avatar" href="/about/" title="Long Yu"><img width="96" loading="lazy" src="/images/avatar.jpg" alt="Long Yu"><span class="site-author-status" title="Give me the least, if not the one!">🥰</span></a><div class="site-author-name"><a href="/about/">Long Yu</a></div><a class="site-name" href="/about/site.html">Long Yu's Space</a><sub class="site-subtitle">Where All is Well</sub><div class="site-desciption">How's a day in Gensokyo like?</div></div><nav class="site-state"><a class="site-state-item hty-icon-button icon-home" href="/" title="Home"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-home-4-line"></use></svg></span></a><div class="site-state-item"><a href="/archives/" title="Archives"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-archive-line"></use></svg></span><span class="site-state-item-count">39</span></a></div><div class="site-state-item"><a href="/categories/" title="Categories"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-folder-2-line"></use></svg></span><span class="site-state-item-count">9</span></a></div><div class="site-state-item"><a href="/tags/" title="Tags"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-price-tag-3-line"></use></svg></span><span class="site-state-item-count">36</span></a></div><a class="site-state-item hty-icon-button" href="/random.html" title="Random Page"><span class="site-state-item-icon"><i class="ri-gift-line ri-xl"></i></span></a></nav><hr style="margin-bottom:0.5rem"><div class="links-of-author"><a class="links-of-author-item hty-icon-button" rel="noopener" href="http://wpa.qq.com/msgrd?v=3&amp;uin=1072625448&amp;site=qq&amp;menu=yes" title="QQ" target="_blank" style="color:#12B7F5"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-qq-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="/images/wechatQR.jpg" title="Wechat" target="_blank" style="color:#1AAD19"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-wechat-2-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="mailto:johnsonlongyu@gmail.com?subject=Directed%20from%20Blog%20-%20Subject%3A%20" title="E-Mail" target="_blank" style="color:#e28743"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-mail-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://github.com/Reimirno" title="GitHub" target="_blank" style="color:#6e5494"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-github-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://www.linkedin.com/in/yu-long/" title="LinkedIn" target="_blank" style="color:#0077b5"><i class="ri-linkedin-box-line ri-xl"></i></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://music.163.com/#/user/home?id=296076115" title="Netease Music" target="_blank" style="color:#C20C0C"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-netease-cloud-music-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://space.bilibili.com/436096130" title="Bilibili" target="_blank" style="color:#FF8EB3"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-bilibili-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://www.douban.com/people/169714437/" title="Douban" target="_blank" style="color:#007722"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-douban-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://twitter.com/Johnsonlongyu" title="Twitter" target="_blank" style="color:#1da1f2"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-twitter-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://www.facebook.com/profile.php?id=100014142698530" title="Facebook" target="_blank" style="color:#4267B2"><i class="ri-facebook-box-line ri-xl"></i></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://www.instagram.com/reimirno/" title="Instagram" target="_blank" style="color:#c52262"><i class="ri-instagram-line ri-xl"></i></a></div><hr style="margin:0.5rem 1rem"><div class="links"><a class="links-item hty-icon-button" href="/compass/" title="Compass" style="color:#eb664b"><i class="ri-compass-line ri-xl"></i></a><a class="links-item hty-icon-button" href="/resume/" title="Resume" style="color:#7ef578"><i class="ri-profile-line ri-xl"></i></a><a class="links-item hty-icon-button" href="/works/" title="Works" style="color:#dc7aff"><i class="ri-briefcase-line ri-xl"></i></a><a class="links-item hty-icon-button" href="/links/" title="Friends" style="color:#78acff"><i class="ri-links-line ri-xl"></i></a><a class="links-item hty-icon-button" href="/helps/" title="Help" style="color:#ffcf40"><i class="ri-question-line ri-xl"></i></a></div><br><a class="links-item hty-icon-button" id="toggle-mode-btn" href="javascript:;" title="Mode" style="color: #f1cb64"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-contrast-2-line"></use></svg></a></div><div class="sidebar-panel sidebar-panel-active" id="post-toc-wrap"><div class="post-toc"><div class="post-toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#About-Java"><span class="toc-number">1.</span> <span class="toc-text">About Java</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Value-Types"><span class="toc-number">2.</span> <span class="toc-text">Value Types</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reference-Types"><span class="toc-number">3.</span> <span class="toc-text">Reference Types</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Conversion"><span class="toc-number">4.</span> <span class="toc-text">Conversion</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Naming-Rules"><span class="toc-number">5.</span> <span class="toc-text">Naming Rules</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Flow-Control"><span class="toc-number">6.</span> <span class="toc-text">Flow Control</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Inheritance"><span class="toc-number">7.</span> <span class="toc-text">Inheritance</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Nested-Class"><span class="toc-number">8.</span> <span class="toc-text">Nested Class</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Compilation"><span class="toc-number">9.</span> <span class="toc-text">Compilation</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Memory-Allocation"><span class="toc-number">10.</span> <span class="toc-text">Memory Allocation</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Execution-Order"><span class="toc-number">11.</span> <span class="toc-text">Execution Order</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Keywords-and-Operators"><span class="toc-number">12.</span> <span class="toc-text">Keywords and Operators</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Syntactic-Sugar"><span class="toc-number">13.</span> <span class="toc-text">Syntactic Sugar</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Exception-Handling"><span class="toc-number">14.</span> <span class="toc-text">Exception Handling</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Numeric-literals"><span class="toc-number">15.</span> <span class="toc-text">Numeric literals</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#String-StringBuilder"><span class="toc-number">16.</span> <span class="toc-text">String, StringBuilder</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Enumeration"><span class="toc-number">17.</span> <span class="toc-text">Enumeration</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Collections-and-Generics"><span class="toc-number">18.</span> <span class="toc-text">Collections and Generics</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Functional-Programming"><span class="toc-number">19.</span> <span class="toc-text">Functional Programming</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reflection"><span class="toc-number">20.</span> <span class="toc-text">Reflection</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Date-Time"><span class="toc-number">21.</span> <span class="toc-text">Date, Time</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#I18N"><span class="toc-number">22.</span> <span class="toc-text">I18N</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Mathematics"><span class="toc-number">23.</span> <span class="toc-text">Mathematics</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Regular-Expression"><span class="toc-number">24.</span> <span class="toc-text">Regular Expression</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#IO"><span class="toc-number">25.</span> <span class="toc-text">IO</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#XML-and-JSON"><span class="toc-number">26.</span> <span class="toc-text">XML and JSON</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Database-JDBC"><span class="toc-number">27.</span> <span class="toc-text">Database (JDBC)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Encryption"><span class="toc-number">28.</span> <span class="toc-text">Encryption</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Threading"><span class="toc-number">29.</span> <span class="toc-text">Threading</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Networks"><span class="toc-number">30.</span> <span class="toc-text">Networks</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#GUI-Swing"><span class="toc-number">31.</span> <span class="toc-text">GUI (Swing)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#RMI"><span class="toc-number">32.</span> <span class="toc-text">RMI</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Project-Management-Maven"><span class="toc-number">33.</span> <span class="toc-text">Project Management (Maven)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Unit-Test-JUnit"><span class="toc-number">34.</span> <span class="toc-text">Unit Test (JUnit)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reference"><span class="toc-number">35.</span> <span class="toc-text">Reference</span></a></li></ol></div></div></div></aside><main class="sidebar-translate" id="content"><div id="post"><article class="hty-card post-block" itemscope itemtype="https://schema.org/Article"><link itemprop="mainEntityOfPage" href="https://reimirno.github.io/2021/08/11/Java-Collections/"><span hidden itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="Long Yu"><meta itemprop="description"></span><span hidden itemprop="publisher" itemscope itemtype="https://schema.org/Organization"><meta itemprop="name" content="Long Yu's Space"></span><header class="post-header"><h1 class="post-title" itemprop="name headline">My Notes on Java SE</h1><div class="post-meta"><div class="post-time" style="display:block"><span class="post-meta-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-calendar-line"></use></svg></span> <time title="Created: 2021-08-11 04:42:22" itemprop="dateCreated datePublished" datetime="2021-08-11T04:42:22+00:00">2021-08-11</time></div><span class="post-count"><span class="post-symbolcount"><span class="post-meta-item-icon" title="Word count in article"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-file-word-line"></use></svg></span> <span title="Word count in article">1.9k</span><span class="post-meta-divider">-</span><span class="post-meta-item-icon" title="Reading time"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-timer-line"></use></svg></span> <span title="Reading time">11m</span></span></span><span class="post-busuanzi"><span class="post-meta-divider">-</span><span class="post-meta-item-icon" title="Views"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-eye-line"></use></svg> <span id="busuanzi_value_page_pv"></span></span></span><div class="post-classify"><span class="post-category"> <span class="post-meta-item-icon" style="margin-right:3px;"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-folder-line"></use></svg></span><span itemprop="about" itemscope itemtype="https://schema.org/Thing"><a class="category-item" href="/categories/Technical/" style="--text-color:var(--hty-text-color)" itemprop="url" rel="index"><span itemprop="text">Technical</span></a></span> > <span itemprop="about" itemscope itemtype="https://schema.org/Thing"><a class="category-item" href="/categories/Technical/Notes/" style="--text-color:var(--hty-text-color)" itemprop="url" rel="index"><span itemprop="text">Notes</span></a></span></span><span class="post-tag"><span class="post-meta-divider">-</span><a class="tag-item" href="/tags/Java/" style="--text-color:var(--hty-text-color)"><span class="post-meta-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-price-tag-3-line"></use></svg></span><span class="tag-name">Java</span></a></span></div></div></header><section class="post-body" itemprop="articleBody"><div class="post-content markdown-body" style="--smc-primary:#7ccbab;"><link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>I take notes here as I learn Java SE. Some of these are really, really basic, while some are more advanced.</p>
+<span id="more"></span>
+
+<div class="admonition warning"><p class="admonition-title">Fragmented Content
+</p><p>This post content may appear fragmented or disjointed for I only noted down things I think I need to look at a second time. This post is primarily meant for personal consumption, but some snippets might interest you.</p>
+</div>
+
+<h2 id="About-Java"><a href="#About-Java" class="headerlink" title="About Java"></a>About Java</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://www.javatpoint.com/history-of-java">History of Java</a></li>
+<li>When Java developed from v1.1 to v1.2, the changes were great so they named it as Java 2; when it went from 1.4 to 1.5, they believed that this is another significant version so named it as Java 5. So, Java 2 refers to 1.2 to 1.4; Java 5 is 1.5; there is no Java 3 or 4.</li>
+<li>The first Java version is Java 1.02.</li>
+</ul>
+<h2 id="Value-Types"><a href="#Value-Types" class="headerlink" title="Value Types"></a>Value Types</h2><ul>
+<li><code>int</code> cannot be used directly as boolean value; that is, <code>while(1)</code> is wrong (You cannot do that in C#, either; is this only allowed in C?).</li>
+<li>Boolean value has its class name as <code>boolean</code> (it is <code>bool</code> in C#).</li>
+<li>A <code>byte</code> value has 1 byte, a <code>char</code> and a <code>short</code> value have 2 bytes, <code>int</code> <code>float</code> 4 bytes, and <code>long</code> <code>double</code> 8 bytes (the same as C#). </li>
+<li>Like other numerical type, <code>byte</code> is signed. It represents -128 to 127 (but <code>byte</code> is unsigned in C#, representing 0 to 255, which is quite an exception).<ul>
+<li>You can check the max and min value of each numeric type using the <code>MIN_VALUE</code> and <code>MAX_VALUE</code> of their wrapper classes (<code>java.lang.Byte</code>,<code>java.lang.Character</code> etc.).</li>
+</ul>
+</li>
+</ul>
+<h2 id="Reference-Types"><a href="#Reference-Types" class="headerlink" title="Reference Types"></a>Reference Types</h2><ul>
+<li>We do not know how large a reference type variable is, or how it is implemented; indeed this varies from VM to VM - but on the same VM all reference types should have the same size.</li>
+<li>We cannot perform calculation on reference types (unlike in C).</li>
+<li>Array is a reference type - but do not think of array as a pointer to its first element (unlike in C).</li>
+<li>Java also have a Garbage Collector that can recycle memory occupied by objects without any reference (C# does the same; in C, if you lose track of an object, you have what is known as a ‘memory leak’. The memory will still be allocated to the program as a whole, but nothing will be able to use it if you’ve lost the last pointer to it.)</li>
+<li>Java is always pass-by-value, exactly as in C. <ul>
+<li>Passing an object in and out is really passing its reference (or pointer, or handle, or any term you like) in and out. <a target="_blank" rel="noopener" href="http://www.javadude.com/articles/passbyvalue.htm">This is not called pass-by-reference</a>; we should say object references are passed by value.</li>
+<li><code>==</code> compares values. When <code>==</code> is used on reference type it compares whether the two reference handles (Hash codes) are the same. Use <code>equals()</code> to compare reference types. You cannot overload operators in Java, either.</li>
+</ul>
+</li>
+</ul>
+<h2 id="Conversion"><a href="#Conversion" class="headerlink" title="Conversion"></a>Conversion</h2><ul>
+<li>Conversion of primitive types</li>
+<li>Boxing and Unboxing</li>
+</ul>
+<h2 id="Naming-Rules"><a href="#Naming-Rules" class="headerlink" title="Naming Rules"></a>Naming Rules</h2><ul>
+<li>Follows basically the same naming rules in other language for your variables and functions in Java - but you can starts with <code>$</code> as well.</li>
+<li>Do not capitalize the first letter for Java methods (unlike in C#) - use Camel Case instead.</li>
+<li><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/727844/javax-vs-java-package">Why some packages starts with <code>javax</code> instead of <code>java</code>?</a></li>
+</ul>
+<h2 id="Flow-Control"><a href="#Flow-Control" class="headerlink" title="Flow Control"></a>Flow Control</h2><ul>
+<li><code>foreach</code> in Java looks like this: <code>for (TYPE name: nameArray) &#123;&#125;</code>. Just replace the <code>in</code> in C# with <code>:</code>.</li>
+<li>All conditional statements (<code>if</code>,<code>switch</code>,<code>:?</code>) have the <a target="_blank" rel="noopener" href="http://javacamp.org/javavscsharp/condition.html">same syntax</a> for Java and C#.</li>
+</ul>
+<h2 id="Inheritance"><a href="#Inheritance" class="headerlink" title="Inheritance"></a>Inheritance</h2><ul>
+<li>Method overriding is marked by <code>@override</code>; when overriding, the method is child classes cannot have an more public access modifier than do in the parent class.</li>
+<li><code>Object</code> class has 4 methods: <code>hashCode()</code>, <code>getClass()</code> , <code>equals()</code> and <code>toString()</code> - you should override at least the last two.</li>
+<li><code>Super()</code> and <code>This()</code><ul>
+<li>If the child constructor does not call <code>super()</code> (with parameter or parameterless) in the first line, the compiler will add this line to call the default parameterless <code>super()</code>.<ul>
+<li>Calling the constructor of a child class will cause: child constructor method enters the call stack -&gt; parent constructor method enters the call stack -&gt; parent constructor method is executed -&gt; child constructor method is executed.</li>
+<li>If the parent class does not have a parameterless constructor, and if we do not specify any <code>super()</code> with parameters in the first line of child constructor, we get an error (<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/7689742/base-class-doesnt-contain-parameterless-constructor">This is true for C# as well</a>).</li>
+<li>As an alternative, you can call another constructor of the same class by putting <code>this()</code> at the first line. You cannot do both <code>this()</code> and <code>super()</code>. (In C#, this is much easier - all inheritance are marked with <code>:</code> - you also do not need to worry about the first line.)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Declare the constructor to be <code>private</code> for static classes to prevent an object from being initialized.</li>
+</ul>
+<h2 id="Nested-Class"><a href="#Nested-Class" class="headerlink" title="Nested Class"></a>Nested Class</h2><ul>
+<li>Static nested class</li>
+<li>Internal class</li>
+</ul>
+<h2 id="Compilation"><a href="#Compilation" class="headerlink" title="Compilation"></a>Compilation</h2><ul>
+<li>Without IDE: save your source file as “.java”; compile it with <code>javac &lt;file-name&gt;</code> command in CMD; run the compiled file with <code>java &lt;file-name&gt;</code> command.<ul>
+<li>Use <code>-encoding UTF-8</code> to switch encoding method to UTF-8.</li>
+</ul>
+</li>
+<li>Source files:<ul>
+<li>A source file can contain only one public class and many non-public class. The name of the source file should be the same as that of that public class.</li>
+<li><code>package</code> statement should be the first row in a source file, if any; followed by <code>import</code> statement, if any. These two statement apply to all classes in the source file.</li>
+</ul>
+</li>
+</ul>
+<h2 id="Memory-Allocation"><a href="#Memory-Allocation" class="headerlink" title="Memory Allocation"></a>Memory Allocation</h2><ul>
+<li>Static variables and Member variables (instance variables) are initialized with their default value (same as in C#), local variables are filled with garbage values and cannot be used without initialization.</li>
+<li>You can limit the lifetime and scope of a local variable to just a block by surrounding a snippet of codes with <code>&#123;&#125;</code> (this is why local variables in <code>for</code> and <code>if</code> block is not accessible outside the block).<ul>
+<li>Nested block: All the variables of the outer block are accessible by the inner block but the variables within inner block are not accessible by the outer block.</li>
+</ul>
+</li>
+<li><a target="_blank" rel="noopener" href="https://www.baeldung.com/java-stack-heap">JRE classes live on heap.</a></li>
+</ul>
+<h2 id="Execution-Order"><a href="#Execution-Order" class="headerlink" title="Execution Order"></a>Execution Order</h2><ul>
+<li>Static variables are initialized once before the first call of the static method / constructor of the same class.</li>
+<li>Static initializers are run once when the class is loaded, before the <code>Main()</code> is called. <ul>
+<li>Overall order: parent class static block -&gt; child class static block -&gt; main starts -&gt; parent constructor -&gt; child constructor</li>
+<li>All classes, including non-static ones, can have static variables and static blocks.</li>
+<li>Cannot pass in our out anything, cannot use <code>this()</code> or <code>super()</code> in a static initializer. </li>
+<li>Why bother using a static initializer? Check <a target="_blank" rel="noopener" href="https://stackoverflow.com/a/30388953">this</a>.</li>
+</ul>
+</li>
+<li>Non-static initializers are executed when the class is instantiated, immediately before the constructor code is executed, immediately after the invocation of the <code>super()</code> constructor. </li>
+</ul>
+<h2 id="Keywords-and-Operators"><a href="#Keywords-and-Operators" class="headerlink" title="Keywords and Operators"></a>Keywords and Operators</h2><ul>
+<li>Variables marked with <code>final</code> must be initialized when declaring or in a static initializer - they cannot be initialized in a non-static initializer.</li>
+<li>A variable marked <code>final</code> means its value cannot be changed once initialized; a method marked <code>final</code> cannot be overridden; a class marked <code>final</code> cannot be inherited. Do not need to mark all methods of a <code>final</code> class as <code>final</code> - it cannot be inherited in the first place.</li>
+<li><code>instanceof</code> operator: <code>&lt;object&gt; instanceof &lt;class/interface&gt;</code> returns true iff there is any is-a relationship (the object is an instance of the class, its subclass, or a class that extends the interface). The object must not be a primitive type. Always use <code>instanceof</code> operator before down-casting.</li>
+<li>Access modifier: <code>protected</code> is more public that the default access because it allows both in-package access and out-of-package access through inheritance.</li>
+<li><code>assert</code> keyword: when the program runs to an assertion like <code>assert (boolean expression);</code> the boolean expression should always be true; or else, an <code>AssertionError</code> would be thrown.<ul>
+<li>You could include some information for an assertion too: <code>assert (boolean expression):&quot;info&quot;;</code>.</li>
+<li>This is for the dev/debug/test parts of the cycle, not for production.</li>
+<li>To enable the <code>assert</code> when running, use <code>java -ea &lt;file-name&gt;</code>.</li>
+</ul>
+</li>
+</ul>
+<h2 id="Syntactic-Sugar"><a href="#Syntactic-Sugar" class="headerlink" title="Syntactic Sugar"></a>Syntactic Sugar</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://docs.oracle.com/javase/7/docs/technotes/guides/language/static-import.html">Static import is frequently used with those static utility classes.</a></li>
+<li>Do not forget to use Method Chaining (for String, StringBuilder operations, for example)!</li>
+</ul>
+<h2 id="Exception-Handling"><a href="#Exception-Handling" class="headerlink" title="Exception Handling"></a>Exception Handling</h2><ul>
+<li><code>finally</code> block will run, even if there is a <code>return</code> in <code>try</code> or <code>catch</code> block.</li>
+<li>There can be 0 or many <code>catch</code> blocks.<ul>
+<li>If there is no <code>catch</code> block, a <code>finally</code> must follow the <code>try</code> block. In this case, the exception is still unhandled, and a <code>throws</code> must be used to delegate the exception.</li>
+<li>If there are many <code>catch</code> blocks, the most specific exception type must be at the front.</li>
+</ul>
+</li>
+<li>In Java, all checked exception must be handled(with a <code>try-catch</code> block).<ul>
+<li>If do not want to handle a checked exception in a method A, <code>throws</code> this exception to <a target="_blank" rel="noopener" href="https://rollbar.com/blog/how-to-use-the-throws-keyword-in-java-and-when-to-use-throw/">let the method B that calls method A to handle it</a>. </li>
+<li><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/3465465/how-to-use-java-style-throws-keyword-in-c">C# does not have <code>throws</code> keyword</a> as <a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/9371686/what-are-checked-exceptions-in-java-c">there is no checked exception in C#</a>.</li>
+</ul>
+</li>
+</ul>
+<h2 id="Numeric-literals"><a href="#Numeric-literals" class="headerlink" title="Numeric literals"></a>Numeric literals</h2><ul>
+<li><code>0b</code> prefix for binary, <code>0</code> prefix for octal, and <code>0x</code> for hexadecimal numbers.</li>
+<li>A literal integer has <code>int</code> type; a literal decimal number has <code>double</code> type (suffix it with <code>f</code> to declare it as <code>float</code>).</li>
+</ul>
+<h2 id="String-StringBuilder"><a href="#String-StringBuilder" class="headerlink" title="String, StringBuilder"></a>String, StringBuilder</h2><ul>
+<li>StringBuffer and StringBuilder</li>
+<li>string formatting: <a target="_blank" rel="noopener" href="https://www.codejava.net/java-se/file-io/java-string-format-examples">https://www.codejava.net/java-se/file-io/java-string-format-examples</a></li>
+</ul>
+<h2 id="Enumeration"><a href="#Enumeration" class="headerlink" title="Enumeration"></a>Enumeration</h2><ul>
+<li>Each <code>enum</code> inherits from <code>java.lang.Enum</code> (in C#, each <code>enum</code> inherits from one of the integer numeric type.) Every enum constant represents an object, or a derived class of type enum.<ul>
+<li>You can have constructors and methods in enum declaration, as it is essentially a class.</li>
+<li>When specifying enum constant, you can pass in parameters needed for its constructors (think of each enum constant as an object of the class); you can also override methods (think of each enum constant as a derived class of the class).</li>
+</ul>
+</li>
+</ul>
+<div class="admonition warning"><p class="admonition-title">Untested Codes
+</p><p>This snippet of codes has not been tested yet and are thus for illustration of concepts only.</p>
+</div>
+
+<pre class="language-Java" data-language="Java"><code class="language-Java">public enum Weekdays&#123;
+  Monday(1),
+  Tuesday(2),
+  Wednesday(3),
+  Thursday(4),
+  Friday(5) &#123; public void shout() &#123; System.out.println(&quot;Yeah, weekend coming!&quot;)&#125;&#125;;
+
+  int index;
+
+  Weekdays(int dayIndex)&#123;
+    this.index &#x3D; dayIndex;
+  &#125;
+
+  public void shout()&#123;
+    System.out.println(&quot;I&#39;m %s whose index is %d.&quot;,this,this.index);
+  &#125;
+&#125;
+
+public static void Main(String[] args)&#123;
+  for(Weekdays day : Weekdays.values())&#123;
+    day.shout();
+  &#125;
+&#125;
+&#x2F;&#x2F;Output: 
+&#x2F;&#x2F;I am Monday whose index is 1.
+&#x2F;&#x2F;I am Tuesday whose index is 2.
+&#x2F;&#x2F;I am Wednesday whose index is 3.
+&#x2F;&#x2F;I am Thursday whose index is 4.
+&#x2F;&#x2F;Yeah, weekend coming!</code></pre>
+
+<h2 id="Collections-and-Generics"><a href="#Collections-and-Generics" class="headerlink" title="Collections and Generics"></a>Collections and Generics</h2><h2 id="Functional-Programming"><a href="#Functional-Programming" class="headerlink" title="Functional Programming"></a>Functional Programming</h2><ul>
+<li>Use <code>-&gt;</code> instead of the <code>=&gt;</code> in C#.</li>
+</ul>
+<h2 id="Reflection"><a href="#Reflection" class="headerlink" title="Reflection"></a>Reflection</h2><h2 id="Date-Time"><a href="#Date-Time" class="headerlink" title="Date, Time"></a>Date, Time</h2><h2 id="I18N"><a href="#I18N" class="headerlink" title="I18N"></a>I18N</h2><h2 id="Mathematics"><a href="#Mathematics" class="headerlink" title="Mathematics"></a>Mathematics</h2><h2 id="Regular-Expression"><a href="#Regular-Expression" class="headerlink" title="Regular Expression"></a>Regular Expression</h2><h2 id="IO"><a href="#IO" class="headerlink" title="IO"></a>IO</h2><h2 id="XML-and-JSON"><a href="#XML-and-JSON" class="headerlink" title="XML and JSON"></a>XML and JSON</h2><h2 id="Database-JDBC"><a href="#Database-JDBC" class="headerlink" title="Database (JDBC)"></a>Database (JDBC)</h2><h2 id="Encryption"><a href="#Encryption" class="headerlink" title="Encryption"></a>Encryption</h2><h2 id="Threading"><a href="#Threading" class="headerlink" title="Threading"></a>Threading</h2><h2 id="Networks"><a href="#Networks" class="headerlink" title="Networks"></a>Networks</h2><h2 id="GUI-Swing"><a href="#GUI-Swing" class="headerlink" title="GUI (Swing)"></a>GUI (Swing)</h2><h2 id="RMI"><a href="#RMI" class="headerlink" title="RMI"></a>RMI</h2><h2 id="Project-Management-Maven"><a href="#Project-Management-Maven" class="headerlink" title="Project Management (Maven)"></a>Project Management (Maven)</h2><h2 id="Unit-Test-JUnit"><a href="#Unit-Test-JUnit" class="headerlink" title="Unit Test (JUnit)"></a>Unit Test (JUnit)</h2><h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/16/docs/api/index.html">The official Java SE Documentation</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.amazon.com/Head-First-Java-Kathy-Sierra/dp/0596009208">Head First Java (2nd Edition) by Kathy Sierra and Bert Bates</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.liaoxuefeng.com/wiki/1252599548343744">Java Tutorial from Liao Xuefeng (in Chinese)</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.javatpoint.com/java-tutorial">Java Tutorial from javaTpoint</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.amazon.com/Thinking-Java-4th-Bruce-Eckel/dp/0131872486">Thinking in Java (4th Edition) by Bruce Eckel</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.amazon.com/Effective-Java-Joshua-Bloch/dp/0134685997">Effective Java (3rd Edition) by Joshua Bloch</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.amazon.com/Core-Java-I-Fundamentals-11th-Horstmann/dp/0135166306/ref=sr_1_1?dchild=1&keywords=Core+Java:+Fundamentals&qid=1628675333&s=books&sr=1-1">Core Java Volume I: Fundamentals by Cay Horstmann</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.amazon.com/Core-Java-II-Advanced-Features-Horstmann-ebook/dp/B07NCXJR1M/ref=sr_1_2?dchild=1&keywords=Core+Java:+Fundamentals&qid=1628675333&s=books&sr=1-2">Core Java Volume II: Advanced Features by Cay Horstmann</a></li>
+</ul>
+</div><ul class="post-copyright"><li class="post-copyright-author"><strong>Post author: </strong>Long Yu</li><li class="post-copyright-link"><strong>Post link: </strong><a href="https://reimirno.github.io/2021/08/11/Java-Collections/" title="My Notes on Java SE">https://reimirno.github.io/2021/08/11/Java-Collections/</a></li><li class="post-copyright-license"><strong>Copyright Notice: </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" target="_blank" rel="noopener" title="CC BY-NC-SA 4.0 "><svg class="icon"><use xlink:href="#icon-creative-commons-line"></use></svg><svg class="icon"><use xlink:href="#icon-creative-commons-by-line"></use></svg><svg class="icon"><use xlink:href="#icon-creative-commons-nc-line"></use></svg><svg class="icon"><use xlink:href="#icon-creative-commons-sa-line"></use></svg></a> unless otherwise stated.</li></ul><script>document.addEventListener('copy', function (event) {
+  const clipboardData = event.clipboardData || window.clipboardData;
+  if (!clipboardData) { return; }
+  const text = window.getSelection().toString();
+  if (text) {
+    event.preventDefault();
+    clipboardData.setData('text/plain', text + '\n\nPost author: Long Yu\nPost link: https://reimirno.github.io/2021/08/11/Java-Collections/\nCopyright Notice: All articles in this blog are licensed under CC BY-NC-SA 4.0 unless otherwise stated.');
+  }
+});</script></section></article><div class="post-nav"><div class="post-nav-item"><a class="post-nav-prev" href="/2021/08/11/Different-Systems-of-Escape/" rel="prev" title="Different Systems of Escape"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-arrow-left-s-line"></use></svg><span class="post-nav-text">Different Systems of Escape</span></a></div><div class="post-nav-item"><a class="post-nav-next" href="/2021/08/10/Regular-Expression-and-Its-Implementation-in-NET/" rel="next" title="Regular Expression, and Its Implementation in .NET and Python"><span class="post-nav-text">Regular Expression, and Its Implementation in .NET and Python</span><svg class="icon" aria-hidden="true"><use xlink:href="#icon-arrow-right-s-line"></use></svg></a></div></div></div><div class="hty-card" id="comment"><div class="comment-tooltip text-center"><span>Say something?</span><br><a class="hty-button hty-button--raised" id="github-discussions" target="_blank" rel="noopener" href="https://github.com/Reimirno/reimirno.github.io/discussions/new">GitHub Discussions</a></div></div></main><footer class="sidebar-translate" id="footer"><div class="copyright"><span>&copy; 2021 – 2023 </span><a class="with-love" id="animate" href="/thanks/" title="Thank-you page"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-cloud-line"></use></svg></a><span class="author"> Long Yu</span></div><div class="live_time"><span>The blog has run for</span><span id="display_live_time"></span><span class="moe-text">(●'◡'●)</span><script>function blog_live_time() {
+  setTimeout(blog_live_time, 1000);
+  const start = new Date('2021-07-31T00:00:00');
+  const now = new Date();
+  const timeDiff = (now.getTime() - start.getTime());
+  const msPerMinute = 60 * 1000;
+  const msPerHour = 60 * msPerMinute;
+  const msPerDay = 24 * msPerHour;
+  const passDay = Math.floor(timeDiff / msPerDay);
+  const passHour = Math.floor((timeDiff % msPerDay) / 60 / 60 / 1000);
+  const passMinute = Math.floor((timeDiff % msPerHour) / 60 / 1000);
+  const passSecond = Math.floor((timeDiff % msPerMinute) / 1000);
+  display_live_time.innerHTML = " " + passDay + " 天 " + passHour + " 小时 " + passMinute + " 分 " + passSecond + " 秒";
+}
+blog_live_time();
+</script></div><div id="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_site_uv" title="Total Visitors"><span><svg class="icon" aria-hidden="true"><use xlink:href="#icon-user-line"></use></svg></span><span id="busuanzi_value_site_uv"></span></span><span class="footer-separator">|</span><span id="busuanzi_container_site_pv" title="Total Views"><span><svg class="icon" aria-hidden="true"><use xlink:href="#icon-eye-line"></use></svg></span><span id="busuanzi_value_site_pv"></span></span></div></footer><a class="hty-icon-button" id="back-to-top" aria-label="back-to-top" href="#"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-arrow-up-s-line"></use></svg><svg class="progress-circle-container" viewBox="0 0 100 100"><circle class="progress-circle" id="progressCircle" cx="50" cy="50" r="48" fill="none" stroke="#7ccbab" stroke-width="2" stroke-linecap="round"></circle></svg></a><a class="popup-trigger hty-icon-button icon-search" id="search" href="javascript:;" title="Search"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-search-line"></use></svg></span></a><script>window.addEventListener("DOMContentLoaded", () => {
+  // Handle and trigger popup window
+  document.querySelector(".popup-trigger").addEventListener("click", () => {
+    document.querySelector(".popup").classList.add("show");
+    setTimeout(() => {
+      document.querySelector(".search-input").focus();
+    }, 100);
+  });
+
+  // Monitor main search box
+  const onPopupClose = () => {
+    document.querySelector(".popup").classList.remove("show");
+  };
+
+  document.querySelector(".popup-btn-close").addEventListener("click", () => {
+    onPopupClose();
+  });
+
+  window.addEventListener("keyup", event => {
+    if (event.key === "Escape") {
+      onPopupClose();
+    }
+  });
+});
+</script><script src="/js/search/local-search.js" defer></script><div class="popup search-popup"><div class="search-header"><span class="popup-btn-close close-icon hty-icon-button"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-close-line"></use></svg></span></div><div class="search-input-container"><input class="search-input" id="local-search-input" type="text" placeholder="What is in your mind?" value=""></div><div id="local-search-result"></div></div><script>const date = new Date();
+const today = (date.getMonth() + 1) + "-" + date.getDate()
+const mourn_days = ["4-4"]
+if (mourn_days.includes(today)) {
+  document.documentElement.style.filter = "grayscale(1)";
+}</script></div><!-- hexo injector body_end start --><script src="https://cdn.jsdelivr.net/npm/hexo-tag-common@latest/js/index.js"></script><!-- hexo injector body_end end --></body></html>
